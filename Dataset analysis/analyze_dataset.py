@@ -1,5 +1,6 @@
 import pandas as pd
 import csv
+
 # 1. LOAD DATASET
 file_path = "data/cloud_billing_data.csv"
 
