@@ -144,4 +144,71 @@ for dataset_name, file_path in files.items():
         print("No infinite numeric values found.")
     else:
         print(infinite_counts.to_string())
-                  
+    # J. Engineered feature checks
+    print("\n[J] ENGINEERED FEATURE CHECKS")
+
+    if {
+        "CPU_Utilization",
+        "Memory_Utilization",
+        "Utilization_Score"
+    }.issubset(df.columns):
+
+        expected_score = (
+            pd.to_numeric(df["CPU_Utilization"], errors="coerce")
+            + pd.to_numeric(df["Memory_Utilization"], errors="coerce")
+        ) / 2
+
+        actual_score = pd.to_numeric(
+            df["Utilization_Score"], errors="coerce"
+        )
+
+        difference = (expected_score - actual_score).abs()
+
+        print(
+            "Incorrect Utilization_Score rows:",
+            int((difference > 1e-6).sum())
+        )
+
+    if {"Idle_Score", "Utilization_Score"}.issubset(df.columns):
+        expected_idle = (100 - df["Utilization_Score"]).clip(lower=0)
+        difference = (expected_idle - df["Idle_Score"]).abs()
+
+        print(
+            "Incorrect Idle_Score rows:",
+            int((difference > 1e-6).sum())
+        )
+
+    if {
+        "Network_Inbound_Data_Bytes",
+        "Network_Outbound_Data_Bytes",
+        "Total_Network_Data_Bytes"
+    }.issubset(df.columns):
+
+        expected_network = (
+            df["Network_Inbound_Data_Bytes"].fillna(0)
+            + df["Network_Outbound_Data_Bytes"].fillna(0)
+        )
+
+        difference = (
+            expected_network - df["Total_Network_Data_Bytes"]
+        ).abs()
+
+        print(
+            "Incorrect total network rows:",
+            int((difference > 1e-6).sum())
+        )
+
+    # K. Time range
+    print("\n[K] TIME RANGE")
+
+    if "Usage_Start_Date" in df.columns:
+        dates = pd.to_datetime(
+            df["Usage_Start_Date"], errors="coerce"
+        )
+
+        print("Earliest start:", dates.min())
+        print("Latest start:", dates.max())
+
+print("\n" + "=" * 65)
+print("VALIDATION COMPLETED")
+print("=" * 65)             
