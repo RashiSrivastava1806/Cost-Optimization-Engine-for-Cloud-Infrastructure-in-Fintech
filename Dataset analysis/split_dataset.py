@@ -1,173 +1,203 @@
+
 import pandas as pd
+from pathlib import Path
 
 # --------------------------------------------------
-# 1. Load cleaned dataset
+# 1. FILE PATHS
 # --------------------------------------------------
-input_path = "data/cleaned_cloud_billing_data.csv"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = PROJECT_ROOT / "data"
 
-df = pd.read_csv(input_path)
+INPUT_FILE = DATA_DIR / "cleaned_cloud_billing_data.csv"
+TRAIN_FILE = DATA_DIR / "train_cloud_billing_data.csv"
+TEST_FILE = DATA_DIR / "test_cloud_billing_data.csv"
 
-print("Cleaned dataset loaded successfully.")
+DATE_COLUMN = "Usage_Start_Date"
+TRAIN_RATIO = 0.80
+
+
+# --------------------------------------------------
+# 2. LOAD CLEANED DATASET
+# --------------------------------------------------
+print("=" * 70)
+print("FINOPTICLOUD - CHRONOLOGICAL DATASET SPLITTING")
+print("=" * 70)
+
+df = pd.read_csv(INPUT_FILE)
+
+print("\nDataset loaded successfully.")
 print("Total rows:", len(df))
+print("Total columns:", len(df.columns))
 
 
 # --------------------------------------------------
-# 2. Display column names
+# 3. VALIDATE DATE COLUMN
 # --------------------------------------------------
-print("\nColumns in cleaned dataset:")
-for column in df.columns:
-    print("-", column)
-
-
-# --------------------------------------------------
-# 3. Identify the date column
-# --------------------------------------------------
-date_column = None
-
-possible_date_columns = [
-    "Usage Start Date",
-    "Start Date",
-    "Usage Date",
-    "Date",
-    "Timestamp",
-    "Usage_Start_Date",
-    "usage_start_date"
-]
-
-for column in possible_date_columns:
-    if column in df.columns:
-        date_column = column
-        break
+if DATE_COLUMN not in df.columns:
+    raise ValueError(
+        f"Required date column '{DATE_COLUMN}' not found. "
+        f"Available columns: {df.columns.tolist()}"
+    )
 
 
 # --------------------------------------------------
-# 4. Stop if no date column is found
+# 4. PARSE CLEANED ISO-FORMAT DATES
 # --------------------------------------------------
-if date_column is None:
-    print("\nERROR: No suitable date column was found.")
-    print("Please check the column names printed above.")
-    raise SystemExit
+# Preprocessing has already converted the source timestamps
+# from DD/MM/YYYY HH:MM into ISO-style timestamps.
+df[DATE_COLUMN] = pd.to_datetime(
+    df[DATE_COLUMN],
+    format="ISO8601",
+    errors="raise"
+)
 
+if df[DATE_COLUMN].isna().any():
+    raise ValueError(
+        "Missing dates found. Resolve them before splitting."
+    )
 
-print("\nDate column selected:", date_column)
-
-
-# --------------------------------------------------
-# 5. Convert date column to datetime
-# --------------------------------------------------
-df[date_column] = pd.to_datetime(
-    df[date_column],
-    errors="coerce"
+print("\nDate validation successful.")
+print("Earliest timestamp:", df[DATE_COLUMN].min())
+print("Latest timestamp:", df[DATE_COLUMN].max())
+print(
+    "Unique calendar dates:",
+    df[DATE_COLUMN].dt.normalize().nunique()
 )
 
 
 # --------------------------------------------------
-# 6. Check for invalid dates
-# --------------------------------------------------
-invalid_dates = df[date_column].isna().sum()
-
-print("Invalid dates:", invalid_dates)
-
-if invalid_dates > 0:
-    print("Warning: Removing rows with invalid dates.")
-
-    df = df.dropna(
-        subset=[date_column]
-    ).copy()
-
-
-# --------------------------------------------------
-# 7. Sort dataset chronologically
+# 5. SORT DATA CHRONOLOGICALLY
 # --------------------------------------------------
 df = df.sort_values(
-    by=date_column
+    by=DATE_COLUMN
 ).reset_index(drop=True)
 
 
 # --------------------------------------------------
-# 8. Split dataset: 80% training, 20% testing
+# 6. SPLIT BY UNIQUE CALENDAR DATES
 # --------------------------------------------------
-split_index = int(len(df) * 0.80)
+# All records from one calendar day remain in the same split.
+# This avoids putting records from the same day in both sets.
 
-train_df = df.iloc[:split_index].copy()
-test_df = df.iloc[split_index:].copy()
+df["_Calendar_Date"] = df[DATE_COLUMN].dt.normalize()
+
+unique_dates = sorted(
+    df["_Calendar_Date"].unique()
+)
+
+if len(unique_dates) < 2:
+    raise ValueError(
+        "At least two unique calendar dates are required "
+        "for a chronological train/test split."
+    )
+
+split_index = int(len(unique_dates) * TRAIN_RATIO)
+
+# Ensure both datasets contain at least one calendar date.
+split_index = max(
+    1,
+    min(split_index, len(unique_dates) - 1)
+)
+
+cutoff_date = unique_dates[split_index]
+
+train_df = df[
+    df["_Calendar_Date"] < cutoff_date
+].copy()
+
+test_df = df[
+    df["_Calendar_Date"] >= cutoff_date
+].copy()
+
+# Remove the temporary helper column.
+train_df.drop(
+    columns=["_Calendar_Date"],
+    inplace=True
+)
+
+test_df.drop(
+    columns=["_Calendar_Date"],
+    inplace=True
+)
 
 
 # --------------------------------------------------
-# 9. Save training and testing datasets
+# 7. VALIDATE THE SPLIT
 # --------------------------------------------------
-train_path = "data/train_cloud_billing_data.csv"
-test_path = "data/test_cloud_billing_data.csv"
+if train_df.empty or test_df.empty:
+    raise ValueError(
+        "Train/test split produced an empty dataset."
+    )
 
+train_max_date = train_df[DATE_COLUMN].max()
+test_min_date = test_df[DATE_COLUMN].min()
+
+if train_max_date >= test_min_date:
+    raise ValueError(
+        "Chronological split failed: training and testing "
+        "timestamps overlap."
+    )
+
+train_dates = train_df[DATE_COLUMN].dt.normalize().nunique()
+test_dates = test_df[DATE_COLUMN].dt.normalize().nunique()
+
+
+# --------------------------------------------------
+# 8. SAVE TRAINING AND TESTING DATASETS
+# --------------------------------------------------
 train_df.to_csv(
-    train_path,
+    TRAIN_FILE,
     index=False
 )
 
 test_df.to_csv(
-    test_path,
+    TEST_FILE,
     index=False
 )
 
 
 # --------------------------------------------------
-# 10. Display split information
+# 9. DISPLAY RESULTS
 # --------------------------------------------------
-print("\nDataset Split Completed")
-print("-----------------------")
+print("\n" + "=" * 70)
+print("DATASET SPLIT COMPLETED")
+print("=" * 70)
 
-print("Total rows:", len(df))
-print("Training rows:", len(train_df))
-print("Testing rows:", len(test_df))
-
+print("\nTraining dataset")
+print("----------------")
+print("Rows:", len(train_df))
+print("Unique calendar dates:", train_dates)
+print("Date range:", train_df[DATE_COLUMN].min(),
+      "to", train_df[DATE_COLUMN].max())
 print(
-    "Training percentage:",
+    "Percentage of rows:",
     round(len(train_df) / len(df) * 100, 2),
     "%"
 )
 
+print("\nTesting dataset")
+print("---------------")
+print("Rows:", len(test_df))
+print("Unique calendar dates:", test_dates)
+print("Date range:", test_df[DATE_COLUMN].min(),
+      "to", test_df[DATE_COLUMN].max())
 print(
-    "Testing percentage:",
+    "Percentage of rows:",
     round(len(test_df) / len(df) * 100, 2),
     "%"
 )
 
+print("\nChronological Split Check")
+print("-------------------------")
+print("Training ends:", train_max_date)
+print("Testing begins:", test_min_date)
+print("PASS: Training occurs strictly before testing.")
 
-# --------------------------------------------------
-# 11. Display date ranges
-# --------------------------------------------------
-print("\nTraining date range:")
-print(
-    train_df[date_column].min(),
-    "to",
-    train_df[date_column].max()
-)
-
-print("\nTesting date range:")
-print(
-    test_df[date_column].min(),
-    "to",
-    test_df[date_column].max()
-)
-
-
-# --------------------------------------------------
-# 12. Verify chronological separation
-# --------------------------------------------------
-train_max_date = train_df[date_column].max()
-test_min_date = test_df[date_column].min()
-
-print("\nChronological Split Check:")
-
-if train_max_date <= test_min_date:
-    print("PASS: Training data occurs before testing data.")
-else:
-    print("WARNING: Training and testing dates overlap.")
-
-
-# --------------------------------------------------
-# 13. Confirm output files
-# --------------------------------------------------
 print("\nFiles created:")
-print("-", train_path)
-print("-", test_path)
+print(TRAIN_FILE)
+print(TEST_FILE)
+
+print("\nTotal rows preserved:",
+      len(train_df) + len(test_df), "/", len(df))
+
+print("\nDataset splitting completed successfully.")
