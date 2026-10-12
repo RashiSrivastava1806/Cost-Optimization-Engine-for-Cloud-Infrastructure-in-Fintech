@@ -1,0 +1,2 @@
+Model,Training_Days,Testing_Days,MAE_INR,RMSE_INR
+Linear Trend with Weekday Effects,276,62,467267.15,979612.45

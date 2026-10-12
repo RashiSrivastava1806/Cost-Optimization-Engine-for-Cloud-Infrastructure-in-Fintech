@@ -1,0 +1,2 @@
+Forecast_Days,Forecast_Start_Date,Forecast_End_Date,Predicted_Total_Cost_INR,Average_Daily_Forecast_INR,MAE_INR,RMSE_INR
+30,2024-10-09,2024-11-07,6642328.9,221410.96,467267.15,979612.45
