@@ -185,45 +185,53 @@ else:
 
     print("No obvious date column found.")
 
-# 10. CONVERT DATE COLUMNS
+
+# 10. CONVERT DATE COLUMNS USING THE CONFIRMED FORMAT
 print("\n" + "=" * 70)
 print("STEP 7: CONVERTING DATE COLUMNS")
 print("=" * 70)
 
 for column in date_columns:
-
     original_non_null = df[column].notna().sum()
 
-    converted = pd.to_datetime(
-        df[column],
-        errors="coerce"
-    )
-
-    converted_non_null = converted.notna().sum()
-
-    success_rate = (
-        converted_non_null /
-        original_non_null
-        if original_non_null > 0
-        else 0
-    )
-
-    # Only convert if most values were successfully recognized
-    if success_rate >= 0.80:
-
-        df[column] = converted
+    # The source timestamps use DD/MM/YYYY HH:MM.
+    if column in ["Usage_Start_Date", "Usage_End_Date"]:
+        df[column] = pd.to_datetime(
+            df[column],
+            format="%d/%m/%Y %H:%M",
+            errors="raise"
+        )
 
         print(
-            f"{column}: converted to datetime "
-            f"({success_rate * 100:.2f}% recognized)"
+            f"{column}: parsed using DD/MM/YYYY HH:MM "
+            f"({original_non_null} values)"
         )
 
     else:
-
-        print(
-            f"{column}: NOT converted "
-            f"({success_rate * 100:.2f}% recognized)"
+        converted = pd.to_datetime(
+            df[column],
+            errors="coerce"
         )
+
+        converted_non_null = converted.notna().sum()
+
+        success_rate = (
+            converted_non_null / original_non_null
+            if original_non_null > 0
+            else 0
+        )
+
+        if success_rate >= 0.80:
+            df[column] = converted
+            print(
+                f"{column}: converted to datetime "
+                f"({success_rate * 100:.2f}% recognized)"
+            )
+        else:
+            print(
+                f"{column}: NOT converted "
+                f"({success_rate * 100:.2f}% recognized)"
+            )
 
 # 11. CHECK NUMERICAL COLUMNS
 print("\n" + "=" * 70)
