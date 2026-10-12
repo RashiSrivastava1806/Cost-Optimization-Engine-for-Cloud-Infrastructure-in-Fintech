@@ -1,26 +1,35 @@
 
 from pathlib import Path
+import re
 
 import numpy as np
 import pandas as pd
 
 
-# ---------------------------------------------------------
-# 1. PATHS AND CONFIGURATION
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 1. PROJECT PATHS
+# --------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
-TRAIN_FILE = DATA_DIR / "engineered_train_cloud_billing_data.csv"
-TEST_FILE = DATA_DIR / "engineered_test_cloud_billing_data.csv"
+TRAIN_INPUT = DATA_DIR / "engineered_train_cloud_billing_data.csv"
+TEST_INPUT = DATA_DIR / "engineered_test_cloud_billing_data.csv"
 
 TRAIN_OUTPUT = DATA_DIR / "anomaly_train_cloud_billing_data.csv"
 TEST_OUTPUT = DATA_DIR / "anomaly_test_cloud_billing_data.csv"
 SUMMARY_OUTPUT = DATA_DIR / "anomaly_detection_summary.csv"
 
-# Features for individual statistical outlier detection.
-# Only columns present in both datasets will be analyzed.
+
+# --------------------------------------------------
+# 2. CONFIGURATION
+# --------------------------------------------------
+
+IQR_MULTIPLIER = 1.5
+ZSCORE_THRESHOLD = 3.0
+LOW_UTILIZATION_THRESHOLD = 30.0
+HIGH_COST_RATIO = 1.25
+
 CANDIDATE_FEATURES = [
     "Total_Cost_INR",
     "Usage_Quantity",
@@ -28,399 +37,377 @@ CANDIDATE_FEATURES = [
     "Memory_Utilization",
     "Network_Inbound_Data_Bytes",
     "Network_Outbound_Data_Bytes",
-    "Total_Network_Data_Bytes",
+    "Total_Network_Bytes",
     "Cost_per_Hour",
     "Cost_per_Usage_Unit",
 ]
 
-# IQR multiplier: standard exploratory outlier boundary.
-IQR_MULTIPLIER = 1.5
 
-# Secondary statistical signal.
-Z_SCORE_THRESHOLD = 3.0
+# --------------------------------------------------
+# 3. LOAD DATA
+# --------------------------------------------------
 
-# Initial business-rule thresholds; validate these against EDA.
-LOW_UTILIZATION_THRESHOLD = 30.0
-HIGH_RELATIVE_COST_THRESHOLD = 1.25
-
-
-# ---------------------------------------------------------
-# 2. LOAD DATA
-# ---------------------------------------------------------
-
-def load_data(file_path):
-    """Load a dataset and validate that it is not empty."""
-    if not file_path.exists():
+def load_data(path):
+    if not path.exists():
         raise FileNotFoundError(
-            f"Dataset not found: {file_path}\n"
-            "Check that feature engineering has been completed."
+            f"Required file not found: {path}\n"
+            "Run the feature engineering step first."
         )
 
-    df = pd.read_csv(file_path)
+    df = pd.read_csv(path)
 
     if df.empty:
-        raise ValueError(f"The dataset is empty: {file_path}")
+        raise ValueError(f"The dataset is empty: {path}")
+
+    if "Total_Cost_INR" not in df.columns:
+        raise ValueError(
+            f"Total_Cost_INR is missing from {path.name}"
+        )
 
     return df
 
 
-# ---------------------------------------------------------
-# 3. SELECT NUMERIC FEATURES
-# ---------------------------------------------------------
-
-def get_features(train_df, test_df):
-    """Select suitable numeric columns available in both datasets."""
-    features = []
-
-    for col in CANDIDATE_FEATURES:
-        if col not in train_df.columns or col not in test_df.columns:
-            print(f"Skipping {col}: column missing from train or test.")
-            continue
-
-        # Convert invalid numeric strings to NaN.
-        train_df[col] = pd.to_numeric(train_df[col], errors="coerce")
-        test_df[col] = pd.to_numeric(test_df[col], errors="coerce")
-
-        # Infinite values cannot be used for threshold calculation.
-        train_df[col] = train_df[col].replace([np.inf, -np.inf], np.nan)
-        test_df[col] = test_df[col].replace([np.inf, -np.inf], np.nan)
-
-        # A feature needs at least some valid training observations.
-        if train_df[col].notna().sum() < 4:
-            print(f"Skipping {col}: insufficient valid training values.")
-            continue
-
-        features.append(col)
-
-    if not features:
-        raise ValueError(
-            "No usable numeric features found. "
-            "Check the engineered dataset column names."
-        )
-
-    return features
-
-
-# ---------------------------------------------------------
-# 4. LEARN STATISTICAL THRESHOLDS FROM TRAINING DATA
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 4. FIT THRESHOLDS ON TRAINING DATA ONLY
+# --------------------------------------------------
 
 def fit_thresholds(train_df, features):
-    """
-    Calculate IQR boundaries and mean/standard deviation
-    from training data only.
-    """
     thresholds = {}
 
-    for col in features:
-        values = train_df[col].dropna()
+    for feature in features:
+        if feature not in train_df.columns:
+            continue
+
+        values = pd.to_numeric(
+            train_df[feature], errors="coerce"
+        ).replace([np.inf, -np.inf], np.nan).dropna()
+
+        if values.empty:
+            continue
 
         q1 = values.quantile(0.25)
         q3 = values.quantile(0.75)
         iqr = q3 - q1
 
-        thresholds[col] = {
-            "q1": q1,
-            "q3": q3,
-            "iqr": iqr,
-            "iqr_lower": q1 - IQR_MULTIPLIER * iqr,
-            "iqr_upper": q3 + IQR_MULTIPLIER * iqr,
-            "mean": values.mean(),
-            "std": values.std(ddof=0),
+        mean = values.mean()
+        std = values.std(ddof=0)
+
+        thresholds[feature] = {
+            "lower_iqr": q1 - IQR_MULTIPLIER * iqr,
+            "upper_iqr": q3 + IQR_MULTIPLIER * iqr,
+            "mean": mean,
+            "std": std,
         }
 
     return thresholds
 
 
-# ---------------------------------------------------------
-# 5. APPLY OUTLIER DETECTION
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 5. APPLY STATISTICAL ANOMALY DETECTION
+# --------------------------------------------------
 
-def apply_statistical_detection(df, features, thresholds):
-    """
-    Apply training-derived IQR and Z-score thresholds.
-    No thresholds are learned from the dataset being scored.
-    """
-    df = df.copy()
-    feature_outlier_columns = []
-    feature_zscore_columns = []
+def detect_statistical_anomalies(df, thresholds):
+    result = df.copy()
 
-    for col in features:
-        t = thresholds[col]
-        values = df[col]
+    result["IQR_Outlier_Count"] = 0
+    result["ZScore_Outlier_Count"] = 0
+
+    for feature, limits in thresholds.items():
+        values = pd.to_numeric(
+            result[feature], errors="coerce"
+        ).replace([np.inf, -np.inf], np.nan)
 
         # IQR detection
-        iqr_flag_col = f"{col}_IQR_Outlier"
-        df[iqr_flag_col] = (
-            (values < t["iqr_lower"]) |
-            (values > t["iqr_upper"])
+        iqr_flag = (
+            (values < limits["lower_iqr"])
+            | (values > limits["upper_iqr"])
         ).fillna(False)
 
-        feature_outlier_columns.append(iqr_flag_col)
-
         # Z-score detection
-        zscore_flag_col = f"{col}_ZScore_Outlier"
+        if limits["std"] > 0:
+            z_scores = (
+                values - limits["mean"]
+            ) / limits["std"]
 
-        if t["std"] > 0 and np.isfinite(t["std"]):
-            z_score = (values - t["mean"]) / t["std"]
-            df[f"{col}_ZScore"] = z_score
-            df[zscore_flag_col] = (
-                z_score.abs() > Z_SCORE_THRESHOLD
+            z_flag = (
+                z_scores.abs() > ZSCORE_THRESHOLD
             ).fillna(False)
         else:
-            # A constant training feature has no usable Z-score.
-            df[f"{col}_ZScore"] = np.nan
-            df[zscore_flag_col] = False
+            z_flag = pd.Series(
+                False, index=result.index
+            )
 
-        feature_zscore_columns.append(zscore_flag_col)
+        # Store individual feature flags
+        safe_name = re.sub(r"[^A-Za-z0-9_]", "_", feature)
 
-    # Count how many individual features were flagged.
-    df["IQR_Outlier_Count"] = df[feature_outlier_columns].sum(axis=1)
-    df["ZScore_Outlier_Count"] = df[feature_zscore_columns].sum(axis=1)
+        result[f"{safe_name}_IQR_Outlier"] = (
+            iqr_flag.astype(int)
+        )
+        result[f"{safe_name}_ZScore_Outlier"] = (
+            z_flag.astype(int)
+        )
 
-    df["Statistical_Outlier_Flag"] = (
-        (df["IQR_Outlier_Count"] > 0) |
-        (df["ZScore_Outlier_Count"] > 0)
-    )
+        result["IQR_Outlier_Count"] += iqr_flag.astype(int)
+        result["ZScore_Outlier_Count"] += z_flag.astype(int)
 
-    return df
+    result["Statistical_Outlier_Flag"] = (
+        (result["IQR_Outlier_Count"] > 0)
+        | (result["ZScore_Outlier_Count"] > 0)
+    ).astype(int)
+
+    return result
 
 
-# ---------------------------------------------------------
-# 6. CONTEXTUAL ANOMALY DETECTION
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 6. CONTEXTUAL DETECTION
+# Low utilization combined with relatively high cost
+# --------------------------------------------------
 
-def apply_contextual_detection(df):
-    """
-    Identify a potential cost-optimization signal using
-    low utilization plus high cost relative to service median.
-    """
-    df = df.copy()
+def add_contextual_detection(train_df, target_df):
+    result = target_df.copy()
 
     required = {
         "CPU_Utilization",
         "Memory_Utilization",
+        "Service_Name",
         "Total_Cost_INR",
-        "Service_Median_Cost",
     }
 
-    missing = required - set(df.columns)
+    missing = required - set(train_df.columns)
 
     if missing:
         raise ValueError(
-            "Missing columns needed for contextual detection: "
+            "Missing required contextual-detection columns: "
             + ", ".join(sorted(missing))
         )
 
-    cpu = pd.to_numeric(df["CPU_Utilization"], errors="coerce")
-    memory = pd.to_numeric(df["Memory_Utilization"], errors="coerce")
-    cost = pd.to_numeric(df["Total_Cost_INR"], errors="coerce")
-    service_median = pd.to_numeric(
-        df["Service_Median_Cost"], errors="coerce"
+    # Calculate service medians from training data only.
+    training_cost = train_df[
+        ["Service_Name", "Total_Cost_INR"]
+    ].copy()
+
+    training_cost["Total_Cost_INR"] = pd.to_numeric(
+        training_cost["Total_Cost_INR"], errors="coerce"
     )
 
-    # Simple, explainable baseline utilization score.
-    df["Detection_Utilization_Score"] = (cpu + memory) / 2
+    service_medians = training_cost.groupby(
+        "Service_Name"
+    )["Total_Cost_INR"].median()
 
-    df["Detection_Low_Utilization"] = (
-        df["Detection_Utilization_Score"]
+    result["Service_Median_Cost"] = (
+        result["Service_Name"].map(service_medians)
+    )
+
+    # If a service was absent from training, use the overall
+    # training median as a fallback.
+    overall_median = training_cost[
+        "Total_Cost_INR"
+    ].median()
+
+    result["Service_Median_Cost"] = (
+        result["Service_Median_Cost"].fillna(overall_median)
+    )
+
+    cpu = pd.to_numeric(
+        result["CPU_Utilization"], errors="coerce"
+    )
+    memory = pd.to_numeric(
+        result["Memory_Utilization"], errors="coerce"
+    )
+    cost = pd.to_numeric(
+        result["Total_Cost_INR"], errors="coerce"
+    )
+
+    result["Detection_Utilization_Score"] = (
+        cpu + memory
+    ) / 2
+
+    result["Low_Utilization_Flag"] = (
+        result["Detection_Utilization_Score"]
         < LOW_UTILIZATION_THRESHOLD
-    ).fillna(False)
+    ).fillna(False).astype(int)
 
-    # Relative cost is meaningful only for a positive benchmark.
-    valid_benchmark = service_median > 0
-    df["Detection_Cost_to_Service_Median"] = np.where(
-        valid_benchmark,
-        cost / service_median,
-        np.nan,
+    result["High_Cost_Ratio"] = (
+        cost / result["Service_Median_Cost"].replace(0, np.nan)
     )
 
-    df["Detection_High_Relative_Cost"] = (
-        df["Detection_Cost_to_Service_Median"]
-        >= HIGH_RELATIVE_COST_THRESHOLD
-    ).fillna(False)
+    result["High_Cost_Relative_To_Service_Flag"] = (
+        result["High_Cost_Ratio"] >= HIGH_COST_RATIO
+    ).fillna(False).astype(int)
 
-    # Both conditions must hold to flag this contextual signal.
-    df["Contextual_Anomaly_Flag"] = (
-        df["Detection_Low_Utilization"] &
-        df["Detection_High_Relative_Cost"]
-    )
+    result["Contextual_Anomaly_Flag"] = (
+        (
+            result["Low_Utilization_Flag"] == 1
+        )
+        & (
+            result["High_Cost_Relative_To_Service_Flag"] == 1
+        )
+    ).astype(int)
 
-    return df
-
-
-# ---------------------------------------------------------
-# 7. COMBINE SIGNALS AND EXPLAIN EACH FLAG
-# ---------------------------------------------------------
-
-def combine_results(df):
-    df = df.copy()
-
-    df["Anomaly_Flag"] = (
-        df["Statistical_Outlier_Flag"] |
-        df["Contextual_Anomaly_Flag"]
-    )
-
-    reasons = []
-
-    for _, row in df.iterrows():
-        row_reasons = []
-
-        if row["IQR_Outlier_Count"] > 0:
-            row_reasons.append(
-                f"IQR outlier in {int(row['IQR_Outlier_Count'])} feature(s)"
-            )
-
-        if row["ZScore_Outlier_Count"] > 0:
-            row_reasons.append(
-                f"Z-score outlier in {int(row['ZScore_Outlier_Count'])} feature(s)"
-            )
-
-        if row["Contextual_Anomaly_Flag"]:
-            ratio = row["Detection_Cost_to_Service_Median"]
-            row_reasons.append(
-                "Low utilization with cost at "
-                f"{ratio:.2f}x the service median"
-            )
-
-        reasons.append("; ".join(row_reasons) if row_reasons else "No rule triggered")
-
-    df["Anomaly_Reason"] = reasons
-
-    # This is a candidate flag, not proof of waste or a command to
-    # downsize the resource. SLA and compliance checks come later.
-    df["Potential_Optimization_Candidate"] = (
-        df["Contextual_Anomaly_Flag"]
-    )
-
-    return df
+    return result
 
 
-# ---------------------------------------------------------
-# 8. CREATE SUMMARY REPORT
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 7. COMBINE FLAGS AND GENERATE SUMMARY
+# --------------------------------------------------
 
-def create_summary(train_df, test_df, features, thresholds):
+def finalize_results(df):
+    result = df.copy()
+
+    result["Anomaly_Flag"] = (
+        (
+            result["Statistical_Outlier_Flag"] == 1
+        )
+        | (
+            result["Contextual_Anomaly_Flag"] == 1
+        )
+    ).astype(int)
+
+    # Contextual anomalies are optimization candidates for
+    # investigation, not confirmed savings opportunities.
+    result["Potential_Optimization_Candidate"] = (
+        result["Contextual_Anomaly_Flag"]
+    ).astype(int)
+
+    return result
+
+
+def create_summary(df, dataset_name):
     rows = []
 
-    datasets = [
-        ("Train", train_df),
-        ("Test", test_df),
-    ]
+    for feature in CANDIDATE_FEATURES:
+        iqr_column = f"{feature}_IQR_Outlier"
+        z_column = f"{feature}_ZScore_Outlier"
 
-    for dataset_name, df in datasets:
-        for col in features:
-            t = thresholds[col]
-
-            rows.append({
-                "Dataset": dataset_name,
-                "Feature": col,
-                "Valid_Values": int(df[col].notna().sum()),
-                "IQR_Lower_Bound": t["iqr_lower"],
-                "IQR_Upper_Bound": t["iqr_upper"],
-                "Mean_Training_Value": t["mean"],
-                "Std_Training_Value": t["std"],
-                "IQR_Outlier_Count": int(
-                    df[f"{col}_IQR_Outlier"].sum()
-                ),
-                "ZScore_Outlier_Count": int(
-                    df[f"{col}_ZScore_Outlier"].sum()
-                ),
-            })
+        if iqr_column not in df.columns:
+            continue
 
         rows.append({
             "Dataset": dataset_name,
-            "Feature": "OVERALL",
-            "Valid_Values": len(df),
-            "IQR_Lower_Bound": np.nan,
-            "IQR_Upper_Bound": np.nan,
-            "Mean_Training_Value": np.nan,
-            "Std_Training_Value": np.nan,
-            "IQR_Outlier_Count": int(df["Statistical_Outlier_Flag"].sum()),
-            "ZScore_Outlier_Count": int(df["Contextual_Anomaly_Flag"].sum()),
+            "Feature": feature,
+            "IQR_Outlier_Count": int(df[iqr_column].sum()),
+            "ZScore_Outlier_Count": int(df[z_column].sum()),
         })
 
-    return pd.DataFrame(rows)
+    rows.append({
+        "Dataset": dataset_name,
+        "Feature": "OVERALL",
+        "IQR_Outlier_Count": int(
+            (df["IQR_Outlier_Count"] > 0).sum()
+        ),
+        "ZScore_Outlier_Count": int(
+            (df["ZScore_Outlier_Count"] > 0).sum()
+        ),
+        "Statistical_Anomaly_Count": int(
+            df["Statistical_Outlier_Flag"].sum()
+        ),
+        "Contextual_Anomaly_Count": int(
+            df["Contextual_Anomaly_Flag"].sum()
+        ),
+        "Combined_Anomaly_Count": int(
+            df["Anomaly_Flag"].sum()
+        ),
+        "Optimization_Candidate_Count": int(
+            df["Potential_Optimization_Candidate"].sum()
+        ),
+        "Total_Rows": len(df),
+    })
+
+    return rows
 
 
-# ---------------------------------------------------------
-# 9. MAIN EXECUTION
-# ---------------------------------------------------------
+# --------------------------------------------------
+# 8. MAIN EXECUTION
+# --------------------------------------------------
 
 def main():
-    print("=" * 65)
-    print("CLOUD BILLING OUTLIER AND ANOMALY DETECTION")
-    print("=" * 65)
+    print("Loading engineered datasets...")
 
-    train_df = load_data(TRAIN_FILE)
-    test_df = load_data(TEST_FILE)
+    train_df = load_data(TRAIN_INPUT)
+    test_df = load_data(TEST_INPUT)
 
-    print(f"\nTraining dataset shape: {train_df.shape}")
-    print(f"Testing dataset shape:  {test_df.shape}")
+    print(f"Training rows: {len(train_df)}")
+    print(f"Testing rows: {len(test_df)}")
 
-    features = get_features(train_df, test_df)
-    print("\nFeatures selected:")
-    for col in features:
-        print(f"  - {col}")
+    # Use available numeric candidate features.
+    features = [
+        feature
+        for feature in CANDIDATE_FEATURES
+        if feature in train_df.columns
+        and pd.api.types.is_numeric_dtype(train_df[feature])
+    ]
 
-    # Learn thresholds exclusively from training data.
+    if not features:
+        raise ValueError(
+            "No numeric candidate features found. "
+            "Check the feature engineering output."
+        )
+
+    print("Features used:", ", ".join(features))
+
+    print("\nFitting thresholds on training data...")
     thresholds = fit_thresholds(train_df, features)
 
-    train_df = apply_statistical_detection(
-        train_df, features, thresholds
+    print("Detecting statistical anomalies...")
+    train_result = detect_statistical_anomalies(
+        train_df, thresholds
     )
-    test_df = apply_statistical_detection(
-        test_df, features, thresholds
+    test_result = detect_statistical_anomalies(
+        test_df, thresholds
     )
 
-    train_df = apply_contextual_detection(train_df)
-    test_df = apply_contextual_detection(test_df)
-
-    train_df = combine_results(train_df)
-    test_df = combine_results(test_df)
-
-    train_df.to_csv(TRAIN_OUTPUT, index=False)
-    test_df.to_csv(TEST_OUTPUT, index=False)
-
-    summary = create_summary(
-        train_df, test_df, features, thresholds
+    print("Detecting contextual anomalies...")
+    train_result = add_contextual_detection(
+        train_df, train_result
     )
-    summary.to_csv(SUMMARY_OUTPUT, index=False)
+    test_result = add_contextual_detection(
+        train_df, test_result
+    )
 
-    print("\n" + "=" * 65)
-    print("RESULTS")
-    print("=" * 65)
+    train_result = finalize_results(train_result)
+    test_result = finalize_results(test_result)
 
-    for name, df in [("TRAIN", train_df), ("TEST", test_df)]:
-        print(f"\n{name} DATASET")
-        print(f"Total records: {len(df)}")
+    # Save results
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+    train_result.to_csv(TRAIN_OUTPUT, index=False)
+    test_result.to_csv(TEST_OUTPUT, index=False)
+
+    summary_rows = (
+        create_summary(train_result, "Train")
+        + create_summary(test_result, "Test")
+    )
+
+    summary_df = pd.DataFrame(summary_rows)
+    summary_df.to_csv(SUMMARY_OUTPUT, index=False)
+
+    print("\nAnomaly detection completed successfully.")
+    print(f"Training results: {TRAIN_OUTPUT}")
+    print(f"Testing results:  {TEST_OUTPUT}")
+    print(f"Summary report:   {SUMMARY_OUTPUT}")
+
+    for name, result in [
+        ("Train", train_result),
+        ("Test", test_result),
+    ]:
+        print(f"\n{name} summary")
+        print(f"Total rows: {len(result)}")
         print(
-            "Records with statistical outliers:",
-            int(df["Statistical_Outlier_Flag"].sum()),
+            "Statistical anomalies:",
+            int(result["Statistical_Outlier_Flag"].sum()),
         )
         print(
-            "Records with contextual anomalies:",
-            int(df["Contextual_Anomaly_Flag"].sum()),
+            "Contextual anomalies:",
+            int(result["Contextual_Anomaly_Flag"].sum()),
         )
         print(
-            "Records flagged by either method:",
-            int(df["Anomaly_Flag"].sum()),
+            "Combined anomalies:",
+            int(result["Anomaly_Flag"].sum()),
         )
         print(
             "Potential optimization candidates:",
-            int(df["Potential_Optimization_Candidate"].sum()),
+            int(result["Potential_Optimization_Candidate"].sum()),
         )
-
-    print("\nSaved files:")
-    print(TRAIN_OUTPUT)
-    print(TEST_OUTPUT)
-    print(SUMMARY_OUTPUT)
-
-    print("\nDetection completed.")
-    print(
-        "Review flagged records before treating them as genuine "
-        "anomalies or optimization opportunities."
-    )
 
 
 if __name__ == "__main__":
