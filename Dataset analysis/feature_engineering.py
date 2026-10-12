@@ -1,429 +1,28 @@
-import pandas as pd
+
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
 
 
 # ==========================================================
-# 1. FILE PATHS
+# 1. PROJECT PATHS AND CONFIGURATION
 # ==========================================================
 
-train_input_path = "data/train_cloud_billing_data.csv"
-test_input_path = "data/test_cloud_billing_data.csv"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = PROJECT_ROOT / "data"
 
-train_output_path = "data/engineered_train_cloud_billing_data.csv"
-test_output_path = "data/engineered_test_cloud_billing_data.csv"
+TRAIN_INPUT = DATA_DIR / "train_cloud_billing_data.csv"
+TEST_INPUT = DATA_DIR / "test_cloud_billing_data.csv"
 
+TRAIN_OUTPUT = DATA_DIR / "engineered_train_cloud_billing_data.csv"
+TEST_OUTPUT = DATA_DIR / "engineered_test_cloud_billing_data.csv"
 
-# ==========================================================
-# 2. LOAD TRAINING AND TESTING DATA
-# ==========================================================
+LOW_UTILIZATION_THRESHOLD = 30
+HIGH_COST_QUANTILE = 0.90
+SERVICE_COST_MULTIPLIER = 1.25
 
-train_df = pd.read_csv(train_input_path)
-test_df = pd.read_csv(test_input_path)
-
-print("Datasets loaded successfully.")
-print("Training rows:", len(train_df))
-print("Testing rows:", len(test_df))
-
-
-# ==========================================================
-# 3. CONVERT DATE COLUMNS
-# ==========================================================
-
-date_columns = [
-    "Usage_Start_Date",
-    "Usage_End_Date"
-]
-
-for column in date_columns:
-
-    if column in train_df.columns:
-        train_df[column] = pd.to_datetime(
-            train_df[column],
-            errors="coerce"
-        )
-
-    if column in test_df.columns:
-        test_df[column] = pd.to_datetime(
-            test_df[column],
-            errors="coerce"
-        )
-
-
-# ==========================================================
-# 4. BASIC FEATURE ENGINEERING FUNCTION
-# ==========================================================
-
-def create_basic_features(df):
-
-    df = df.copy()
-
-    # ------------------------------------------------------
-    # 4.1 Usage Duration
-    # ------------------------------------------------------
-
-    if (
-        "Usage_Start_Date" in df.columns
-        and "Usage_End_Date" in df.columns
-    ):
-
-        duration = (
-            df["Usage_End_Date"]
-            - df["Usage_Start_Date"]
-        )
-
-        df["Usage_Duration_Hours"] = (
-            duration.dt.total_seconds() / 3600
-        )
-
-        # Prevent negative durations
-        df["Usage_Duration_Hours"] = (
-            df["Usage_Duration_Hours"].clip(lower=0)
-        )
-
-
-    # ------------------------------------------------------
-    # 4.2 Total Network Data
-    # ------------------------------------------------------
-
-    if (
-        "Network_Inbound_Data_Bytes" in df.columns
-        and "Network_Outbound_Data_Bytes" in df.columns
-    ):
-
-        df["Total_Network_Data_Bytes"] = (
-            df["Network_Inbound_Data_Bytes"].fillna(0)
-            +
-            df["Network_Outbound_Data_Bytes"].fillna(0)
-        )
-
-
-    # ------------------------------------------------------
-    # 4.3 CPU + Memory Average
-    # ------------------------------------------------------
-
-    if (
-        "CPU_Utilization" in df.columns
-        and "Memory_Utilization" in df.columns
-    ):
-
-        df["CPU_Memory_Avg"] = (
-            df["CPU_Utilization"]
-            +
-            df["Memory_Utilization"]
-        ) / 2
-
-
-    # ------------------------------------------------------
-    # 4.4 CPU-Memory Gap
-    # ------------------------------------------------------
-
-    if (
-        "CPU_Utilization" in df.columns
-        and "Memory_Utilization" in df.columns
-    ):
-
-        df["CPU_Memory_Gap"] = (
-            abs(
-                df["CPU_Utilization"]
-                -
-                df["Memory_Utilization"]
-            )
-        )
-
-
-    # ------------------------------------------------------
-    # 4.5 Overall Utilization Score
-    # ------------------------------------------------------
-
-    if (
-        "CPU_Utilization" in df.columns
-        and "Memory_Utilization" in df.columns
-    ):
-
-        df["Utilization_Score"] = (
-            0.5 * df["CPU_Utilization"]
-            +
-            0.5 * df["Memory_Utilization"]
-        )
-
-
-    # ------------------------------------------------------
-    # 4.6 Idle Score
-    # ------------------------------------------------------
-
-    if "Utilization_Score" in df.columns:
-
-        df["Idle_Score"] = (
-            100 - df["Utilization_Score"]
-        ).clip(lower=0)
-
-
-    # ------------------------------------------------------
-    # 4.7 Cost per Usage Unit
-    # ------------------------------------------------------
-
-    if (
-        "Total_Cost_INR" in df.columns
-        and "Usage_Quantity" in df.columns
-    ):
-
-        df["Cost_per_Usage_Unit"] = np.where(
-            df["Usage_Quantity"] > 0,
-            df["Total_Cost_INR"]
-            / df["Usage_Quantity"],
-            np.nan
-        )
-
-
-    # ------------------------------------------------------
-    # 4.8 Cost per Hour
-    # ------------------------------------------------------
-
-    if (
-        "Total_Cost_INR" in df.columns
-        and "Usage_Duration_Hours" in df.columns
-    ):
-
-        df["Cost_per_Hour"] = np.where(
-            df["Usage_Duration_Hours"] > 0,
-            df["Total_Cost_INR"]
-            / df["Usage_Duration_Hours"],
-            np.nan
-        )
-
-
-    # ------------------------------------------------------
-    # 4.9 Cost per Network Byte
-    # ------------------------------------------------------
-
-    if (
-        "Total_Cost_INR" in df.columns
-        and "Total_Network_Data_Bytes" in df.columns
-    ):
-
-        df["Cost_per_Network_Byte"] = np.where(
-            df["Total_Network_Data_Bytes"] > 0,
-            df["Total_Cost_INR"]
-            / df["Total_Network_Data_Bytes"],
-            np.nan
-        )
-
-
-    # ------------------------------------------------------
-    # 4.10 Temporal Features
-    # ------------------------------------------------------
-
-    if "Usage_Start_Date" in df.columns:
-
-        df["Usage_Start_Hour"] = (
-            df["Usage_Start_Date"].dt.hour
-        )
-
-        df["Usage_Day_of_Week"] = (
-            df["Usage_Start_Date"].dt.dayofweek
-        )
-
-        df["Usage_Month"] = (
-            df["Usage_Start_Date"].dt.month
-        )
-
-        df["Usage_Year"] = (
-            df["Usage_Start_Date"].dt.year
-        )
-
-        df["Usage_Day"] = (
-            df["Usage_Start_Date"].dt.day
-        )
-
-
-    return df
-
-
-# ==========================================================
-# 5. CREATE BASIC FEATURES
-# ==========================================================
-
-train_df = create_basic_features(train_df)
-test_df = create_basic_features(test_df)
-
-
-# ==========================================================
-# 6. CREATE TRAINING-SET BENCHMARKS
-# ==========================================================
-
-print("\nCreating training-set benchmarks...")
-
-
-# Service median cost
-service_median_cost = (
-    train_df
-    .groupby("Service_Name")["Total_Cost_INR"]
-    .median()
-)
-
-
-# Region median cost
-region_median_cost = (
-    train_df
-    .groupby("Region_Zone")["Total_Cost_INR"]
-    .median()
-)
-
-
-# ==========================================================
-# 7. APPLY SERVICE BENCHMARK
-# ==========================================================
-
-train_df["Service_Median_Cost"] = (
-    train_df["Service_Name"]
-    .map(service_median_cost)
-)
-
-test_df["Service_Median_Cost"] = (
-    test_df["Service_Name"]
-    .map(service_median_cost)
-)
-
-
-# ==========================================================
-# 8. APPLY REGION BENCHMARK
-# ==========================================================
-
-train_df["Region_Median_Cost"] = (
-    train_df["Region_Zone"]
-    .map(region_median_cost)
-)
-
-test_df["Region_Median_Cost"] = (
-    test_df["Region_Zone"]
-    .map(region_median_cost)
-)
-
-
-# ==========================================================
-# 9. COST VS SERVICE MEDIAN
-# ==========================================================
-
-train_df["Cost_vs_Service_Median"] = np.where(
-    train_df["Service_Median_Cost"] > 0,
-    train_df["Total_Cost_INR"]
-    / train_df["Service_Median_Cost"],
-    np.nan
-)
-
-test_df["Cost_vs_Service_Median"] = np.where(
-    test_df["Service_Median_Cost"] > 0,
-    test_df["Total_Cost_INR"]
-    / test_df["Service_Median_Cost"],
-    np.nan
-)
-
-
-# ==========================================================
-# 10. COST VS REGION MEDIAN
-# ==========================================================
-
-train_df["Cost_vs_Region_Median"] = np.where(
-    train_df["Region_Median_Cost"] > 0,
-    train_df["Total_Cost_INR"]
-    / train_df["Region_Median_Cost"],
-    np.nan
-)
-
-test_df["Cost_vs_Region_Median"] = np.where(
-    test_df["Region_Median_Cost"] > 0,
-    test_df["Total_Cost_INR"]
-    / test_df["Region_Median_Cost"],
-    np.nan
-)
-
-
-# ==========================================================
-# 11. LOW UTILIZATION FLAG
-# ==========================================================
-
-train_df["Is_Low_Utilization"] = (
-    train_df["Utilization_Score"] < 30
-).astype(int)
-
-test_df["Is_Low_Utilization"] = (
-    test_df["Utilization_Score"] < 30
-).astype(int)
-
-
-# ==========================================================
-# 12. HIGH COST FLAG
-# ==========================================================
-
-cost_threshold = (
-    train_df["Total_Cost_INR"]
-    .quantile(0.90)
-)
-
-print("\nHigh-cost threshold:", cost_threshold)
-
-
-train_df["Is_High_Cost"] = (
-    train_df["Total_Cost_INR"]
-    >= cost_threshold
-).astype(int)
-
-test_df["Is_High_Cost"] = (
-    test_df["Total_Cost_INR"]
-    >= cost_threshold
-).astype(int)
-
-
-# ==========================================================
-# 13. INITIAL OPTIMIZATION SIGNAL
-# ==========================================================
-
-train_df["Potential_Optimization"] = (
-    (
-        (train_df["Is_Low_Utilization"] == 1)
-        &
-        (train_df["Cost_vs_Service_Median"] >= 1.25)
-    )
-).astype(int)
-
-
-test_df["Potential_Optimization"] = (
-    (
-        (test_df["Is_Low_Utilization"] == 1)
-        &
-        (test_df["Cost_vs_Service_Median"] >= 1.25)
-    )
-).astype(int)
-
-
-# ==========================================================
-# 14. SAVE ENGINEERED DATASETS
-# ==========================================================
-
-train_df.to_csv(
-    train_output_path,
-    index=False
-)
-
-test_df.to_csv(
-    test_output_path,
-    index=False
-)
-
-
-# ==========================================================
-# 15. DISPLAY RESULTS
-# ==========================================================
-
-print("\nFeature Engineering Completed")
-print("--------------------------------")
-
-print("Training dataset shape:", train_df.shape)
-print("Testing dataset shape:", test_df.shape)
-
-print("\nNew features created:")
-
-original_columns = [
+ORIGINAL_COLUMNS = [
     "Resource_ID",
     "Service_Name",
     "Usage_Quantity",
@@ -438,23 +37,427 @@ original_columns = [
     "Cost_per_Quantity",
     "Unrounded_Cost",
     "Rounded_Cost",
-    "Total_Cost_INR"
+    "Total_Cost_INR",
 ]
+
+NUMERIC_COLUMNS = [
+    "Usage_Quantity",
+    "CPU_Utilization",
+    "Memory_Utilization",
+    "Network_Inbound_Data_Bytes",
+    "Network_Outbound_Data_Bytes",
+    "Cost_per_Quantity",
+    "Unrounded_Cost",
+    "Rounded_Cost",
+    "Total_Cost_INR",
+]
+
+
+# ==========================================================
+# 2. LOAD AND VALIDATE DATASETS
+# ==========================================================
+
+def load_dataset(file_path):
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"Required dataset not found: {file_path}"
+        )
+
+    df = pd.read_csv(file_path)
+
+    missing_columns = [
+        column
+        for column in ORIGINAL_COLUMNS
+        if column not in df.columns
+    ]
+
+    if missing_columns:
+        raise ValueError(
+            f"Missing columns in {file_path.name}: "
+            f"{missing_columns}"
+        )
+
+    if df.empty:
+        raise ValueError(
+            f"The dataset {file_path.name} is empty."
+        )
+
+    # Parse the already-corrected ISO-formatted timestamps.
+    for column in [
+        "Usage_Start_Date",
+        "Usage_End_Date",
+    ]:
+        df[column] = pd.to_datetime(
+            df[column],
+            errors="raise",
+        )
+
+    # Ensure quantitative fields are numeric.
+    for column in NUMERIC_COLUMNS:
+        df[column] = pd.to_numeric(
+            df[column],
+            errors="raise",
+        )
+
+    return df
+
+
+train_df = load_dataset(TRAIN_INPUT)
+test_df = load_dataset(TEST_INPUT)
+
+print("Datasets loaded successfully.")
+print("Training rows:", len(train_df))
+print("Testing rows:", len(test_df))
+
+
+# ==========================================================
+# 3. VALIDATE CHRONOLOGICAL SPLIT
+# ==========================================================
+
+train_max_date = train_df["Usage_Start_Date"].max()
+test_min_date = test_df["Usage_Start_Date"].min()
+
+if train_max_date >= test_min_date:
+    raise ValueError(
+        "Chronological split validation failed. "
+        "Training timestamps must precede testing timestamps."
+    )
+
+print("\nChronological split verified.")
+print("Last training timestamp:", train_max_date)
+print("First testing timestamp:", test_min_date)
+
+
+# ==========================================================
+# 4. BASIC FEATURE ENGINEERING
+# ==========================================================
+
+def create_basic_features(df):
+    df = df.copy()
+
+    # ------------------------------------------------------
+    # 4.1 Usage duration
+    # ------------------------------------------------------
+
+    duration = (
+        df["Usage_End_Date"] - df["Usage_Start_Date"]
+    ).dt.total_seconds() / 3600
+
+    # Flag invalid durations instead of silently hiding them.
+    df["Has_Invalid_Duration"] = (
+        duration < 0
+    ).astype(int)
+
+    df["Usage_Duration_Hours"] = duration.where(
+        duration >= 0,
+        np.nan,
+    )
+
+    # ------------------------------------------------------
+    # 4.2 Total network data
+    # ------------------------------------------------------
+
+    inbound = df["Network_Inbound_Data_Bytes"]
+    outbound = df["Network_Outbound_Data_Bytes"]
+
+    df["Total_Network_Data_Bytes"] = (
+        inbound.fillna(0) + outbound.fillna(0)
+    )
+
+    df["Has_Missing_Network_Data"] = (
+        inbound.isna() | outbound.isna()
+    ).astype(int)
+
+    # ------------------------------------------------------
+    # 4.3 Utilization features
+    # ------------------------------------------------------
+
+    cpu = df["CPU_Utilization"]
+    memory = df["Memory_Utilization"]
+
+    df["Has_Missing_Utilization"] = (
+        cpu.isna() | memory.isna()
+    ).astype(int)
+
+    df["CPU_Memory_Avg"] = (
+        cpu + memory
+    ) / 2
+
+    df["CPU_Memory_Gap"] = (
+        cpu - memory
+    ).abs()
+
+    # Equal weighting is an initial heuristic, not
+    # a measured estimate of actual resource capacity.
+    df["Utilization_Score"] = (
+        0.5 * cpu + 0.5 * memory
+    )
+
+    df["Idle_Score"] = (
+        100 - df["Utilization_Score"]
+    ).clip(lower=0, upper=100)
+
+    # ------------------------------------------------------
+    # 4.4 Cost per usage unit
+    # ------------------------------------------------------
+
+    df["Cost_per_Usage_Unit"] = np.where(
+        df["Usage_Quantity"] > 0,
+        df["Total_Cost_INR"] / df["Usage_Quantity"],
+        np.nan,
+    )
+
+    # ------------------------------------------------------
+    # 4.5 Cost per hour
+    # ------------------------------------------------------
+
+    df["Cost_per_Hour"] = np.where(
+        df["Usage_Duration_Hours"] > 0,
+        df["Total_Cost_INR"]
+        / df["Usage_Duration_Hours"],
+        np.nan,
+    )
+
+    # ------------------------------------------------------
+    # 4.6 Cost per network byte
+    # ------------------------------------------------------
+
+    df["Cost_per_Network_Byte"] = np.where(
+        df["Total_Network_Data_Bytes"] > 0,
+        df["Total_Cost_INR"]
+        / df["Total_Network_Data_Bytes"],
+        np.nan,
+    )
+
+    # ------------------------------------------------------
+    # 4.7 Temporal features
+    # ------------------------------------------------------
+
+    start = df["Usage_Start_Date"]
+
+    df["Usage_Start_Hour"] = start.dt.hour
+    df["Usage_Day_of_Week"] = start.dt.dayofweek
+    df["Usage_Month"] = start.dt.month
+    df["Usage_Year"] = start.dt.year
+    df["Usage_Day"] = start.dt.day
+
+    # Cyclical hour features preserve the relationship
+    # between 23:00 and 00:00.
+    df["Hour_Sin"] = np.sin(
+        2 * np.pi * start.dt.hour / 24
+    )
+
+    df["Hour_Cos"] = np.cos(
+        2 * np.pi * start.dt.hour / 24
+    )
+
+    return df
+
+
+train_df = create_basic_features(train_df)
+test_df = create_basic_features(test_df)
+
+
+# ==========================================================
+# 5. BUILD BENCHMARKS USING TRAINING DATA ONLY
+# ==========================================================
+
+print("\nCreating training-only benchmarks...")
+
+# A global fallback allows unseen services or regions
+# to be handled without using information from the test set.
+global_median_cost = train_df["Total_Cost_INR"].median()
+
+if pd.isna(global_median_cost):
+    raise ValueError(
+        "Cannot calculate a global cost benchmark."
+    )
+
+service_median_cost = (
+    train_df.groupby("Service_Name")["Total_Cost_INR"]
+    .median()
+)
+
+region_median_cost = (
+    train_df.groupby("Region_Zone")["Total_Cost_INR"]
+    .median()
+)
+
+
+def add_benchmark_features(df):
+    df = df.copy()
+
+    # Identify categories not observed during training.
+    df["Is_Unseen_Service"] = (
+        ~df["Service_Name"].isin(service_median_cost.index)
+    ).astype(int)
+
+    df["Is_Unseen_Region"] = (
+        ~df["Region_Zone"].isin(region_median_cost.index)
+    ).astype(int)
+
+    # Use only training-derived benchmarks.
+    df["Service_Median_Cost"] = (
+        df["Service_Name"]
+        .map(service_median_cost)
+        .fillna(global_median_cost)
+    )
+
+    df["Region_Median_Cost"] = (
+        df["Region_Zone"]
+        .map(region_median_cost)
+        .fillna(global_median_cost)
+    )
+
+    # Cost relative to the typical cost for the service.
+    df["Cost_vs_Service_Median"] = np.where(
+        df["Service_Median_Cost"] > 0,
+        df["Total_Cost_INR"]
+        / df["Service_Median_Cost"],
+        np.nan,
+    )
+
+    # Cost relative to the typical cost for the region.
+    df["Cost_vs_Region_Median"] = np.where(
+        df["Region_Median_Cost"] > 0,
+        df["Total_Cost_INR"]
+        / df["Region_Median_Cost"],
+        np.nan,
+    )
+
+    return df
+
+
+train_df = add_benchmark_features(train_df)
+test_df = add_benchmark_features(test_df)
+
+
+# ==========================================================
+# 6. LOW UTILIZATION INDICATOR
+# ==========================================================
+
+# Missing CPU or memory data must not automatically classify
+# a resource as underutilized.
+for df in [train_df, test_df]:
+    df["Is_Low_Utilization"] = (
+        df["Utilization_Score"].notna()
+        & (
+            df["Utilization_Score"]
+            < LOW_UTILIZATION_THRESHOLD
+        )
+    ).astype(int)
+
+
+# ==========================================================
+# 7. HIGH COST INDICATOR
+# ==========================================================
+
+# The threshold is calculated from training data only.
+cost_threshold = train_df["Total_Cost_INR"].quantile(
+    HIGH_COST_QUANTILE
+)
+
+for df in [train_df, test_df]:
+    df["Is_High_Cost"] = (
+        df["Total_Cost_INR"] >= cost_threshold
+    ).astype(int)
+
+print(
+    "\nTraining 90th-percentile cost threshold:",
+    round(cost_threshold, 2),
+    "INR",
+)
+
+
+# ==========================================================
+# 8. INITIAL OPTIMIZATION SIGNAL
+# ==========================================================
+
+for df in [train_df, test_df]:
+    # A candidate requires both low utilization and a cost
+    # at least 25% above the service benchmark.
+    # Unseen services are excluded because their benchmark
+    # is only a global fallback.
+    df["Potential_Optimization"] = (
+        (df["Is_Low_Utilization"] == 1)
+        & (
+            df["Cost_vs_Service_Median"]
+            >= SERVICE_COST_MULTIPLIER
+        )
+        & (df["Is_Unseen_Service"] == 0)
+    ).astype(int)
+
+
+# ==========================================================
+# 9. DATA QUALITY CHECKS
+# ==========================================================
+
+for name, df in [
+    ("Training", train_df),
+    ("Testing", test_df),
+]:
+    print(f"\n{name} data quality:")
+
+    print(
+        "Missing start dates:",
+        df["Usage_Start_Date"].isna().sum(),
+    )
+
+    print(
+        "Missing total costs:",
+        df["Total_Cost_INR"].isna().sum(),
+    )
+
+    print(
+        "Invalid durations:",
+        df["Has_Invalid_Duration"].sum(),
+    )
+
+    print(
+        "Missing utilization:",
+        df["Has_Missing_Utilization"].sum(),
+    )
+
+    print(
+        "Potential optimization candidates:",
+        df["Potential_Optimization"].sum(),
+    )
+
+
+# ==========================================================
+# 10. SAVE ENGINEERED DATASETS
+# ==========================================================
+
+train_df.to_csv(TRAIN_OUTPUT, index=False)
+test_df.to_csv(TEST_OUTPUT, index=False)
+
+print("\nFeature engineering completed.")
+print("--------------------------------")
+
+print("Training dataset shape:", train_df.shape)
+print("Testing dataset shape:", test_df.shape)
 
 new_columns = [
     column
     for column in train_df.columns
-    if column not in original_columns
+    if column not in ORIGINAL_COLUMNS
 ]
+
+print("\nEngineered features created:")
 
 for column in new_columns:
     print("-", column)
 
-
-# ==========================================================
-# 16. OUTPUT FILES
-# ==========================================================
-
 print("\nOutput files:")
-print("-", train_output_path)
-print("-", test_output_path)
+print("-", TRAIN_OUTPUT)
+print("-", TEST_OUTPUT)
+
+print("\nAll original rows preserved:")
+print(
+    "Training:",
+    len(train_df),
+    "| Testing:",
+    len(test_df),
+    "| Total:",
+    len(train_df) + len(test_df),
+)
