@@ -160,11 +160,13 @@ def validate_dataset(df: pd.DataFrame, dataset_name: str) -> tuple[pd.DataFrame,
     parsed_timestamps = {}
 
     for column in TIMESTAMP_COLUMNS:
+       
         parsed = pd.to_datetime(
             validated_df[column],
             errors="coerce",
-            dayfirst=True,
+            format="%Y-%m-%d %H:%M:%S",
         )
+
 
         parsed_timestamps[column] = parsed
 
