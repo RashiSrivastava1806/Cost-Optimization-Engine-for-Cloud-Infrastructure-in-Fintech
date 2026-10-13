@@ -2,8 +2,7 @@
 from pathlib import Path
 
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter
+import plotly.express as px
 
 
 # --------------------------------------------------
@@ -19,7 +18,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # --------------------------------------------------
-# 2. Load and validate data
+# 2. Load and validate dataset
 # --------------------------------------------------
 
 if not DATA_PATH.exists():
@@ -28,220 +27,234 @@ if not DATA_PATH.exists():
 df = pd.read_csv(DATA_PATH, sep=None, engine="python")
 
 required_columns = [
+    "Resource_ID",
+    "Service_Name",
     "CPU_Utilization",
     "Memory_Utilization",
     "Total_Cost_INR",
-    "Resource_ID"
+    "Usage_Start_Date",
 ]
 
 missing = [col for col in required_columns if col not in df.columns]
 
 if missing:
     raise ValueError(
-        f"Missing required columns: {missing}\n"
+        f"Missing columns: {missing}\n"
         f"Available columns: {list(df.columns)}"
     )
 
-for column in ["CPU_Utilization", "Memory_Utilization", "Total_Cost_INR"]:
-    df[column] = pd.to_numeric(
-        df[column]
+# Convert numeric fields safely.
+numeric_columns = [
+    "CPU_Utilization",
+    "Memory_Utilization",
+    "Total_Cost_INR",
+]
+
+for col in numeric_columns:
+    df[col] = pd.to_numeric(
+        df[col]
         .astype(str)
         .str.replace(",", "", regex=False)
         .str.replace("₹", "", regex=False)
         .str.replace("$", "", regex=False)
         .str.strip(),
-        errors="coerce"
+        errors="coerce",
     )
 
-# Exclude missing and impossible utilization values.
+df["Usage_Start_Date"] = pd.to_datetime(
+    df["Usage_Start_Date"],
+    errors="coerce",
+)
+
 df = df.dropna(
-    subset=["CPU_Utilization", "Memory_Utilization", "Total_Cost_INR"]
+    subset=required_columns
 ).copy()
 
+# Utilization is expected to be expressed as a percentage.
 valid_utilization = (
     df["CPU_Utilization"].between(0, 100)
     & df["Memory_Utilization"].between(0, 100)
 )
 
-invalid_count = int((~valid_utilization).sum())
 df = df.loc[valid_utilization].copy()
 
 if df.empty:
-    raise ValueError("No valid utilization and cost records remain.")
+    raise ValueError("No valid records remain after data validation.")
 
-
-# --------------------------------------------------
-# 3. Identify low-utilization records for investigation
-# --------------------------------------------------
-
+# These are screening thresholds, not SLA limits.
 LOW_UTILIZATION_THRESHOLD = 30
 
-df["Low_CPU_Utilization"] = (
-    df["CPU_Utilization"] < LOW_UTILIZATION_THRESHOLD
-)
-
-df["Low_Memory_Utilization"] = (
-    df["Memory_Utilization"] < LOW_UTILIZATION_THRESHOLD
-)
-
-df["Low_CPU_and_Memory"] = (
-    df["Low_CPU_Utilization"]
-    & df["Low_Memory_Utilization"]
-)
-
-
-# --------------------------------------------------
-# 4. Prepare the figure
-# --------------------------------------------------
-
-plt.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "font.size": 10,
-    "axes.titlesize": 12,
-    "axes.labelsize": 10,
-    "figure.titlesize": 15
-})
-
-fig, axes = plt.subplots(
-    1, 2,
-    figsize=(14, 6),
-    constrained_layout=True
-)
-
-currency_formatter = FuncFormatter(
-    lambda value, _: f"₹{value:,.0f}"
-)
-
-# Use the same color convention in both panels:
-# red = low utilization; blue = other valid records.
-colors = df["Low_CPU_Utilization"].map(
-    {True: "#B85C5C", False: "#547FA3"}
-)
-
-# Panel A: Cost vs CPU utilization
-axes[0].scatter(
-    df["CPU_Utilization"],
-    df["Total_Cost_INR"],
-    c=colors,
-    alpha=0.65,
-    s=30,
-    edgecolors="none"
-)
-
-axes[0].axvline(
-    LOW_UTILIZATION_THRESHOLD,
-    color="#555555",
-    linestyle="--",
-    linewidth=1.2,
-    label="30% investigation threshold"
-)
-
-axes[0].set_title(
-    "(a) Expenditure vs. CPU utilization",
-    loc="left",
-    fontweight="bold"
-)
-
-axes[0].set_xlabel("CPU utilization (%)")
-axes[0].set_ylabel("Expenditure (INR)")
-axes[0].yaxis.set_major_formatter(currency_formatter)
-axes[0].set_xlim(0, 100)
-axes[0].grid(alpha=0.2)
-axes[0].legend(frameon=False, fontsize=8)
-
-
-# Panel B: Cost vs memory utilization
-memory_colors = df["Low_Memory_Utilization"].map(
-    {True: "#B85C5C", False: "#547FA3"}
-)
-
-axes[1].scatter(
-    df["Memory_Utilization"],
-    df["Total_Cost_INR"],
-    c=memory_colors,
-    alpha=0.65,
-    s=30,
-    edgecolors="none"
-)
-
-axes[1].axvline(
-    LOW_UTILIZATION_THRESHOLD,
-    color="#555555",
-    linestyle="--",
-    linewidth=1.2,
-    label="30% investigation threshold"
-)
-
-axes[1].set_title(
-    "(b) Expenditure vs. memory utilization",
-    loc="left",
-    fontweight="bold"
-)
-
-axes[1].set_xlabel("Memory utilization (%)")
-axes[1].set_ylabel("Expenditure (INR)")
-axes[1].yaxis.set_major_formatter(currency_formatter)
-axes[1].set_xlim(0, 100)
-axes[1].grid(alpha=0.2)
-axes[1].legend(frameon=False, fontsize=8)
-
-fig.suptitle(
-    "Cloud Cost and Resource Utilization",
-    fontweight="bold"
-)
-
-
-# --------------------------------------------------
-# 5. Export research figures
-# --------------------------------------------------
-
-png_path = OUTPUT_DIR / "figure_03_cost_vs_utilization.png"
-pdf_path = OUTPUT_DIR / "figure_03_cost_vs_utilization.pdf"
-svg_path = OUTPUT_DIR / "figure_03_cost_vs_utilization.svg"
-
-fig.savefig(png_path, dpi=300, bbox_inches="tight")
-fig.savefig(pdf_path, bbox_inches="tight")
-fig.savefig(svg_path, bbox_inches="tight")
-
-plt.close(fig)
-
-
-# --------------------------------------------------
-# 6. Print research statistics
-# --------------------------------------------------
-
-low_cpu = df["Low_CPU_Utilization"]
-low_memory = df["Low_Memory_Utilization"]
-low_both = df["Low_CPU_and_Memory"]
-
-print("\nFIGURE 3 GENERATED SUCCESSFULLY")
-print("-" * 50)
-print(f"Valid records: {len(df):,}")
-print(f"Records excluded for invalid utilization: {invalid_count:,}")
-print(f"Low CPU utilization (<30%): {low_cpu.sum():,} ({low_cpu.mean() * 100:.2f}%)")
-print(
-    f"Low memory utilization (<30%): "
-    f"{low_memory.sum():,} ({low_memory.mean() * 100:.2f}%)"
-)
-print(
-    f"Low CPU AND memory utilization: "
-    f"{low_both.sum():,} ({low_both.mean() * 100:.2f}%)"
-)
-
-if low_both.any():
-    low_both_cost = df.loc[low_both, "Total_Cost_INR"].sum()
-    all_cost = df["Total_Cost_INR"].sum()
-
-    print(
-        f"Cost associated with records low in both: "
-        f"INR {low_both_cost:,.2f}"
+df["CPU_Status"] = df["CPU_Utilization"].apply(
+    lambda value: (
+        "Low CPU utilization"
+        if value < LOW_UTILIZATION_THRESHOLD
+        else "CPU utilization ≥ 30%"
     )
-    print(
-        f"Share of valid-record expenditure: "
-        f"{low_both_cost / all_cost * 100:.2f}%"
-    )
+)
 
-print("\nSaved files:")
-print(png_path)
-print(pdf_path)
-print(svg_path)
+df["Memory_Status"] = df["Memory_Utilization"].apply(
+    lambda value: (
+        "Low memory utilization"
+        if value < LOW_UTILIZATION_THRESHOLD
+        else "Memory utilization ≥ 30%"
+    )
+)
+
+# Format date for tooltip display.
+df["Billing_Date"] = df["Usage_Start_Date"].dt.strftime("%Y-%m-%d")
+
+
+# --------------------------------------------------
+# 3. Interactive graph: Cost vs CPU utilization
+# --------------------------------------------------
+
+cpu_fig = px.scatter(
+    df,
+    x="CPU_Utilization",
+    y="Total_Cost_INR",
+    color="CPU_Status",
+    hover_name="Resource_ID",
+    hover_data={
+        "Service_Name": True,
+        "Billing_Date": True,
+        "CPU_Utilization": ":.2f",
+        "Memory_Utilization": ":.2f",
+        "Total_Cost_INR": ":,.2f",
+        "CPU_Status": False,
+    },
+    color_discrete_map={
+        "Low CPU utilization": "#D95F59",
+        "CPU utilization ≥ 30%": "#477DB3",
+    },
+    labels={
+        "CPU_Utilization": "CPU Utilization (%)",
+        "Total_Cost_INR": "Expenditure (INR)",
+        "CPU_Status": "CPU screening",
+        "Service_Name": "Cloud Service",
+        "Billing_Date": "Billing Date",
+        "Memory_Utilization": "Memory Utilization (%)",
+    },
+    title="Cloud Expenditure vs CPU Utilization",
+    template="plotly_white",
+)
+
+cpu_fig.add_vline(
+    x=LOW_UTILIZATION_THRESHOLD,
+    line_dash="dash",
+    line_color="gray",
+    annotation_text="30% screening threshold",
+)
+
+cpu_fig.update_traces(
+    marker={"size": 9, "opacity": 0.75}
+)
+
+cpu_fig.update_layout(
+    height=650,
+    hoverlabel={"namelength": -1},
+    legend_title_text="CPU screening",
+)
+
+cpu_fig.update_xaxes(range=[0, 100])
+
+
+# --------------------------------------------------
+# 4. Interactive graph: Cost vs memory utilization
+# --------------------------------------------------
+
+memory_fig = px.scatter(
+    df,
+    x="Memory_Utilization",
+    y="Total_Cost_INR",
+    color="Memory_Status",
+    hover_name="Resource_ID",
+    hover_data={
+        "Service_Name": True,
+        "Billing_Date": True,
+        "CPU_Utilization": ":.2f",
+        "Memory_Utilization": ":.2f",
+        "Total_Cost_INR": ":,.2f",
+        "Memory_Status": False,
+    },
+    color_discrete_map={
+        "Low memory utilization": "#D95F59",
+        "Memory utilization ≥ 30%": "#477DB3",
+    },
+    labels={
+        "Memory_Utilization": "Memory Utilization (%)",
+        "Total_Cost_INR": "Expenditure (INR)",
+        "Memory_Status": "Memory screening",
+        "Service_Name": "Cloud Service",
+        "Billing_Date": "Billing Date",
+        "CPU_Utilization": "CPU Utilization (%)",
+    },
+    title="Cloud Expenditure vs Memory Utilization",
+    template="plotly_white",
+)
+
+memory_fig.add_vline(
+    x=LOW_UTILIZATION_THRESHOLD,
+    line_dash="dash",
+    line_color="gray",
+    annotation_text="30% screening threshold",
+)
+
+memory_fig.update_traces(
+    marker={"size": 9, "opacity": 0.75}
+)
+
+memory_fig.update_layout(
+    height=650,
+    hoverlabel={"namelength": -1},
+    legend_title_text="Memory screening",
+)
+
+memory_fig.update_xaxes(range=[0, 100])
+
+
+# --------------------------------------------------
+# 5. Save interactive HTML files
+# --------------------------------------------------
+
+cpu_path = OUTPUT_DIR / "figure_03a_interactive_cpu_cost.html"
+memory_path = OUTPUT_DIR / "figure_03b_interactive_memory_cost.html"
+
+cpu_fig.write_html(
+    str(cpu_path),
+    include_plotlyjs=True,
+)
+
+memory_fig.write_html(
+    str(memory_path),
+    include_plotlyjs=True,
+)
+
+
+# --------------------------------------------------
+# 6. Print verification summary
+# --------------------------------------------------
+
+print("\nINTERACTIVE FIGURE 3 GENERATED SUCCESSFULLY")
+print("-" * 55)
+print(f"Records plotted: {len(df):,}")
+print(f"Unique resources: {df['Resource_ID'].nunique():,}")
+print(f"Unique services: {df['Service_Name'].nunique():,}")
+
+print(
+    "Low CPU utilization records: "
+    f"{(df['CPU_Utilization'] < LOW_UTILIZATION_THRESHOLD).sum():,}"
+)
+
+print(
+    "Low memory utilization records: "
+    f"{(df['Memory_Utilization'] < LOW_UTILIZATION_THRESHOLD).sum():,}"
+)
+
+print("\nInteractive files:")
+print(cpu_path)
+print(memory_path)
+
+print(
+    "\nOpen either HTML file in a browser to hover over points, "
+    "zoom, pan, and inspect resource details."
+)
