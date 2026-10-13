@@ -1,0 +1,2 @@
+Forecast_Start_Date,Forecast_End_Date,Forecast_Days,Predicted_Total_Cost_INR,Average_Daily_Cost_INR,Minimum_Daily_Cost_INR,Maximum_Daily_Cost_INR,Model,Last_Observed_Date,Negative_Raw_Predictions_Clipped
+2024-08-30,2024-09-28,30,60861722.79896438,2028724.0932988126,1289811.5162728326,2839111.7252580626,Linear Trend with Weekday Effects (refit on all observed data),2024-08-29,0
