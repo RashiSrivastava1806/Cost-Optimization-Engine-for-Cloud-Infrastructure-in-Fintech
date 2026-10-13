@@ -1,0 +1,5573 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>FinTech Cloud Cost Optimization</title>
+<style>
+body{font-family:Arial,sans-serif;margin:28px;background:#f4f6fb;color:#172033}
+h1{color:#25356b} .cards{display:flex;flex-wrap:wrap;gap:14px}
+.card{background:white;padding:18px;border-radius:10px;min-width:180px;box-shadow:0 2px 8px #0001}
+.value{font-size:24px;font-weight:bold;margin-top:8px} .note{background:#fff4d6;padding:14px;border-radius:8px}
+.wrap{overflow:auto;background:white;padding:12px;border-radius:10px;margin-top:18px}
+table{border-collapse:collapse;font-size:12px;white-space:nowrap;width:100%}
+th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left} th{background:#e9edfa;position:sticky;top:0}
+</style></head><body>
+<h1>FinTech Cloud Cost Optimization Engine</h1>
+<p>Ranked recommendations generated from canonical SLA-enriched billing records.</p>
+<div class="cards">
+<div class="card">Recommendation records<div class="value">230</div></div>
+<div class="card">High priority<div class="value">127</div></div>
+<div class="card">Illustrative savings scenario<div class="value">₹360,651.60</div></div>
+<div class="card">Automatic changes allowed<div class="value">0</div></div>
+</div>
+<p class="note"><b>Safety and interpretation:</b> all actions require manual approval. Savings are illustrative, not guaranteed. Unverifiable SLA evidence is not proof of compliance. Anomaly flags require investigation, not automatic remediation.</p>
+<h2>Recommendations (up to 300 records)</h2>
+<div class="wrap"><table border="1" class="dataframe data">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Split</th>
+      <th>Resource_ID</th>
+      <th>Service_Name</th>
+      <th>Region_Zone</th>
+      <th>Usage_Start_Date</th>
+      <th>Current_Cost_INR</th>
+      <th>CPU_Utilization</th>
+      <th>Memory_Utilization</th>
+      <th>SLA_Compliance_Status</th>
+      <th>SLA_Evidence_Status</th>
+      <th>SLA_Risk_Level</th>
+      <th>Recommended_Action</th>
+      <th>Priority</th>
+      <th>Confidence</th>
+      <th>Potential_Savings_Scenario_10pct_INR</th>
+      <th>Savings_Is_Illustrative_Not_Guaranteed</th>
+      <th>Optimization_Blocked_Pending_Review</th>
+      <th>Manual_Approval_Required</th>
+      <th>Automatic_Modification_Allowed</th>
+      <th>Reason</th>
+      <th>Anomaly_Reason</th>
+      <th>Existing_Block_Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>train</td>
+      <td>res-CRE9O9RH</td>
+      <td>Pub/Sub</td>
+      <td>us-central1</td>
+      <td>2024-07-23 22:41:00</td>
+      <td>747332.0</td>
+      <td>73.09</td>
+      <td>38.66</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-LWGX075A</td>
+      <td>Cloud Dataproc</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-09 04:45:00</td>
+      <td>733139.0</td>
+      <td>7.35</td>
+      <td>60.67</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-KA8S76JP</td>
+      <td>Cloud Dataproc</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-22 10:43:00</td>
+      <td>726665.0</td>
+      <td>26.96</td>
+      <td>78.62</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RUL6UJ2I</td>
+      <td>Cloud NAT</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-15 11:22:00</td>
+      <td>726333.0</td>
+      <td>8.79</td>
+      <td>61.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-723DJQ6D</td>
+      <td>Cloud Data Fusion</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-04 06:46:00</td>
+      <td>721519.0</td>
+      <td>7.96</td>
+      <td>10.82</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-8EKE64Y9</td>
+      <td>Cloud Spanner</td>
+      <td>us-central1</td>
+      <td>2024-07-05 15:29:00</td>
+      <td>702844.0</td>
+      <td>55.96</td>
+      <td>8.80</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-D8Z8BVYA</td>
+      <td>Cloud Storage</td>
+      <td>europe-west1</td>
+      <td>2024-08-21 08:30:00</td>
+      <td>700686.0</td>
+      <td>80.93</td>
+      <td>21.64</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-QZVTIOPY</td>
+      <td>Cloud Storage</td>
+      <td>asia-east1</td>
+      <td>2024-07-08 12:55:00</td>
+      <td>700354.0</td>
+      <td>17.08</td>
+      <td>91.07</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ACEAM0OK</td>
+      <td>Cloud Dataproc</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-06 16:34:00</td>
+      <td>699524.0</td>
+      <td>69.75</td>
+      <td>67.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-WFOF16UH</td>
+      <td>Cloud Load Balancing</td>
+      <td>europe-west3</td>
+      <td>2024-08-14 17:10:00</td>
+      <td>685580.0</td>
+      <td>76.92</td>
+      <td>85.55</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-13MDNGII</td>
+      <td>BigQuery</td>
+      <td>europe-west3</td>
+      <td>2024-08-01 08:09:00</td>
+      <td>679272.0</td>
+      <td>98.57</td>
+      <td>99.09</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU and memory utilization meet or exceed blocking thresholds</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-WAAIIIM2</td>
+      <td>Cloud VPC</td>
+      <td>asia-east1</td>
+      <td>2024-07-21 05:23:00</td>
+      <td>678608.0</td>
+      <td>91.24</td>
+      <td>32.24</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ORVHD3QJ</td>
+      <td>Cloud Dataproc</td>
+      <td>us-east1</td>
+      <td>2024-08-08 03:49:00</td>
+      <td>678608.0</td>
+      <td>37.68</td>
+      <td>74.51</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-0WGR132X</td>
+      <td>Cloud Memorystore</td>
+      <td>us-east1</td>
+      <td>2024-08-24 11:01:00</td>
+      <td>672466.0</td>
+      <td>44.96</td>
+      <td>44.96</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-6SG95JJU</td>
+      <td>Cloud NAT</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-10 07:24:00</td>
+      <td>669727.0</td>
+      <td>38.37</td>
+      <td>95.07</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-EYL1TUPP</td>
+      <td>Cloud Armor</td>
+      <td>europe-west1</td>
+      <td>2024-07-29 16:17:00</td>
+      <td>667735.0</td>
+      <td>58.63</td>
+      <td>4.35</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-7LLUZT3G</td>
+      <td>Cloud Endpoints</td>
+      <td>europe-north1</td>
+      <td>2024-08-09 07:10:00</td>
+      <td>663170.0</td>
+      <td>21.58</td>
+      <td>24.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-DTA164QF</td>
+      <td>Cloud Interconnect</td>
+      <td>us-west1</td>
+      <td>2024-08-20 02:10:00</td>
+      <td>655617.0</td>
+      <td>23.88</td>
+      <td>21.64</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-UF72S2ZA</td>
+      <td>Cloud Build</td>
+      <td>us-central1</td>
+      <td>2024-08-17 12:09:00</td>
+      <td>642171.0</td>
+      <td>48.26</td>
+      <td>26.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-67NUV63U</td>
+      <td>Pub/Sub</td>
+      <td>europe-north1</td>
+      <td>2024-08-10 02:40:00</td>
+      <td>631547.0</td>
+      <td>29.61</td>
+      <td>41.17</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-Q4HVSTFI</td>
+      <td>Cloud Spanner</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-11 20:54:00</td>
+      <td>623662.0</td>
+      <td>43.68</td>
+      <td>4.57</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-UOI35WIO</td>
+      <td>Cloud CDN</td>
+      <td>europe-west3</td>
+      <td>2024-08-18 12:38:00</td>
+      <td>608307.0</td>
+      <td>74.93</td>
+      <td>39.42</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-VWM05I69</td>
+      <td>Cloud Load Balancing</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-22 22:04:00</td>
+      <td>606149.0</td>
+      <td>32.34</td>
+      <td>42.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-X1LNU5KK</td>
+      <td>Cloud Dataproc</td>
+      <td>us-east1</td>
+      <td>2024-07-03 15:25:00</td>
+      <td>604572.0</td>
+      <td>48.72</td>
+      <td>36.85</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DJA0J2HT</td>
+      <td>Container Registry</td>
+      <td>us-east1</td>
+      <td>2024-08-12 04:55:00</td>
+      <td>590628.0</td>
+      <td>43.51</td>
+      <td>62.00</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-XK8ZUWJA</td>
+      <td>Firestore</td>
+      <td>europe-west1</td>
+      <td>2024-08-02 23:18:00</td>
+      <td>586976.0</td>
+      <td>54.66</td>
+      <td>80.70</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-YVDZ7Y3W</td>
+      <td>Cloud CDN</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-31 13:44:00</td>
+      <td>585150.0</td>
+      <td>6.97</td>
+      <td>29.33</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IJNXZ1NF</td>
+      <td>Container Registry</td>
+      <td>europe-north1</td>
+      <td>2024-07-12 11:01:00</td>
+      <td>580751.0</td>
+      <td>69.25</td>
+      <td>79.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-KMJ0ZWLU</td>
+      <td>Cloud NAT</td>
+      <td>europe-west3</td>
+      <td>2024-07-26 13:07:00</td>
+      <td>572202.0</td>
+      <td>11.58</td>
+      <td>44.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3ECMMHD3</td>
+      <td>Cloud Armor</td>
+      <td>asia-east1</td>
+      <td>2024-07-01 16:40:00</td>
+      <td>572036.0</td>
+      <td>38.05</td>
+      <td>9.48</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AJJX91AK</td>
+      <td>Cloud Spanner</td>
+      <td>europe-north1</td>
+      <td>2024-07-22 12:33:00</td>
+      <td>566475.0</td>
+      <td>7.34</td>
+      <td>6.22</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3L534J8F</td>
+      <td>Cloud NAT</td>
+      <td>europe-west1</td>
+      <td>2024-07-07 19:48:00</td>
+      <td>565811.0</td>
+      <td>31.41</td>
+      <td>66.93</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-72P7USQ6</td>
+      <td>Cloud SQL</td>
+      <td>europe-north1</td>
+      <td>2024-08-12 12:15:00</td>
+      <td>562076.0</td>
+      <td>7.50</td>
+      <td>81.05</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-7HN7RZ4O</td>
+      <td>Firestore</td>
+      <td>europe-north1</td>
+      <td>2024-07-28 16:33:00</td>
+      <td>555436.0</td>
+      <td>81.56</td>
+      <td>41.86</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-2RR6XXID</td>
+      <td>Cloud VPC</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-16 19:38:00</td>
+      <td>555270.0</td>
+      <td>25.09</td>
+      <td>27.26</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-6SP2IRJE</td>
+      <td>Container Registry</td>
+      <td>us-west1</td>
+      <td>2024-08-14 14:34:00</td>
+      <td>555104.0</td>
+      <td>71.11</td>
+      <td>20.31</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-Z35RBDV4</td>
+      <td>Cloud Endpoints</td>
+      <td>asia-east1</td>
+      <td>2024-08-01 16:37:00</td>
+      <td>536014.0</td>
+      <td>16.04</td>
+      <td>92.44</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-QFCBS0OP</td>
+      <td>Cloud Storage</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-18 16:38:00</td>
+      <td>527299.0</td>
+      <td>70.54</td>
+      <td>72.19</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3O5Q6SPM</td>
+      <td>Cloud Spanner</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-23 23:08:00</td>
+      <td>518335.0</td>
+      <td>12.38</td>
+      <td>39.08</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-9K7LR2E5</td>
+      <td>Cloud Endpoints</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-23 03:12:00</td>
+      <td>517505.0</td>
+      <td>26.60</td>
+      <td>26.62</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-5YTFENT5</td>
+      <td>Cloud Build</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-11 03:47:00</td>
+      <td>512608.0</td>
+      <td>26.95</td>
+      <td>25.64</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-OYTZUKIA</td>
+      <td>Cloud Data Fusion</td>
+      <td>us-east1</td>
+      <td>2024-07-18 19:27:00</td>
+      <td>496921.0</td>
+      <td>79.78</td>
+      <td>48.02</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-XCM67VGG</td>
+      <td>Cloud NAT</td>
+      <td>asia-east1</td>
+      <td>2024-07-09 01:42:00</td>
+      <td>495178.0</td>
+      <td>88.72</td>
+      <td>54.12</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3F8DKCVT</td>
+      <td>Cloud Build</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-09 04:17:00</td>
+      <td>492771.0</td>
+      <td>34.32</td>
+      <td>66.10</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0C0LFDHN</td>
+      <td>Cloud Interconnect</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-06 06:33:00</td>
+      <td>487791.0</td>
+      <td>29.11</td>
+      <td>28.36</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-LHH3C6YV</td>
+      <td>Cloud VPC</td>
+      <td>europe-west3</td>
+      <td>2024-08-08 05:23:00</td>
+      <td>479989.0</td>
+      <td>51.03</td>
+      <td>1.84</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-HZFHS19U</td>
+      <td>Cloud Load Balancing</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-14 15:47:00</td>
+      <td>479408.0</td>
+      <td>32.51</td>
+      <td>19.15</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-GYU2G1O4</td>
+      <td>Cloud Endpoints</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-15 21:00:00</td>
+      <td>476337.0</td>
+      <td>35.50</td>
+      <td>11.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-G71C069R</td>
+      <td>Pub/Sub</td>
+      <td>europe-west1</td>
+      <td>2024-07-29 00:28:00</td>
+      <td>474594.0</td>
+      <td>31.52</td>
+      <td>46.67</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IP58UFOC</td>
+      <td>Cloud Load Balancing</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-06 10:10:00</td>
+      <td>473847.0</td>
+      <td>34.33</td>
+      <td>16.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-LWCETABL</td>
+      <td>Cloud Data Fusion</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-11 12:46:00</td>
+      <td>468535.0</td>
+      <td>57.93</td>
+      <td>37.46</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-JI5I18V9</td>
+      <td>Cloud Storage</td>
+      <td>europe-west1</td>
+      <td>2024-07-30 16:42:00</td>
+      <td>463223.0</td>
+      <td>60.89</td>
+      <td>34.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-WN4BM9FD</td>
+      <td>BigQuery</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-05 01:13:00</td>
+      <td>454010.0</td>
+      <td>99.56</td>
+      <td>53.42</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-GLWSU5H0</td>
+      <td>Cloud Memorystore</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-21 11:54:00</td>
+      <td>453844.0</td>
+      <td>5.33</td>
+      <td>50.11</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-W2V0JO7D</td>
+      <td>Cloud Data Fusion</td>
+      <td>europe-west1</td>
+      <td>2024-08-23 03:50:00</td>
+      <td>450939.0</td>
+      <td>12.86</td>
+      <td>16.46</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-JANIO4Q7</td>
+      <td>Cloud VPC</td>
+      <td>europe-north1</td>
+      <td>2024-08-19 20:36:00</td>
+      <td>450275.0</td>
+      <td>24.74</td>
+      <td>87.26</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-MAVKE4GL</td>
+      <td>Cloud Interconnect</td>
+      <td>us-west1</td>
+      <td>2024-08-13 05:19:00</td>
+      <td>444963.0</td>
+      <td>51.03</td>
+      <td>44.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-SJ11891I</td>
+      <td>Cloud CDN</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-01 16:15:00</td>
+      <td>441477.0</td>
+      <td>11.67</td>
+      <td>6.75</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-F5EMGMM8</td>
+      <td>Cloud SQL</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-01 11:01:00</td>
+      <td>440730.0</td>
+      <td>22.26</td>
+      <td>20.26</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-7XJ95SED</td>
+      <td>Cloud Storage</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-27 03:17:00</td>
+      <td>437825.0</td>
+      <td>28.47</td>
+      <td>21.39</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-MZB1S515</td>
+      <td>Cloud Storage</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-01 15:32:00</td>
+      <td>427948.0</td>
+      <td>53.72</td>
+      <td>31.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-G0M36ARR</td>
+      <td>Cloud CDN</td>
+      <td>us-east1</td>
+      <td>2024-07-25 04:58:00</td>
+      <td>423715.0</td>
+      <td>57.94</td>
+      <td>80.47</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ZCUUTLGI</td>
+      <td>Cloud Memorystore</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-24 17:18:00</td>
+      <td>415498.0</td>
+      <td>36.26</td>
+      <td>92.80</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-O5HIQONO</td>
+      <td>Cloud SQL</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-10 10:38:00</td>
+      <td>413423.0</td>
+      <td>93.73</td>
+      <td>55.25</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-P764A8A1</td>
+      <td>Cloud Dataproc</td>
+      <td>us-central1</td>
+      <td>2024-08-18 11:04:00</td>
+      <td>407779.0</td>
+      <td>66.17</td>
+      <td>85.23</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-J1A4NFH8</td>
+      <td>Cloud VPN</td>
+      <td>us-east1</td>
+      <td>2024-08-03 23:10:00</td>
+      <td>404210.0</td>
+      <td>32.32</td>
+      <td>14.03</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-T4P2WKQB</td>
+      <td>Cloud CDN</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-28 09:27:00</td>
+      <td>397321.0</td>
+      <td>29.77</td>
+      <td>58.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-TYGNR0RV</td>
+      <td>Pub/Sub</td>
+      <td>europe-west1</td>
+      <td>2024-08-23 09:18:00</td>
+      <td>390930.0</td>
+      <td>37.78</td>
+      <td>46.80</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-HPZG31IQ</td>
+      <td>Pub/Sub</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-09 23:43:00</td>
+      <td>388274.0</td>
+      <td>13.18</td>
+      <td>37.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-LSZORKYT</td>
+      <td>Cloud Endpoints</td>
+      <td>us-east1</td>
+      <td>2024-08-21 04:37:00</td>
+      <td>386448.0</td>
+      <td>2.58</td>
+      <td>23.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-KGO1KFI6</td>
+      <td>Cloud Armor</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-24 23:13:00</td>
+      <td>383958.0</td>
+      <td>10.79</td>
+      <td>45.08</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-8DMDOAEB</td>
+      <td>Cloud Load Balancing</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-02 16:07:00</td>
+      <td>381219.0</td>
+      <td>59.72</td>
+      <td>17.93</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4E62CARB</td>
+      <td>Cloud Storage</td>
+      <td>europe-west3</td>
+      <td>2024-07-24 04:01:00</td>
+      <td>376405.0</td>
+      <td>22.24</td>
+      <td>40.82</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-WGSVDFWN</td>
+      <td>Cloud VPN</td>
+      <td>europe-west3</td>
+      <td>2024-07-20 14:08:00</td>
+      <td>372255.0</td>
+      <td>97.98</td>
+      <td>92.04</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU and memory utilization meet or exceed blocking thresholds</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ZKMC08Q6</td>
+      <td>Cloud VPN</td>
+      <td>us-central1</td>
+      <td>2024-07-06 19:49:00</td>
+      <td>367856.0</td>
+      <td>37.77</td>
+      <td>12.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-9QO2FLXN</td>
+      <td>Cloud Data Fusion</td>
+      <td>europe-west1</td>
+      <td>2024-07-10 04:21:00</td>
+      <td>363457.0</td>
+      <td>75.94</td>
+      <td>56.56</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4ZQ18WTF</td>
+      <td>BigQuery</td>
+      <td>europe-west3</td>
+      <td>2024-07-13 21:38:00</td>
+      <td>362378.0</td>
+      <td>99.22</td>
+      <td>99.12</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU and memory utilization meet or exceed blocking thresholds</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-NXRJ4YNL</td>
+      <td>Cloud VPC</td>
+      <td>us-central1</td>
+      <td>2024-08-03 06:01:00</td>
+      <td>359473.0</td>
+      <td>24.84</td>
+      <td>34.47</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-VP7PCV8U</td>
+      <td>Cloud Endpoints</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-27 23:40:00</td>
+      <td>358477.0</td>
+      <td>1.26</td>
+      <td>40.65</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-OZI3Q9ZQ</td>
+      <td>Cloud NAT</td>
+      <td>us-east1</td>
+      <td>2024-08-27 18:28:00</td>
+      <td>339802.0</td>
+      <td>4.19</td>
+      <td>45.77</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-JIIFFF2O</td>
+      <td>Cloud Build</td>
+      <td>asia-east1</td>
+      <td>2024-08-16 03:41:00</td>
+      <td>333660.0</td>
+      <td>91.96</td>
+      <td>91.61</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU and memory utilization meet or exceed blocking thresholds</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-Q1Z642YW</td>
+      <td>Cloud Interconnect</td>
+      <td>us-east1</td>
+      <td>2024-07-12 00:22:00</td>
+      <td>328680.0</td>
+      <td>8.12</td>
+      <td>42.07</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-C3AMONZ6</td>
+      <td>Cloud VPN</td>
+      <td>europe-west1</td>
+      <td>2024-07-23 16:11:00</td>
+      <td>328265.0</td>
+      <td>59.68</td>
+      <td>32.70</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-LOIOQXNF</td>
+      <td>Cloud Interconnect</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-19 12:07:00</td>
+      <td>327850.0</td>
+      <td>3.07</td>
+      <td>5.56</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-MJRPXFOX</td>
+      <td>Cloud SQL</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-09 12:59:00</td>
+      <td>325858.0</td>
+      <td>3.96</td>
+      <td>14.60</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AFUYJB0H</td>
+      <td>Cloud Build</td>
+      <td>europe-west3</td>
+      <td>2024-07-24 08:49:00</td>
+      <td>325360.0</td>
+      <td>40.56</td>
+      <td>5.12</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-34QKC3L8</td>
+      <td>Pub/Sub</td>
+      <td>europe-west3</td>
+      <td>2024-07-23 17:08:00</td>
+      <td>323617.0</td>
+      <td>77.26</td>
+      <td>40.23</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-1KB82DYG</td>
+      <td>Pub/Sub</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-10 09:36:00</td>
+      <td>320629.0</td>
+      <td>51.35</td>
+      <td>48.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0TOZI6GW</td>
+      <td>Cloud Data Fusion</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-15 07:46:00</td>
+      <td>312163.0</td>
+      <td>88.89</td>
+      <td>58.96</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-OGI8DBG9</td>
+      <td>Cloud NAT</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-14 04:13:00</td>
+      <td>311748.0</td>
+      <td>0.45</td>
+      <td>17.79</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RJ0E47ZX</td>
+      <td>Cloud VPC</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-08 22:37:00</td>
+      <td>306685.0</td>
+      <td>38.45</td>
+      <td>58.64</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IPSRXLS0</td>
+      <td>Cloud Spanner</td>
+      <td>europe-west1</td>
+      <td>2024-07-02 00:58:00</td>
+      <td>304610.0</td>
+      <td>24.73</td>
+      <td>11.63</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-M8RGW39R</td>
+      <td>Cloud Storage</td>
+      <td>europe-west3</td>
+      <td>2024-08-03 09:32:00</td>
+      <td>300626.0</td>
+      <td>13.08</td>
+      <td>0.58</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-K36OUS3E</td>
+      <td>Cloud Dataproc</td>
+      <td>europe-west1</td>
+      <td>2024-07-21 17:43:00</td>
+      <td>299547.0</td>
+      <td>44.35</td>
+      <td>6.10</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-0EVT01ZJ</td>
+      <td>Container Registry</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-21 18:56:00</td>
+      <td>298800.0</td>
+      <td>98.92</td>
+      <td>56.01</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>CPU utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0IY5CRHC</td>
+      <td>Cloud Endpoints</td>
+      <td>us-central1</td>
+      <td>2024-07-06 00:15:00</td>
+      <td>294069.0</td>
+      <td>53.22</td>
+      <td>40.17</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-UKLS5GOC</td>
+      <td>Cloud Memorystore</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-16 22:05:00</td>
+      <td>289670.0</td>
+      <td>9.38</td>
+      <td>29.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RQBGWF4Z</td>
+      <td>Firestore</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-22 09:06:00</td>
+      <td>280789.0</td>
+      <td>5.05</td>
+      <td>34.96</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-W8GT53T9</td>
+      <td>Cloud NAT</td>
+      <td>us-west1</td>
+      <td>2024-08-24 16:26:00</td>
+      <td>278880.0</td>
+      <td>6.07</td>
+      <td>48.18</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-MHUZ0UCB</td>
+      <td>Cloud NAT</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-03 07:49:00</td>
+      <td>274979.0</td>
+      <td>25.50</td>
+      <td>89.97</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-U0XU6E1T</td>
+      <td>Cloud Dataproc</td>
+      <td>asia-east1</td>
+      <td>2024-08-02 02:38:00</td>
+      <td>273568.0</td>
+      <td>80.81</td>
+      <td>91.42</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>HIGH</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>Memory utilization meets or exceeds the blocking threshold</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-W85DRFX6</td>
+      <td>Cloud CDN</td>
+      <td>us-central1</td>
+      <td>2024-08-14 13:38:00</td>
+      <td>271742.0</td>
+      <td>60.38</td>
+      <td>37.62</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-QZSVFSSA</td>
+      <td>Cloud Spanner</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-03 16:43:00</td>
+      <td>266264.0</td>
+      <td>7.74</td>
+      <td>32.63</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-H0DVICQY</td>
+      <td>Cloud Memorystore</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-12 15:35:00</td>
+      <td>253233.0</td>
+      <td>22.52</td>
+      <td>11.70</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-PAFNOK2A</td>
+      <td>Cloud Dataproc</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-14 13:19:00</td>
+      <td>248502.0</td>
+      <td>8.65</td>
+      <td>10.66</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>Statistical outlier; Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-UPQDPFWM</td>
+      <td>Container Registry</td>
+      <td>europe-north1</td>
+      <td>2024-07-17 10:40:00</td>
+      <td>243605.0</td>
+      <td>69.47</td>
+      <td>60.80</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Statistical outlier</td>
+      <td>Statistical outlier</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-5GDKWNDY</td>
+      <td>Cloud Endpoints</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-28 06:36:00</td>
+      <td>239289.0</td>
+      <td>24.66</td>
+      <td>3.98</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-MUPY9G3R</td>
+      <td>Cloud VPC</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-10 06:17:00</td>
+      <td>229329.0</td>
+      <td>15.52</td>
+      <td>37.10</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-55NYF6H9</td>
+      <td>Firestore</td>
+      <td>europe-west3</td>
+      <td>2024-08-12 21:46:00</td>
+      <td>219120.0</td>
+      <td>5.54</td>
+      <td>13.21</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-UWUK1WBC</td>
+      <td>Cloud Interconnect</td>
+      <td>us-west1</td>
+      <td>2024-08-02 15:51:00</td>
+      <td>207666.0</td>
+      <td>31.76</td>
+      <td>4.00</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-SG6WQFX8</td>
+      <td>Cloud Armor</td>
+      <td>us-west1</td>
+      <td>2024-07-14 09:21:00</td>
+      <td>195216.0</td>
+      <td>44.97</td>
+      <td>13.16</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-N5X9BFE3</td>
+      <td>AI Platform</td>
+      <td>asia-east1</td>
+      <td>2024-08-26 01:14:00</td>
+      <td>99517.0</td>
+      <td>17.84</td>
+      <td>37.57</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-BHG77DRY</td>
+      <td>AI Platform</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-26 15:36:00</td>
+      <td>93458.0</td>
+      <td>25.80</td>
+      <td>10.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-Z6YLMLP0</td>
+      <td>Cloud Run</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-17 08:40:00</td>
+      <td>89308.0</td>
+      <td>51.91</td>
+      <td>4.78</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-BNWFJDUX</td>
+      <td>Dataflow</td>
+      <td>europe-west3</td>
+      <td>2024-07-14 13:26:00</td>
+      <td>84079.0</td>
+      <td>7.16</td>
+      <td>26.61</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AGO278CW</td>
+      <td>Compute Engine</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-04 05:25:00</td>
+      <td>82668.0</td>
+      <td>14.64</td>
+      <td>17.36</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-TZCL1KUV</td>
+      <td>Dataflow</td>
+      <td>europe-west3</td>
+      <td>2024-08-02 09:11:00</td>
+      <td>73870.0</td>
+      <td>1.00</td>
+      <td>52.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IK64CSKN</td>
+      <td>Kubernetes Engine</td>
+      <td>us-west1</td>
+      <td>2024-07-31 00:35:00</td>
+      <td>70218.0</td>
+      <td>18.42</td>
+      <td>2.48</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-B4GZM2Q6</td>
+      <td>AI Platform</td>
+      <td>europe-west1</td>
+      <td>2024-08-14 09:47:00</td>
+      <td>66400.0</td>
+      <td>12.91</td>
+      <td>5.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-VDWB23OS</td>
+      <td>Kubernetes Engine</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-25 04:52:00</td>
+      <td>57104.0</td>
+      <td>25.47</td>
+      <td>23.54</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DM1O00MA</td>
+      <td>Compute Engine</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-12 10:43:00</td>
+      <td>56440.0</td>
+      <td>32.21</td>
+      <td>24.58</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-LWK6DJPU</td>
+      <td>Dataflow</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-01 10:58:00</td>
+      <td>54199.0</td>
+      <td>32.91</td>
+      <td>22.82</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AVL32DIT</td>
+      <td>AI Platform</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-23 04:35:00</td>
+      <td>53286.0</td>
+      <td>28.98</td>
+      <td>27.72</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-J6ZAWPRX</td>
+      <td>Dataflow</td>
+      <td>asia-east1</td>
+      <td>2024-07-08 01:41:00</td>
+      <td>53120.0</td>
+      <td>11.60</td>
+      <td>26.83</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-KC83Q99Y</td>
+      <td>Cloud Run</td>
+      <td>europe-west1</td>
+      <td>2024-07-06 03:49:00</td>
+      <td>50796.0</td>
+      <td>31.15</td>
+      <td>9.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-2E4RS9BK</td>
+      <td>Dataflow</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-15 04:09:00</td>
+      <td>40504.0</td>
+      <td>26.77</td>
+      <td>9.98</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-B7JMXF5F</td>
+      <td>Dataflow</td>
+      <td>us-west1</td>
+      <td>2024-08-29 08:40:00</td>
+      <td>40338.0</td>
+      <td>12.74</td>
+      <td>46.18</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Investigate billing or usage anomaly</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>Low utilization with high service-relative cost</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-JVDFHO7N</td>
+      <td>Cloud Data Fusion</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-28 16:33:00</td>
+      <td>342624.0</td>
+      <td>28.62</td>
+      <td>31.18</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DXKGGUD7</td>
+      <td>Cloud SQL</td>
+      <td>asia-east1</td>
+      <td>2024-07-01 11:10:00</td>
+      <td>279544.0</td>
+      <td>0.69</td>
+      <td>57.08</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-XCONMZ4R</td>
+      <td>Cloud SQL</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-09 15:30:00</td>
+      <td>271825.0</td>
+      <td>41.13</td>
+      <td>18.29</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RZPR26RG</td>
+      <td>Cloud Storage</td>
+      <td>us-central1</td>
+      <td>2024-07-08 19:27:00</td>
+      <td>271244.0</td>
+      <td>26.45</td>
+      <td>34.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>MEDIUM</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-KSGEF76B</td>
+      <td>Cloud Load Balancing</td>
+      <td>us-west1</td>
+      <td>2024-08-10 21:29:00</td>
+      <td>258047.0</td>
+      <td>0.06</td>
+      <td>26.34</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>25804.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 0.1% and memory utilization is 26.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-OIFGN9S6</td>
+      <td>Cloud CDN</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-02 05:59:00</td>
+      <td>243688.0</td>
+      <td>37.12</td>
+      <td>15.38</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-2RV15ZP7</td>
+      <td>Cloud Build</td>
+      <td>europe-west1</td>
+      <td>2024-08-23 18:06:00</td>
+      <td>227586.0</td>
+      <td>21.60</td>
+      <td>39.95</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-R75ZLOMH</td>
+      <td>Cloud Memorystore</td>
+      <td>us-central1</td>
+      <td>2024-07-17 19:28:00</td>
+      <td>210737.0</td>
+      <td>49.21</td>
+      <td>8.33</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-JN0AHW8I</td>
+      <td>Cloud Memorystore</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-10 18:57:00</td>
+      <td>210322.0</td>
+      <td>36.00</td>
+      <td>16.45</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0OBWMFY3</td>
+      <td>Cloud CDN</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-07 01:36:00</td>
+      <td>205010.0</td>
+      <td>29.26</td>
+      <td>5.84</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>20501.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 29.3% and memory utilization is 5.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RMU6GKFR</td>
+      <td>Cloud Memorystore</td>
+      <td>asia-east1</td>
+      <td>2024-08-14 10:27:00</td>
+      <td>205010.0</td>
+      <td>30.70</td>
+      <td>10.91</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-P48QXSH3</td>
+      <td>Cloud Build</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-15 10:39:00</td>
+      <td>200777.0</td>
+      <td>2.24</td>
+      <td>9.65</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>20077.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 2.2% and memory utilization is 9.7%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-EVJ09YOW</td>
+      <td>Container Registry</td>
+      <td>europe-west1</td>
+      <td>2024-07-20 00:10:00</td>
+      <td>194718.0</td>
+      <td>5.84</td>
+      <td>51.52</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ZWIM5IQO</td>
+      <td>Cloud Load Balancing</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-13 08:40:00</td>
+      <td>191149.0</td>
+      <td>7.86</td>
+      <td>24.27</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>19114.9</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 7.9% and memory utilization is 24.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0NU1STIM</td>
+      <td>Cloud SQL</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-11 02:34:00</td>
+      <td>185588.0</td>
+      <td>2.61</td>
+      <td>7.63</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>18558.8</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 2.6% and memory utilization is 7.6%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-5YOKEQSZ</td>
+      <td>Cloud Armor</td>
+      <td>us-east1</td>
+      <td>2024-08-18 02:24:00</td>
+      <td>185588.0</td>
+      <td>1.34</td>
+      <td>40.77</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DFXDPR49</td>
+      <td>Cloud Interconnect</td>
+      <td>europe-west3</td>
+      <td>2024-07-19 16:25:00</td>
+      <td>185339.0</td>
+      <td>5.96</td>
+      <td>31.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-L8NU3JXW</td>
+      <td>Pub/Sub</td>
+      <td>asia-east1</td>
+      <td>2024-07-29 02:21:00</td>
+      <td>185090.0</td>
+      <td>33.15</td>
+      <td>23.82</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-X5BTK7T1</td>
+      <td>Cloud Data Fusion</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-08 17:22:00</td>
+      <td>184758.0</td>
+      <td>21.95</td>
+      <td>3.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>18475.8</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 21.9% and memory utilization is 3.7%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AUBOWRG6</td>
+      <td>Pub/Sub</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-27 12:30:00</td>
+      <td>183679.0</td>
+      <td>26.20</td>
+      <td>39.45</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-86BKSPWE</td>
+      <td>Pub/Sub</td>
+      <td>europe-west3</td>
+      <td>2024-07-13 17:38:00</td>
+      <td>181023.0</td>
+      <td>24.03</td>
+      <td>11.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>18102.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 24.0% and memory utilization is 11.4%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-VH7R6G7G</td>
+      <td>Cloud VPC</td>
+      <td>europe-west1</td>
+      <td>2024-07-15 02:11:00</td>
+      <td>179280.0</td>
+      <td>53.13</td>
+      <td>5.13</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-F3P3S9SJ</td>
+      <td>Cloud Armor</td>
+      <td>europe-north1</td>
+      <td>2024-07-07 17:00:00</td>
+      <td>170482.0</td>
+      <td>24.22</td>
+      <td>20.83</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>17048.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 24.2% and memory utilization is 20.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-OGSC78DB</td>
+      <td>Cloud CDN</td>
+      <td>asia-east1</td>
+      <td>2024-08-07 00:55:00</td>
+      <td>168490.0</td>
+      <td>26.60</td>
+      <td>9.73</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>16849.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 26.6% and memory utilization is 9.7%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-VN7DLO1M</td>
+      <td>Cloud Interconnect</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-05 18:19:00</td>
+      <td>167992.0</td>
+      <td>2.50</td>
+      <td>40.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-XQMIIKI9</td>
+      <td>Cloud Memorystore</td>
+      <td>europe-north1</td>
+      <td>2024-07-16 22:56:00</td>
+      <td>166747.0</td>
+      <td>44.75</td>
+      <td>9.62</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-6C3V0R66</td>
+      <td>Cloud Storage</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-07 13:53:00</td>
+      <td>165834.0</td>
+      <td>18.53</td>
+      <td>30.30</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IAQOWG44</td>
+      <td>Cloud Storage</td>
+      <td>europe-west3</td>
+      <td>2024-08-10 23:53:00</td>
+      <td>162431.0</td>
+      <td>15.15</td>
+      <td>0.46</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>16243.1</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 15.2% and memory utilization is 0.5%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-M9M70ZPZ</td>
+      <td>BigQuery</td>
+      <td>asia-east1</td>
+      <td>2024-07-08 22:55:00</td>
+      <td>160439.0</td>
+      <td>12.19</td>
+      <td>1.93</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>16043.9</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 12.2% and memory utilization is 1.9%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-D898I2VF</td>
+      <td>Cloud Spanner</td>
+      <td>europe-west3</td>
+      <td>2024-07-15 17:28:00</td>
+      <td>156704.0</td>
+      <td>25.97</td>
+      <td>35.92</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-2QQ6HOHO</td>
+      <td>BigQuery</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-06 06:00:00</td>
+      <td>156123.0</td>
+      <td>27.67</td>
+      <td>10.10</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>15612.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 27.7% and memory utilization is 10.1%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-V73RDKOP</td>
+      <td>Cloud Endpoints</td>
+      <td>europe-west3</td>
+      <td>2024-07-22 14:32:00</td>
+      <td>156040.0</td>
+      <td>44.05</td>
+      <td>1.48</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-A4ULLZJW</td>
+      <td>Cloud Storage</td>
+      <td>us-west1</td>
+      <td>2024-07-02 09:16:00</td>
+      <td>149400.0</td>
+      <td>13.58</td>
+      <td>33.18</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4RM5Q210</td>
+      <td>Cloud CDN</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-08 06:26:00</td>
+      <td>149317.0</td>
+      <td>3.75</td>
+      <td>27.96</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>14931.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 3.8% and memory utilization is 28.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-W3LTP3WP</td>
+      <td>Cloud Dataproc</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-16 11:35:00</td>
+      <td>145665.0</td>
+      <td>1.21</td>
+      <td>31.08</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-GEV1Y8HI</td>
+      <td>Cloud Storage</td>
+      <td>us-central1</td>
+      <td>2024-07-31 21:15:00</td>
+      <td>142013.0</td>
+      <td>45.59</td>
+      <td>0.74</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3UA97I0E</td>
+      <td>Pub/Sub</td>
+      <td>europe-west1</td>
+      <td>2024-07-30 19:34:00</td>
+      <td>139523.0</td>
+      <td>24.38</td>
+      <td>21.32</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>13952.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 24.4% and memory utilization is 21.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-3KHNOERC</td>
+      <td>Cloud Interconnect</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-03 02:49:00</td>
+      <td>138693.0</td>
+      <td>18.05</td>
+      <td>9.28</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>13869.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 18.1% and memory utilization is 9.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-NSTICBTG</td>
+      <td>Pub/Sub</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-25 08:44:00</td>
+      <td>129231.0</td>
+      <td>37.54</td>
+      <td>1.19</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-50ENK9SD</td>
+      <td>Cloud Load Balancing</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-21 04:58:00</td>
+      <td>128567.0</td>
+      <td>32.05</td>
+      <td>19.10</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-L0UE4NJN</td>
+      <td>Cloud Load Balancing</td>
+      <td>europe-west3</td>
+      <td>2024-07-08 21:09:00</td>
+      <td>122674.0</td>
+      <td>2.34</td>
+      <td>57.32</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-TMUUSOKX</td>
+      <td>Cloud Memorystore</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-09 11:52:00</td>
+      <td>120765.0</td>
+      <td>8.77</td>
+      <td>37.92</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-5KDNGDZZ</td>
+      <td>Cloud Interconnect</td>
+      <td>europe-north1</td>
+      <td>2024-07-27 19:26:00</td>
+      <td>110390.0</td>
+      <td>50.11</td>
+      <td>2.28</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-TIBV15AR</td>
+      <td>Cloud Build</td>
+      <td>asia-east1</td>
+      <td>2024-08-11 15:12:00</td>
+      <td>103833.0</td>
+      <td>8.17</td>
+      <td>50.76</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-7WNF8X7W</td>
+      <td>Cloud VPC</td>
+      <td>asia-east1</td>
+      <td>2024-07-16 05:09:00</td>
+      <td>102090.0</td>
+      <td>8.38</td>
+      <td>45.30</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DXFGDOXR</td>
+      <td>Cloud SQL</td>
+      <td>europe-west3</td>
+      <td>2024-08-06 01:01:00</td>
+      <td>101509.0</td>
+      <td>3.98</td>
+      <td>48.93</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-F6974M69</td>
+      <td>Cloud Interconnect</td>
+      <td>us-west1</td>
+      <td>2024-08-08 23:42:00</td>
+      <td>100347.0</td>
+      <td>36.36</td>
+      <td>12.60</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-XVWM45WT</td>
+      <td>Firestore</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-10 16:42:00</td>
+      <td>99517.0</td>
+      <td>8.67</td>
+      <td>25.58</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>9951.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 8.7% and memory utilization is 25.6%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-YLWPCS4J</td>
+      <td>Firestore</td>
+      <td>europe-west1</td>
+      <td>2024-08-19 22:11:00</td>
+      <td>99019.0</td>
+      <td>34.12</td>
+      <td>17.38</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-WYVJMQ5V</td>
+      <td>Cloud Endpoints</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-10 18:36:00</td>
+      <td>98106.0</td>
+      <td>40.15</td>
+      <td>7.95</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-URVB26BJ</td>
+      <td>Firestore</td>
+      <td>australia-southeast1</td>
+      <td>2024-07-19 13:10:00</td>
+      <td>93292.0</td>
+      <td>11.30</td>
+      <td>28.26</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>9329.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 11.3% and memory utilization is 28.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-C2BO9C9A</td>
+      <td>Cloud Build</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-02 19:13:00</td>
+      <td>91300.0</td>
+      <td>15.22</td>
+      <td>33.29</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-BZNFRDX2</td>
+      <td>Cloud VPC</td>
+      <td>europe-north1</td>
+      <td>2024-07-15 13:46:00</td>
+      <td>87482.0</td>
+      <td>23.07</td>
+      <td>31.52</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-456UVDXI</td>
+      <td>Cloud Build</td>
+      <td>asia-east1</td>
+      <td>2024-08-16 06:06:00</td>
+      <td>85075.0</td>
+      <td>8.42</td>
+      <td>45.09</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-J8G7NJAD</td>
+      <td>Cloud Storage</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-02 17:05:00</td>
+      <td>75696.0</td>
+      <td>9.59</td>
+      <td>28.75</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>7569.6</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 9.6% and memory utilization is 28.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4TBQH6B1</td>
+      <td>BigQuery</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-09 11:18:00</td>
+      <td>72127.0</td>
+      <td>19.36</td>
+      <td>40.14</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-RY520DKS</td>
+      <td>Cloud Armor</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-10 04:58:00</td>
+      <td>69305.0</td>
+      <td>18.18</td>
+      <td>17.51</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>6930.5</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 18.2% and memory utilization is 17.5%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-M3J3HSIX</td>
+      <td>Container Registry</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-19 15:52:00</td>
+      <td>68641.0</td>
+      <td>6.36</td>
+      <td>34.04</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-U3CCWT2L</td>
+      <td>Cloud VPN</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-08 19:35:00</td>
+      <td>63246.0</td>
+      <td>36.67</td>
+      <td>9.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-OJK06WNM</td>
+      <td>Container Registry</td>
+      <td>europe-west3</td>
+      <td>2024-08-24 15:41:00</td>
+      <td>61005.0</td>
+      <td>0.17</td>
+      <td>34.07</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-1C1MLL0U</td>
+      <td>Firestore</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-10 02:26:00</td>
+      <td>60258.0</td>
+      <td>38.11</td>
+      <td>0.95</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-SF4TOUWB</td>
+      <td>Cloud Spanner</td>
+      <td>asia-northeast1</td>
+      <td>2024-07-21 11:35:00</td>
+      <td>55527.0</td>
+      <td>13.61</td>
+      <td>33.39</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-8VF7SQNS</td>
+      <td>Cloud VPN</td>
+      <td>europe-west1</td>
+      <td>2024-07-10 23:29:00</td>
+      <td>52373.0</td>
+      <td>14.81</td>
+      <td>29.94</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>5237.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 14.8% and memory utilization is 29.9%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-IO7OE2QW</td>
+      <td>Cloud NAT</td>
+      <td>asia-east1</td>
+      <td>2024-08-17 19:52:00</td>
+      <td>52207.0</td>
+      <td>11.45</td>
+      <td>18.50</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>5220.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 11.4% and memory utilization is 18.5%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-B56DIFV0</td>
+      <td>Cloud Load Balancing</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-10 05:42:00</td>
+      <td>49385.0</td>
+      <td>28.77</td>
+      <td>38.37</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0CUDY9AM</td>
+      <td>Compute Engine</td>
+      <td>europe-west3</td>
+      <td>2024-07-03 18:57:00</td>
+      <td>48721.0</td>
+      <td>36.04</td>
+      <td>12.92</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-35L3HOZL</td>
+      <td>Compute Engine</td>
+      <td>europe-west3</td>
+      <td>2024-07-03 18:48:00</td>
+      <td>48057.0</td>
+      <td>10.75</td>
+      <td>31.36</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-83N992IF</td>
+      <td>Compute Engine</td>
+      <td>europe-west3</td>
+      <td>2024-07-23 12:41:00</td>
+      <td>47310.0</td>
+      <td>2.99</td>
+      <td>45.28</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-V8M6PWQA</td>
+      <td>Container Registry</td>
+      <td>asia-southeast1</td>
+      <td>2024-07-27 02:20:00</td>
+      <td>44322.0</td>
+      <td>18.20</td>
+      <td>26.03</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>4432.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 18.2% and memory utilization is 26.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-PJBYZUOO</td>
+      <td>Cloud Dataproc</td>
+      <td>us-east1</td>
+      <td>2024-08-02 03:07:00</td>
+      <td>42247.0</td>
+      <td>20.60</td>
+      <td>1.99</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>4224.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 20.6% and memory utilization is 2.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-6RW65FE5</td>
+      <td>Kubernetes Engine</td>
+      <td>asia-southeast1</td>
+      <td>2024-08-25 05:16:00</td>
+      <td>41417.0</td>
+      <td>29.94</td>
+      <td>23.61</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>4141.7</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 29.9% and memory utilization is 23.6%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-ZNB547LC</td>
+      <td>Cloud Memorystore</td>
+      <td>us-east1</td>
+      <td>2024-07-03 05:37:00</td>
+      <td>39259.0</td>
+      <td>26.65</td>
+      <td>8.78</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>3925.9</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 26.6% and memory utilization is 8.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-389SKH1S</td>
+      <td>AI Platform</td>
+      <td>asia-east1</td>
+      <td>2024-07-15 07:25:00</td>
+      <td>39176.0</td>
+      <td>1.43</td>
+      <td>54.69</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-7UGY460K</td>
+      <td>Pub/Sub</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-14 22:35:00</td>
+      <td>36935.0</td>
+      <td>32.08</td>
+      <td>0.20</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-2H6QN7WR</td>
+      <td>Cloud VPN</td>
+      <td>europe-north1</td>
+      <td>2024-07-24 01:32:00</td>
+      <td>36852.0</td>
+      <td>24.41</td>
+      <td>29.04</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>3685.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 24.4% and memory utilization is 29.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-YXBRWF8R</td>
+      <td>Compute Engine</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-05 20:18:00</td>
+      <td>32951.0</td>
+      <td>28.29</td>
+      <td>4.12</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>3295.1</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 28.3% and memory utilization is 4.1%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4ZQSMUOB</td>
+      <td>Cloud VPC</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-06 02:02:00</td>
+      <td>32204.0</td>
+      <td>28.47</td>
+      <td>9.27</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>3220.4</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 28.5% and memory utilization is 9.3%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-Q18AS5C1</td>
+      <td>Dataflow</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-11 04:44:00</td>
+      <td>30959.0</td>
+      <td>8.00</td>
+      <td>11.98</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>3095.9</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 8.0% and memory utilization is 12.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-O8PDL53S</td>
+      <td>Compute Engine</td>
+      <td>europe-west1</td>
+      <td>2024-08-20 14:01:00</td>
+      <td>30627.0</td>
+      <td>19.84</td>
+      <td>38.28</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-SRHDS40W</td>
+      <td>Pub/Sub</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-06 10:53:00</td>
+      <td>29216.0</td>
+      <td>6.62</td>
+      <td>2.48</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>2921.6</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 6.6% and memory utilization is 2.5%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-VA3KJDZY</td>
+      <td>Cloud Endpoints</td>
+      <td>us-east1</td>
+      <td>2024-08-05 17:04:00</td>
+      <td>28801.0</td>
+      <td>40.42</td>
+      <td>3.39</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-HD39T851</td>
+      <td>Firestore</td>
+      <td>europe-west1</td>
+      <td>2024-08-12 12:44:00</td>
+      <td>25813.0</td>
+      <td>18.79</td>
+      <td>10.51</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>2581.3</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 18.8% and memory utilization is 10.5%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-RMU6UPAA</td>
+      <td>Dataflow</td>
+      <td>europe-west3</td>
+      <td>2024-08-20 14:34:00</td>
+      <td>23406.0</td>
+      <td>9.57</td>
+      <td>50.39</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-JNJGGP0G</td>
+      <td>AI Platform</td>
+      <td>europe-north1</td>
+      <td>2024-08-07 21:33:00</td>
+      <td>22244.0</td>
+      <td>5.17</td>
+      <td>44.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-BX65RY02</td>
+      <td>AI Platform</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-08-26 15:04:00</td>
+      <td>22078.0</td>
+      <td>28.89</td>
+      <td>13.96</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>2207.8</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 28.9% and memory utilization is 14.0%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-DH7HJH9O</td>
+      <td>Kubernetes Engine</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-03 04:12:00</td>
+      <td>19422.0</td>
+      <td>25.53</td>
+      <td>26.24</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1942.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 25.5% and memory utilization is 26.2%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-CUF8T9GJ</td>
+      <td>Compute Engine</td>
+      <td>us-central1</td>
+      <td>2024-08-04 16:44:00</td>
+      <td>19090.0</td>
+      <td>27.91</td>
+      <td>20.82</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1909.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 27.9% and memory utilization is 20.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-A1PJKUSI</td>
+      <td>Cloud Run</td>
+      <td>asia-northeast1</td>
+      <td>2024-08-25 14:55:00</td>
+      <td>17430.0</td>
+      <td>40.96</td>
+      <td>17.44</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-B0V0BXYX</td>
+      <td>Cloud Dataproc</td>
+      <td>us-east1</td>
+      <td>2024-07-15 03:58:00</td>
+      <td>16932.0</td>
+      <td>23.43</td>
+      <td>19.38</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1693.2</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 23.4% and memory utilization is 19.4%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-R96K0UAA</td>
+      <td>Dataflow</td>
+      <td>southamerica-east1</td>
+      <td>2024-08-14 14:50:00</td>
+      <td>16766.0</td>
+      <td>21.65</td>
+      <td>16.41</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1676.6</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 21.6% and memory utilization is 16.4%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-IF612JJD</td>
+      <td>Cloud Run</td>
+      <td>us-east1</td>
+      <td>2024-08-08 04:57:00</td>
+      <td>15189.0</td>
+      <td>14.82</td>
+      <td>44.84</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4SLUER38</td>
+      <td>Cloud SQL</td>
+      <td>us-east1</td>
+      <td>2024-07-19 08:33:00</td>
+      <td>14857.0</td>
+      <td>16.01</td>
+      <td>32.19</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-Y3DP4TQK</td>
+      <td>Cloud Run</td>
+      <td>us-west1</td>
+      <td>2024-08-23 16:13:00</td>
+      <td>14774.0</td>
+      <td>4.03</td>
+      <td>16.21</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1477.4</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 4.0% and memory utilization is 16.2%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-VUQ7XBR2</td>
+      <td>AI Platform</td>
+      <td>europe-north1</td>
+      <td>2024-07-22 21:31:00</td>
+      <td>14110.0</td>
+      <td>5.71</td>
+      <td>21.90</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1411.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 5.7% and memory utilization is 21.9%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-FKAJATB6</td>
+      <td>Dataflow</td>
+      <td>northamerica-northeast1</td>
+      <td>2024-07-16 07:36:00</td>
+      <td>13944.0</td>
+      <td>16.92</td>
+      <td>16.22</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1394.4</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 16.9% and memory utilization is 16.2%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-4DS5ZYPH</td>
+      <td>Cloud Run</td>
+      <td>us-central1</td>
+      <td>2024-08-12 16:40:00</td>
+      <td>12035.0</td>
+      <td>19.26</td>
+      <td>8.78</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>1203.5</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 19.3% and memory utilization is 8.8%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-X1YXF17C</td>
+      <td>Cloud Functions</td>
+      <td>southamerica-east1</td>
+      <td>2024-07-12 10:30:00</td>
+      <td>8383.0</td>
+      <td>5.07</td>
+      <td>44.06</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-AQ4RAS3L</td>
+      <td>Cloud Dataproc</td>
+      <td>us-west1</td>
+      <td>2024-08-08 01:50:00</td>
+      <td>7885.0</td>
+      <td>27.66</td>
+      <td>9.87</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review for possible rightsizing</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>788.5</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>CPU utilization is 27.7% and memory utilization is 9.9%; both are below 30%.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-X5BAACYY</td>
+      <td>Cloud Functions</td>
+      <td>us-west1</td>
+      <td>2024-07-19 00:09:00</td>
+      <td>6391.0</td>
+      <td>5.50</td>
+      <td>31.02</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-NG4EDZQN</td>
+      <td>Compute Engine</td>
+      <td>asia-east1</td>
+      <td>2024-07-15 08:52:00</td>
+      <td>5976.0</td>
+      <td>42.37</td>
+      <td>10.16</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>res-UGI64PSX</td>
+      <td>Cloud Run</td>
+      <td>us-east1</td>
+      <td>2024-08-17 02:34:00</td>
+      <td>3818.0</td>
+      <td>3.69</td>
+      <td>38.04</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-0DCGVMQZ</td>
+      <td>Dataflow</td>
+      <td>australia-southeast1</td>
+      <td>2024-08-04 08:13:00</td>
+      <td>2988.0</td>
+      <td>43.47</td>
+      <td>0.06</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <td>train</td>
+      <td>res-66L7XN4J</td>
+      <td>AI Platform</td>
+      <td>europe-west1</td>
+      <td>2024-07-29 06:08:00</td>
+      <td>2822.0</td>
+      <td>5.70</td>
+      <td>31.59</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>NOT_VERIFIABLE</td>
+      <td>LOW</td>
+      <td>Review cost against service and region benchmarks</td>
+      <td>Medium</td>
+      <td>Low</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>A cost optimization signal exists; verify workload needs and pricing before changing capacity.</td>
+      <td>No anomaly detected</td>
+      <td>nan</td>
+    </tr>
+  </tbody>
+</table></div>
+</body></html>

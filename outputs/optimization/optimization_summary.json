@@ -1,0 +1,10 @@
+{
+  "total_recommendations": 168,
+  "high_priority": 127,
+  "medium_priority": 41,
+  "low_priority": 0,
+  "manual_approval_required": true,
+  "automatic_modifications_allowed": false,
+  "illustrative_savings_scenario_INR": 360651.6,
+  "important_note": "Savings are illustrative estimates, not guaranteed or realized. SLA compliance must be independently verified before any resource change."
+}
