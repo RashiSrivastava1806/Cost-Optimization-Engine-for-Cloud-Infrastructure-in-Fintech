@@ -1,236 +1,261 @@
 
 from pathlib import Path
-
+import io
+import html
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
-# --------------------------------------------------
+# =========================================================
 # 1. CONFIGURATION
-# --------------------------------------------------
-
-ROOT = Path(__file__).resolve().parent
-DATA = ROOT / "data"
-OUTPUT = ROOT / "outputs" / "optimization"
+# =========================================================
 
 st.set_page_config(
     page_title="FinOpt | Cloud Cost Intelligence",
-    page_icon="📊",
+    page_icon="◈",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-NAVY = "#101A33"
-PANEL = "#182542"
-BLUE = "#638CFF"
-CYAN = "#43D9D0"
-GREEN = "#47D7A0"
-ORANGE = "#FFB86B"
-RED = "#FF7185"
-TEXT = "#F3F6FF"
-MUTED = "#A7B4D0"
+ROOT = Path(__file__).resolve().parent.parent
 
-# --------------------------------------------------
-# 2. STYLING
-# --------------------------------------------------
+# Your requested palette
+COLORS = {
+    "teal": "#72B0AB",
+    "mint": "#BCDDDC",
+    "cream": "#FFEDD1",
+    "peach": "#FDC1B4",
+    "coral": "#FE9179",
+    "sand": "#CFB97E",
+    "gold": "#B89D47",
+    "forest": "#355E58",
+    "deep": "#053229",
+}
+
+PLOT_COLORS = [
+    COLORS["teal"],
+    COLORS["coral"],
+    COLORS["sand"],
+    COLORS["forest"],
+    COLORS["gold"],
+    COLORS["peach"],
+    COLORS["mint"],
+]
+
+# =========================================================
+# 2. APPLICATION STYLING
+# =========================================================
 
 st.markdown(
     f"""
     <style>
     .stApp {{
-        background: {NAVY};
-        color: {TEXT};
+        background: {COLORS["cream"]};
+        color: {COLORS["deep"]};
+    }}
+
+    [data-testid="stHeader"] {{
+        background: transparent;
     }}
 
     [data-testid="stSidebar"] {{
-        background: #0B1328;
-        border-right: 1px solid #293957;
+        background: {COLORS["deep"]};
+    }}
+
+    [data-testid="stSidebar"] * {{
+        color: {COLORS["cream"]};
     }}
 
     h1, h2, h3 {{
-        color: {TEXT} !important;
-        letter-spacing: -0.4px;
+        color: {COLORS["deep"]} !important;
+        letter-spacing: -0.5px;
     }}
 
-    p, label, .stMarkdown {{
-        color: {MUTED};
+    p, label, [data-testid="stCaptionContainer"] {{
+        color: {COLORS["forest"]};
     }}
 
     [data-testid="stMetric"] {{
-        background: {PANEL};
-        border: 1px solid #2B3C60;
-        padding: 18px;
+        background: #FFFFFF;
+        border: 1px solid {COLORS["mint"]};
         border-radius: 14px;
+        padding: 17px;
     }}
 
     [data-testid="stMetricLabel"] {{
-        color: {MUTED};
+        color: {COLORS["forest"]};
     }}
 
     [data-testid="stMetricValue"] {{
-        color: {TEXT};
-    }}
-
-    div[data-testid="stTabs"] button {{
-        color: {MUTED};
-    }}
-
-    div[data-testid="stDataFrame"] {{
-        border: 1px solid #2B3C60;
-        border-radius: 10px;
+        color: {COLORS["deep"]};
     }}
 
     .hero {{
-        background: linear-gradient(120deg, #1B2D54, #172342);
-        padding: 25px 28px;
+        background: linear-gradient(
+            115deg,
+            {COLORS["deep"]},
+            {COLORS["forest"]}
+        );
         border-radius: 18px;
-        border: 1px solid #344A73;
+        padding: 30px;
         margin-bottom: 20px;
+        color: {COLORS["cream"]};
+    }}
+
+    .hero h1 {{
+        color: {COLORS["cream"]} !important;
+        font-size: 36px;
+        margin: 10px 0;
+    }}
+
+    .hero p {{
+        color: {COLORS["mint"]};
+        margin-bottom: 0;
     }}
 
     .eyebrow {{
-        color: {CYAN};
+        color: {COLORS["teal"]};
         font-size: 12px;
-        font-weight: 700;
         letter-spacing: 2px;
-    }}
-
-    .hero-subtitle {{
-        color: {MUTED};
-        font-size: 14px;
+        font-weight: 700;
     }}
 
     .notice {{
-        background: #332B22;
-        border: 1px solid #8A693D;
-        color: #FFE3B5;
-        border-radius: 10px;
-        padding: 14px 18px;
-        margin: 12px 0 20px 0;
+        background: #FFFFFF;
+        border-left: 5px solid {COLORS["teal"]};
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0 20px 0;
     }}
 
-    .section-note {{
-        color: {MUTED};
-        font-size: 13px;
+    .warning {{
+        background: {COLORS["peach"]};
+        border-left: 5px solid {COLORS["coral"]};
+        border-radius: 8px;
+        padding: 15px;
+        margin: 12px 0;
     }}
 
-    #MainMenu, footer {{
-        visibility: hidden;
+    div.stButton > button,
+    div.stDownloadButton > button {{
+        background: {COLORS["deep"]};
+        color: #FFFFFF;
+        border: 1px solid {COLORS["forest"]};
+        border-radius: 8px;
     }}
+
+    div.stButton > button:hover,
+    div.stDownloadButton > button:hover {{
+        background: {COLORS["forest"]};
+        color: #FFFFFF;
+        border-color: {COLORS["teal"]};
+    }}
+
+    div[data-testid="stTabs"] button {{
+        color: {COLORS["deep"]};
+    }}
+
+    hr {{
+        border-color: {COLORS["mint"]};
+    }}
+
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# --------------------------------------------------
-# 3. LOAD DATA
-# --------------------------------------------------
 
-@st.cache_data
-def load_csv(path, modified_time):
-    return pd.read_csv(path)
+# =========================================================
+# 3. GENERAL HELPERS
+# =========================================================
 
-
-def load_first_existing(paths):
-    for path in paths:
-        if path.exists():
-            try:
-                return load_csv(str(path), path.stat().st_mtime), path
-            except Exception:
-                continue
-    return pd.DataFrame(), None
+def money(value):
+    if pd.isna(value):
+        return "N/A"
+    return f"₹{value:,.2f}"
 
 
-billing, billing_path = load_first_existing([
-    DATA / "cleaned_cloud_billing_data_canonical.csv",
-    DATA / "cleaned_cloud_billing_data.csv",
-    DATA / "cloud_billing_data.csv",
-])
+def read_uploaded_file(uploaded_file):
+    """Read CSV or Excel without modifying the uploaded file."""
+    if uploaded_file is None:
+        return None
 
-recommendations, recommendations_path = load_first_existing([
-    OUTPUT / "all_recommendations.csv",
-])
+    raw = uploaded_file.getvalue()
+    name = uploaded_file.name.lower()
 
-if billing.empty:
-    st.error(
-        "Billing data could not be loaded. Check the CSV files "
-        "inside the project's data/ folder."
+    if name.endswith(".csv"):
+        try:
+            return pd.read_csv(io.BytesIO(raw), sep=None, engine="python")
+        except Exception:
+            return pd.read_csv(io.BytesIO(raw), encoding_errors="replace")
+
+    if name.endswith((".xlsx", ".xls")):
+        return pd.read_excel(io.BytesIO(raw))
+
+    raise ValueError("Upload a CSV or Excel file.")
+
+
+def clean_numeric(series):
+    """Convert common currency-formatted values to numbers."""
+    cleaned = (
+        series.astype(str)
+        .str.replace(",", "", regex=False)
+        .str.replace("₹", "", regex=False)
+        .str.replace("$", "", regex=False)
+        .str.replace("INR", "", regex=False)
+        .str.strip()
     )
-    st.stop()
+    return pd.to_numeric(cleaned, errors="coerce")
 
-# Standardize date and cost columns.
-if "Usage_Start_Date" in billing.columns:
-    billing["Usage_Start_Date"] = pd.to_datetime(
-        billing["Usage_Start_Date"],
-        errors="coerce",
-    )
-    DATE_COL = "Usage_Start_Date"
-else:
-    DATE_COL = None
 
-if "Total_Cost_INR" in billing.columns:
-    COST_COL = "Total_Cost_INR"
-elif "Rounded_Cost" in billing.columns:
-    COST_COL = "Rounded_Cost"
-else:
-    st.error("No recognized cost column was found in billing data.")
-    st.stop()
+def find_column(columns, keywords):
+    """Suggest a likely matching column without silently assuming it."""
+    for column in columns:
+        normalized = str(column).strip().lower().replace(" ", "_")
+        if normalized in keywords:
+            return column
+    return None
 
-billing[COST_COL] = pd.to_numeric(
-    billing[COST_COL],
-    errors="coerce",
-)
-
-billing = billing.dropna(subset=[COST_COL]).copy()
-billing = billing[billing[COST_COL] >= 0].copy()
-
-if DATE_COL:
-    billing = billing.dropna(subset=[DATE_COL]).copy()
-
-# --------------------------------------------------
-# 4. CHART THEME
-# --------------------------------------------------
 
 def style_chart(fig, height=350):
     fig.update_layout(
         height=height,
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color=TEXT, family="Arial"),
+        plot_bgcolor="#FFFFFF",
+        font=dict(color=COLORS["deep"], family="Arial"),
         margin=dict(l=10, r=10, t=45, b=10),
+        colorway=PLOT_COLORS,
         legend=dict(
-            bgcolor="rgba(0,0,0,0)",
             orientation="h",
             yanchor="bottom",
             y=1.02,
             xanchor="left",
             x=0,
         ),
-        hoverlabel=dict(
-            bgcolor=PANEL,
-            font_color=TEXT,
-        ),
     )
     fig.update_xaxes(
         showgrid=False,
-        zeroline=False,
-        linecolor="#344462",
+        linecolor=COLORS["mint"],
     )
     fig.update_yaxes(
-        gridcolor="#293957",
+        gridcolor=COLORS["mint"],
         zeroline=False,
     )
     return fig
 
 
-def money(value):
-    return f"₹{value:,.0f}"
+def download_csv(df, filename, label):
+    st.download_button(
+        label=label,
+        data=df.to_csv(index=False).encode("utf-8"),
+        file_name=filename,
+        mime="text/csv",
+    )
 
 
-# --------------------------------------------------
-# 5. SIDEBAR AND FILTERS
-# --------------------------------------------------
+# =========================================================
+# 4. HEADER AND NAVIGATION
+# =========================================================
 
 with st.sidebar:
     st.markdown("## FINOPT")
@@ -238,161 +263,405 @@ with st.sidebar:
     st.divider()
 
     page = st.radio(
-        "NAVIGATION",
+        "WORKSPACE",
         [
-            "Executive Overview",
+            "Overview",
             "Cost Analytics",
-            "Forecasting",
-            "Optimization Center",
-            "Data & Methodology",
+            "Optimization",
+            "SLA Evidence",
+            "Export Report",
         ],
     )
 
     st.divider()
-    st.markdown("### Dashboard filters")
+    st.caption("Client data is processed for this session.")
+    st.caption("No cloud resources are modified automatically.")
 
-    filtered = billing.copy()
+st.markdown(
+    f"""
+    <div class="hero">
+        <div class="eyebrow">FINANCIAL OPERATIONS / CLOUD INTELLIGENCE</div>
+        <h1>Cloud Cost Intelligence</h1>
+        <p>
+            Understand spending. Identify opportunities.
+            Make evidence-based optimization decisions.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-    if DATE_COL and not filtered.empty:
-        minimum = filtered[DATE_COL].min().date()
-        maximum = filtered[DATE_COL].max().date()
+# =========================================================
+# 5. CLIENT FILE UPLOAD
+# =========================================================
+
+with st.expander("Upload billing data", expanded=True):
+    st.write(
+        "Upload a cloud billing export in CSV or Excel format. "
+        "You will map its columns before analysis."
+    )
+
+    billing_file = st.file_uploader(
+        "Cloud billing sheet",
+        type=["csv", "xlsx", "xls"],
+        key="billing_upload",
+    )
+
+if billing_file is None:
+    st.markdown(
+        """
+        <div class="notice">
+        <strong>Welcome to FinOpt.</strong><br>
+        Upload your billing sheet to begin. Cost analysis requires a
+        cost column. Additional insights become available when resource,
+        date, service, region and utilization data are supplied.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.info(
+        "Recommended fields: resource ID, service, region, usage date, "
+        "total cost, CPU utilization and memory utilization."
+    )
+
+    st.stop()
+
+try:
+    raw_df = read_uploaded_file(billing_file)
+except Exception as error:
+    st.error(f"Could not read this file: {error}")
+    st.stop()
+
+if raw_df is None or raw_df.empty:
+    st.error("The uploaded file is empty or could not be parsed.")
+    st.stop()
+
+raw_df.columns = [
+    str(column).strip() for column in raw_df.columns
+]
+
+if raw_df.columns.duplicated().any():
+    st.error(
+        "The file contains duplicate column names. Rename duplicate "
+        "headers and upload the file again."
+    )
+    st.stop()
+
+columns = list(raw_df.columns)
+
+# =========================================================
+# 6. COLUMN MAPPING
+# =========================================================
+
+st.subheader("Map your billing columns")
+st.caption(
+    "Suggested matches are provided for convenience. "
+    "Please verify them before continuing."
+)
+
+def select_column(label, keywords, required=False):
+    suggestion = find_column(columns, keywords)
+
+    options = ["— Not available —"] + columns
+
+    default_index = (
+        options.index(suggestion)
+        if suggestion in columns
+        else 0
+    )
+
+    chosen = st.selectbox(
+        label + (" *" if required else ""),
+        options,
+        index=default_index,
+        key=f"mapping_{label}",
+    )
+
+    return None if chosen == "— Not available —" else chosen
+
+
+with st.form("column_mapping_form"):
+    m1, m2, m3 = st.columns(3)
+
+    with m1:
+        cost_col = select_column(
+            "Total cost",
+            [
+                "total_cost_inr", "total_cost", "cost",
+                "amount", "billed_cost", "unrounded_cost",
+                "rounded_cost", "cost_inr", "line_item_unblended_cost",
+            ],
+            required=True,
+        )
+
+        date_col = select_column(
+            "Usage date",
+            [
+                "usage_start_date", "date", "usage_date",
+                "billing_date", "usage_start_time",
+                "date_time", "usagestartdate",
+            ],
+        )
+
+    with m2:
+        resource_col = select_column(
+            "Resource identifier",
+            [
+                "resource_id", "resourceid", "resource_name",
+                "instance_id", "asset_id",
+            ],
+        )
+
+        service_col = select_column(
+            "Service",
+            [
+                "service_name", "service", "product_name",
+                "service_type", "meter_category",
+            ],
+        )
+
+    with m3:
+        region_col = select_column(
+            "Region",
+            [
+                "region_zone", "region", "availability_zone",
+                "location", "region_name",
+            ],
+        )
+
+        cpu_col = select_column(
+            "CPU utilization",
+            [
+                "cpu_utilization", "cpu_utilization_percent",
+                "cpu_percent", "cpu_usage_percent",
+            ],
+        )
+
+        memory_col = select_column(
+            "Memory utilization",
+            [
+                "memory_utilization", "memory_utilization_percent",
+                "memory_percent", "memory_usage_percent",
+            ],
+        )
+
+    currency_col = select_column(
+        "Currency column (optional)",
+        ["currency", "currency_code", "billing_currency"],
+    )
+
+    submitted = st.form_submit_button("Apply mapping and analyze")
+
+if not submitted:
+    st.info("Verify the mappings and select **Apply mapping and analyze**.")
+    st.stop()
+
+if cost_col is None:
+    st.error("A total cost column is required.")
+    st.stop()
+
+# =========================================================
+# 7. NORMALIZE THE CLIENT DATA
+# =========================================================
+
+df = pd.DataFrame(index=raw_df.index)
+
+df["Cost"] = clean_numeric(raw_df[cost_col])
+
+if date_col:
+    df["Date"] = pd.to_datetime(
+        raw_df[date_col],
+        errors="coerce",
+        dayfirst=False,
+        utc=True,
+    ).dt.tz_convert(None)
+
+if resource_col:
+    df["Resource"] = raw_df[resource_col].astype("string")
+
+if service_col:
+    df["Service"] = raw_df[service_col].astype("string")
+
+if region_col:
+    df["Region"] = raw_df[region_col].astype("string")
+
+if cpu_col:
+    df["CPU"] = clean_numeric(raw_df[cpu_col])
+
+if memory_col:
+    df["Memory"] = clean_numeric(raw_df[memory_col])
+
+if currency_col:
+    df["Currency"] = raw_df[currency_col].astype("string")
+
+valid_cost = df["Cost"].notna()
+negative_cost = df["Cost"] < 0
+
+invalid_count = int((~valid_cost).sum())
+negative_count = int(negative_cost.sum())
+
+df = df.loc[valid_cost & ~negative_cost].copy()
+
+if df.empty:
+    st.error(
+        "No valid non-negative cost records were found. "
+        "Check your cost column mapping and numeric format."
+    )
+    st.stop()
+
+if "Currency" in df.columns:
+    currencies = df["Currency"].dropna().unique().tolist()
+    if len(currencies) > 1:
+        st.warning(
+            "Multiple currencies were detected. Costs are not "
+            "converted into a common currency. Filter or convert "
+            "them before interpreting totals."
+        )
+    elif len(currencies) == 1 and str(currencies[0]).upper() not in [
+        "INR", "RS", "₹"
+    ]:
+        st.warning(
+            f"The uploaded file reports currency as {currencies[0]}. "
+            "Values will be shown in the uploaded currency, not INR."
+        )
+
+st.markdown(
+    f"""
+    <div class="notice">
+        <strong>File loaded:</strong>
+        {html.escape(billing_file.name)}<br>
+        Valid cost records: {len(df):,} |
+        Rows without valid costs: {invalid_count:,} |
+        Negative-cost rows excluded: {negative_count:,}
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# =========================================================
+# 8. FILTERS
+# =========================================================
+
+st.subheader("Analysis filters")
+
+filtered = df.copy()
+
+f1, f2, f3 = st.columns(3)
+
+with f1:
+    if "Date" in filtered.columns and filtered["Date"].notna().any():
+        min_date = filtered["Date"].min().date()
+        max_date = filtered["Date"].max().date()
 
         date_range = st.date_input(
-            "Usage date range",
-            value=(minimum, maximum),
-            min_value=minimum,
-            max_value=maximum,
+            "Usage period",
+            value=(min_date, max_date),
+            min_value=min_date,
+            max_value=max_date,
         )
 
         if isinstance(date_range, (tuple, list)) and len(date_range) == 2:
             start_date, end_date = date_range
             filtered = filtered[
-                filtered[DATE_COL].dt.date.between(
-                    start_date, end_date
-                )
+                filtered["Date"].dt.date.between(start_date, end_date)
             ]
 
-    if "Service_Name" in filtered.columns:
-        services = sorted(
-            filtered["Service_Name"]
-            .dropna()
-            .astype(str)
-            .unique()
+with f2:
+    if "Service" in filtered.columns:
+        service_options = sorted(
+            filtered["Service"].dropna().astype(str).unique().tolist()
         )
-
         selected_services = st.multiselect(
-            "Cloud services",
-            services,
-            default=services,
+            "Services",
+            service_options,
+            default=service_options,
         )
-
         filtered = filtered[
-            filtered["Service_Name"].astype(str).isin(
-                selected_services
-            )
+            filtered["Service"].astype(str).isin(selected_services)
         ]
 
-    st.caption("Currency: INR (₹)")
-    st.caption("Source: project billing dataset")
-
-# --------------------------------------------------
-# 6. PAGE HEADER
-# --------------------------------------------------
-
-st.markdown(
-    """
-    <div class="hero">
-        <div class="eyebrow">FINANCIAL OPERATIONS / CLOUD INTELLIGENCE</div>
-        <h1>Cloud Cost Intelligence</h1>
-        <div class="hero-subtitle">
-            Cost visibility · Anomaly investigation · Forecasting ·
-            Risk-aware optimization
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.markdown(
-    """
-    <div class="notice">
-    <strong>Research prototype:</strong> SLA compliance is not verified
-    when contractual targets and operational evidence are unavailable.
-    Recommendations require manual approval. No cloud resources are
-    modified automatically. Savings are illustrative, not guaranteed.
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+with f3:
+    if "Region" in filtered.columns:
+        region_options = sorted(
+            filtered["Region"].dropna().astype(str).unique().tolist()
+        )
+        selected_regions = st.multiselect(
+            "Regions",
+            region_options,
+            default=region_options,
+        )
+        filtered = filtered[
+            filtered["Region"].astype(str).isin(selected_regions)
+        ]
 
 if filtered.empty:
-    st.warning("No billing records match the selected filters.")
+    st.warning("No records match the selected filters.")
     st.stop()
 
-total_cost = filtered[COST_COL].sum()
-record_count = len(filtered)
-resource_count = (
-    filtered["Resource_ID"].nunique()
-    if "Resource_ID" in filtered.columns
-    else record_count
+total_cost = float(filtered["Cost"].sum())
+
+# =========================================================
+# 9. BASIC OPTIMIZATION SIGNALS
+# =========================================================
+
+has_cpu_memory = (
+    "CPU" in filtered.columns
+    and "Memory" in filtered.columns
 )
 
-daily_cost = None
-
-if DATE_COL:
-    daily_cost = (
-        filtered.groupby(filtered[DATE_COL].dt.date)[COST_COL]
-        .sum()
-        .sort_index()
-    )
-
-    average_daily = (
-        daily_cost.mean() if not daily_cost.empty else 0
+if has_cpu_memory:
+    low_utilization = (
+        filtered["CPU"].between(0, 100)
+        & filtered["Memory"].between(0, 100)
+        & (filtered["CPU"] < 30)
+        & (filtered["Memory"] < 30)
     )
 else:
-    average_daily = 0
+    low_utilization = pd.Series(False, index=filtered.index)
 
-# --------------------------------------------------
-# 7. EXECUTIVE OVERVIEW
-# --------------------------------------------------
+resource_cost = (
+    filtered.groupby("Resource")["Cost"].sum()
+    if "Resource" in filtered.columns
+    else pd.Series(dtype=float)
+)
 
-if page == "Executive Overview":
+# =========================================================
+# 10. OVERVIEW
+# =========================================================
 
+if page == "Overview":
     st.subheader("Executive overview")
-    st.caption("A consolidated view of cloud expenditure and optimization signals.")
+    st.caption("A financial summary of the uploaded billing period.")
 
-    c1, c2, c3, c4 = st.columns(4)
+    k1, k2, k3, k4 = st.columns(4)
 
-    c1.metric("Total expenditure", money(total_cost))
-    c2.metric("Average daily cost", money(average_daily))
-    c3.metric("Resources represented", f"{resource_count:,}")
+    k1.metric("Total expenditure", money(total_cost))
+    k2.metric("Billing records", f"{len(filtered):,}")
 
-    if not recommendations.empty:
-        savings_col = "Illustrative_10pct_Savings_INR"
+    k3.metric(
+        "Resources",
+        f"{filtered['Resource'].nunique():,}"
+        if "Resource" in filtered.columns
+        else "Unavailable",
+    )
 
-        savings = (
-            pd.to_numeric(
-                recommendations[savings_col],
-                errors="coerce",
-            ).fillna(0).sum()
-            if savings_col in recommendations.columns
-            else 0
-        )
-
-        c4.metric("Illustrative savings", money(savings))
-    else:
-        c4.metric("Illustrative savings", "N/A")
+    k4.metric(
+        "Low-utilization candidates",
+        f"{int(low_utilization.sum()):,}"
+        if has_cpu_memory
+        else "Data needed",
+    )
 
     left, right = st.columns([1.7, 1])
 
     with left:
-        st.markdown("### Spending trend")
+        st.markdown("### Spending over time")
 
-        if DATE_COL:
+        if "Date" in filtered.columns and filtered["Date"].notna().any():
             trend = (
-                filtered.groupby(
-                    filtered[DATE_COL].dt.date
-                )[COST_COL]
+                filtered.dropna(subset=["Date"])
+                .groupby(filtered["Date"].dt.date)["Cost"]
                 .sum()
                 .reset_index()
             )
@@ -403,483 +672,660 @@ if page == "Executive Overview":
                 x="Date",
                 y="Cost",
                 markers=True,
-                color_discrete_sequence=[BLUE],
+                color_discrete_sequence=[COLORS["teal"]],
             )
-            fig.update_traces(
-                fillcolor="rgba(99,140,255,0.15)"
-            )
-            fig.update_yaxes(title="Cost (INR)")
+
             st.plotly_chart(
                 style_chart(fig, 370),
                 use_container_width=True,
             )
         else:
-            st.info("A usable date column is required for a spending trend.")
+            st.info("Upload or map a valid usage date column for trend analysis.")
 
     with right:
-        st.markdown("### Cost by service")
+        st.markdown("### Cost distribution")
 
-        if "Service_Name" in filtered.columns:
-            service_cost = (
-                filtered.groupby("Service_Name")[COST_COL]
+        category = (
+            "Service"
+            if "Service" in filtered.columns
+            else "Region"
+            if "Region" in filtered.columns
+            else "Resource"
+            if "Resource" in filtered.columns
+            else None
+        )
+
+        if category:
+            breakdown = (
+                filtered.groupby(category, dropna=False)["Cost"]
                 .sum()
-                .sort_values(ascending=False)
-                .head(8)
+                .nlargest(8)
                 .reset_index()
             )
 
             fig = px.pie(
-                service_cost,
-                names="Service_Name",
-                values=COST_COL,
-                hole=0.65,
-                color_discrete_sequence=[
-                    BLUE, CYAN, GREEN, ORANGE, RED,
-                    "#9B8AFB", "#67B7E8", "#F18AB5",
-                ],
+                breakdown,
+                names=category,
+                values="Cost",
+                hole=0.62,
+                color_discrete_sequence=PLOT_COLORS,
             )
-            fig.update_layout(showlegend=True)
+
             st.plotly_chart(
                 style_chart(fig, 370),
                 use_container_width=True,
             )
+        else:
+            st.info("Map a service, region or resource column to show a breakdown.")
 
-    st.markdown("### Optimization signals")
+    st.markdown("### Highest-cost resources")
 
-    if not recommendations.empty:
-        a, b, c = st.columns(3)
-
-        a.metric(
-            "Recommendation records",
-            f"{len(recommendations):,}",
+    if "Resource" in filtered.columns:
+        top_resources = (
+            filtered.groupby("Resource")["Cost"]
+            .sum()
+            .nlargest(10)
+            .reset_index()
         )
 
-        if "Recommended_Action" in recommendations.columns:
-            anomaly_count = recommendations[
-                recommendations["Recommended_Action"]
-                .astype(str)
-                .str.contains("anomaly", case=False, na=False)
-            ].shape[0]
-        else:
-            anomaly_count = 0
+        fig = px.bar(
+            top_resources.sort_values("Cost"),
+            x="Cost",
+            y="Resource",
+            orientation="h",
+            color_discrete_sequence=[COLORS["forest"]],
+        )
 
-        b.metric("Anomaly investigations", f"{anomaly_count:,}")
-
-        if "Recommended_Action" in recommendations.columns:
-            rightsizing_count = recommendations[
-                recommendations["Recommended_Action"]
-                .astype(str)
-                .str.contains("rightsizing", case=False, na=False)
-            ].shape[0]
-        else:
-            rightsizing_count = 0
-
-        c.metric("Rightsizing reviews", f"{rightsizing_count:,}")
-
-        st.caption(
-            "These are recommendation records, not necessarily unique resources."
+        st.plotly_chart(
+            style_chart(fig, 360),
+            use_container_width=True,
         )
     else:
-        st.info(
-            "Optimization recommendations are unavailable. "
-            "Run the optimization engine to generate them."
-        )
+        st.info("Map a resource identifier to rank individual resources.")
 
-# --------------------------------------------------
-# 8. COST ANALYTICS
-# --------------------------------------------------
+# =========================================================
+# 11. COST ANALYTICS
+# =========================================================
 
 elif page == "Cost Analytics":
-
     st.subheader("Cost analytics")
 
     left, right = st.columns(2)
 
     with left:
-        st.markdown("### Service cost concentration")
+        st.markdown("### Spending by service")
 
-        if "Service_Name" in filtered.columns:
-            service_cost = (
-                filtered.groupby("Service_Name")[COST_COL]
+        if "Service" in filtered.columns:
+            by_service = (
+                filtered.groupby("Service")["Cost"]
                 .sum()
+                .nlargest(15)
                 .sort_values()
-                .tail(15)
                 .reset_index()
             )
 
             fig = px.bar(
-                service_cost,
-                x=COST_COL,
-                y="Service_Name",
+                by_service,
+                x="Cost",
+                y="Service",
                 orientation="h",
-                color=COST_COL,
-                color_continuous_scale=["#273B68", BLUE, CYAN],
-            )
-            fig.update_layout(coloraxis_showscale=False)
-            fig.update_xaxes(title="Total cost (INR)")
-            fig.update_yaxes(title="")
-            st.plotly_chart(
-                style_chart(fig, 430),
-                use_container_width=True,
+                color_discrete_sequence=[COLORS["teal"]],
             )
 
-    with right:
-        st.markdown("### Utilization versus cost")
-
-        if (
-            "CPU_Utilization" in filtered.columns
-            and "Memory_Utilization" in filtered.columns
-        ):
-            scatter_data = filtered.copy()
-
-            scatter_data["CPU_Utilization"] = pd.to_numeric(
-                scatter_data["CPU_Utilization"],
-                errors="coerce",
-            )
-            scatter_data["Memory_Utilization"] = pd.to_numeric(
-                scatter_data["Memory_Utilization"],
-                errors="coerce",
-            )
-
-            fig = px.scatter(
-                scatter_data,
-                x="CPU_Utilization",
-                y="Memory_Utilization",
-                size=COST_COL,
-                color=COST_COL,
-                hover_name=(
-                    "Resource_ID"
-                    if "Resource_ID" in scatter_data.columns
-                    else None
-                ),
-                color_continuous_scale=["#273B68", BLUE, CYAN],
-                labels={
-                    "CPU_Utilization": "CPU utilization (%)",
-                    "Memory_Utilization": "Memory utilization (%)",
-                    COST_COL: "Cost (INR)",
-                },
-            )
             st.plotly_chart(
                 style_chart(fig, 430),
                 use_container_width=True,
             )
         else:
-            st.info("CPU and memory columns are needed for this chart.")
+            st.info("Service data is unavailable.")
+
+    with right:
+        st.markdown("### Spending by region")
+
+        if "Region" in filtered.columns:
+            by_region = (
+                filtered.groupby("Region")["Cost"]
+                .sum()
+                .nlargest(15)
+                .reset_index()
+            )
+
+            fig = px.pie(
+                by_region,
+                names="Region",
+                values="Cost",
+                hole=0.55,
+                color_discrete_sequence=PLOT_COLORS,
+            )
+
+            st.plotly_chart(
+                style_chart(fig, 430),
+                use_container_width=True,
+            )
+        else:
+            st.info("Region data is unavailable.")
+
+    st.markdown("### Cost versus utilization")
+
+    if has_cpu_memory:
+        scatter = filtered.copy()
+
+        valid_cpu_memory = (
+            scatter["CPU"].between(0, 100)
+            & scatter["Memory"].between(0, 100)
+        )
+
+        scatter = scatter.loc[valid_cpu_memory]
+
+        if not scatter.empty:
+            fig = px.scatter(
+                scatter,
+                x="CPU",
+                y="Memory",
+                size="Cost",
+                color="Cost",
+                hover_name=(
+                    "Resource"
+                    if "Resource" in scatter.columns
+                    else None
+                ),
+                color_continuous_scale=[
+                    COLORS["mint"],
+                    COLORS["teal"],
+                    COLORS["forest"],
+                ],
+                labels={
+                    "CPU": "CPU utilization (%)",
+                    "Memory": "Memory utilization (%)",
+                    "Cost": "Cost",
+                },
+            )
+
+            st.plotly_chart(
+                style_chart(fig, 430),
+                use_container_width=True,
+            )
+        else:
+            st.info("No valid CPU and memory measurements are available.")
+    else:
+        st.info(
+            "Map CPU and memory columns to analyze utilization. "
+            "Cost data alone cannot establish underutilization."
+        )
 
     st.markdown("### Billing records")
 
-    display_columns = [
-        col for col in [
-            "Resource_ID",
-            "Service_Name",
-            "Region_Zone",
-            DATE_COL,
-            "CPU_Utilization",
-            "Memory_Utilization",
-            COST_COL,
-        ]
-        if col and col in filtered.columns
-    ]
-
     st.dataframe(
-        filtered[display_columns],
+        filtered,
         use_container_width=True,
         hide_index=True,
     )
 
-    st.download_button(
-        "Download filtered billing data",
-        data=filtered.to_csv(index=False).encode("utf-8"),
-        file_name="filtered_cloud_billing.csv",
-        mime="text/csv",
+    download_csv(
+        filtered,
+        "filtered_billing.csv",
+        "Download filtered billing records",
     )
 
-# --------------------------------------------------
-# 9. FORECASTING
-# --------------------------------------------------
+# =========================================================
+# 12. OPTIMIZATION
+# =========================================================
 
-elif page == "Forecasting":
+elif page == "Optimization":
+    st.subheader("Optimization opportunities")
 
-    st.subheader("Cost forecasting")
-    st.caption(
-        "Forecast files are loaded when available. "
-        "The chart does not generate a new prediction."
+    st.markdown(
+        """
+        Recommendations below are screening signals. They are not
+        automatic instructions to modify production resources.
+        """
     )
 
-    forecast_candidates = list(
-        (DATA / "canonical_run").rglob("*.csv")
-    ) if (DATA / "canonical_run").exists() else []
-
-    forecast_candidates = [
-        path for path in forecast_candidates
-        if "forecast" in path.name.lower()
-        and any(
-            key in path.name.lower()
-            for key in ["prediction", "future", "forecast"]
+    if not has_cpu_memory:
+        st.warning(
+            "CPU and memory measurements are missing. "
+            "Upload or map both fields to assess low-utilization candidates."
         )
-    ]
 
-    selected_forecast = None
+    opportunities = filtered.loc[low_utilization].copy()
 
-    for path in forecast_candidates:
-        try:
-            candidate = pd.read_csv(path)
-            date_columns = [
-                col for col in candidate.columns
-                if "date" in col.lower()
-            ]
-            prediction_columns = [
-                col for col in candidate.columns
-                if any(
-                    key in col.lower()
-                    for key in ["forecast", "prediction", "predicted"]
+    if has_cpu_memory and not opportunities.empty:
+        opportunities["Screening_Reason"] = (
+            "CPU and memory are both below 30%; verify workload demand, "
+            "performance and SLA requirements before rightsizing."
+        )
+
+        # A scenario, not a forecast or guaranteed saving.
+        opportunities["Illustrative_10pct_Savings"] = (
+            opportunities["Cost"] * 0.10
+        )
+
+        # Group by resource if possible, to avoid listing the same
+        # resource repeatedly as if each row were a distinct resource.
+        if "Resource" in opportunities.columns:
+            opportunities = (
+                opportunities.groupby("Resource", dropna=False)
+                .agg(
+                    Current_Cost=("Cost", "sum"),
+                    CPU=("CPU", "mean"),
+                    Memory=("Memory", "mean"),
+                    Screening_Reason=("Screening_Reason", "first"),
+                    Illustrative_10pct_Savings=(
+                        "Illustrative_10pct_Savings", "sum"
+                    ),
                 )
-            ]
-
-            if date_columns and prediction_columns:
-                selected_forecast = candidate
-                break
-        except Exception:
-            continue
-
-    if selected_forecast is not None:
-        date_col = next(
-            col for col in selected_forecast.columns
-            if "date" in col.lower()
-        )
-        pred_col = next(
-            col for col in selected_forecast.columns
-            if any(
-                key in col.lower()
-                for key in ["forecast", "prediction", "predicted"]
-            )
-        )
-
-        selected_forecast[date_col] = pd.to_datetime(
-            selected_forecast[date_col],
-            errors="coerce",
-        )
-        selected_forecast[pred_col] = pd.to_numeric(
-            selected_forecast[pred_col],
-            errors="coerce",
-        )
-
-        selected_forecast = selected_forecast.dropna(
-            subset=[date_col, pred_col]
-        )
-
-        if not selected_forecast.empty:
-            fig = px.line(
-                selected_forecast,
-                x=date_col,
-                y=pred_col,
-                markers=True,
-                color_discrete_sequence=[CYAN],
-                labels={
-                    date_col: "Forecast date",
-                    pred_col: "Predicted cost (INR)",
-                },
-            )
-
-            st.plotly_chart(
-                style_chart(fig, 430),
-                use_container_width=True,
-            )
-
-            st.caption(
-                "Confirm the forecast file's date range and units "
-                "before interpreting the projection."
+                .reset_index()
             )
         else:
-            st.info("The detected forecast file has no usable rows.")
-    else:
-        st.info(
-            "No compatible forecast CSV was found automatically. "
-            "Your forecasting scripts and research figures remain "
-            "available in the project. We can connect the exact "
-            "forecast output once its filename and columns are confirmed."
-        )
-
-    st.markdown("### Historical daily expenditure")
-
-    if daily_cost is not None and not daily_cost.empty:
-        st.line_chart(daily_cost)
-
-    st.warning(
-        "The current forecasting experiment has substantial prediction "
-        "error. Treat projections as planning estimates, not precise "
-        "financial commitments. The existing 30-day projection is "
-        "dated August 30 to September 28, 2024, so it is historical "
-        "relative to the current date."
-    )
-
-# --------------------------------------------------
-# 10. OPTIMIZATION CENTER
-# --------------------------------------------------
-
-elif page == "Optimization Center":
-
-    st.subheader("Optimization center")
-
-    if recommendations.empty:
-        st.warning(
-            "Recommendations not found. Run "
-            "Optimization Engine/optimization_engine.py first."
-        )
-    else:
-        rec = recommendations.copy()
-
-        if "Priority" in rec.columns:
-            priority_filter = st.multiselect(
-                "Filter by priority",
-                ["High", "Medium", "Low"],
-                default=["High", "Medium", "Low"],
-            )
-            rec = rec[rec["Priority"].isin(priority_filter)]
-
-        if "Recommended_Action" in rec.columns:
-            action_filter = st.multiselect(
-                "Filter by recommended action",
-                sorted(rec["Recommended_Action"].dropna().unique()),
+            opportunities = opportunities.rename(
+                columns={
+                    "Cost": "Current_Cost",
+                    "CPU": "CPU",
+                    "Memory": "Memory",
+                }
             )
 
-            if action_filter:
-                rec = rec[
-                    rec["Recommended_Action"].isin(action_filter)
-                ]
+        a, b = st.columns(2)
 
-        k1, k2, k3 = st.columns(3)
-
-        k1.metric("Visible recommendations", len(rec))
-
-        savings_column = "Illustrative_10pct_Savings_INR"
-
-        savings = (
-            pd.to_numeric(
-                rec[savings_column],
-                errors="coerce",
-            ).fillna(0).sum()
-            if savings_column in rec.columns
-            else 0
+        a.metric(
+            "Resources for review",
+            f"{len(opportunities):,}",
         )
 
-        k2.metric("Illustrative savings", money(savings))
-        k3.metric("Automatic changes", "Disabled")
-
-        preferred_columns = [
-            "Resource_ID",
-            "Service_Name",
-            "Current_Cost_INR",
-            "CPU_Utilization",
-            "Memory_Utilization",
-            "Recommended_Action",
-            "Priority",
-            "Reason",
-            "Illustrative_10pct_Savings_INR",
-            "SLA_Compliance_Status",
-            "SLA_Evidence_Status",
-            "Manual_Approval_Required",
-        ]
-
-        visible_columns = [
-            col for col in preferred_columns if col in rec.columns
-        ]
+        b.metric(
+            "Illustrative 10% scenario",
+            money(opportunities["Illustrative_10pct_Savings"].sum()),
+        )
 
         st.dataframe(
-            rec[visible_columns],
+            opportunities,
             use_container_width=True,
             hide_index=True,
         )
 
-        st.download_button(
-            "Download recommendations",
-            data=rec.to_csv(index=False).encode("utf-8"),
-            file_name="optimization_recommendations.csv",
-            mime="text/csv",
+        download_csv(
+            opportunities,
+            "optimization_opportunities.csv",
+            "Download optimization opportunities",
         )
-
-        st.markdown("### Decision safeguards")
-        st.markdown(
-            """
-            - Investigate anomaly flags before proposing changes.
-            - Verify contractual SLA targets and operational telemetry.
-            - Review workload criticality, security, and compliance.
-            - Validate cost estimates and pricing assumptions.
-            - Obtain human approval before any resource modification.
-            """
-        )
-
-# --------------------------------------------------
-# 11. DATA AND METHODOLOGY
-# --------------------------------------------------
-
-elif page == "Data & Methodology":
-
-    st.subheader("Data and methodology")
-
-    st.markdown("### Data source")
-
-    st.write(f"Billing dataset: `{billing_path}`")
-    st.write(f"Billing rows currently displayed: {len(filtered):,}")
-    st.write(f"Cost field used: `{COST_COL}`")
-    st.write(f"Date field used: `{DATE_COL or 'Unavailable'}`")
-
-    if recommendations_path:
-        st.write(f"Recommendation dataset: `{recommendations_path}`")
     else:
-        st.write("Recommendation dataset: Not found")
+        st.info(
+            "No resources currently qualify for this screening rule, "
+            "or the required utilization data is unavailable."
+        )
 
-    st.markdown("### Pipeline components")
+    st.markdown("### Anomalous spending")
 
-    components = [
-        ("Data preparation", "Standardization, date parsing and chronological splitting"),
-        ("Feature engineering", "Cost, duration, utilization and benchmark features"),
-        ("Anomaly detection", "Statistical and contextual investigation flags"),
-        ("Forecasting", "Held-out evaluation against a baseline"),
-        ("SLA assessment", "Evidence-aware risk screening and decision safeguards"),
-        ("Optimization", "Advisory recommendations and illustrative savings scenarios"),
-    ]
+    st.caption(
+        "This is a simple statistical screening method, not a trained "
+        "production anomaly model. Investigate flags before taking action."
+    )
+
+    if len(filtered) >= 5:
+        q1 = filtered["Cost"].quantile(0.25)
+        q3 = filtered["Cost"].quantile(0.75)
+        iqr = q3 - q1
+
+        if iqr > 0:
+            threshold = q3 + 1.5 * iqr
+            anomalies = filtered[filtered["Cost"] > threshold].copy()
+
+            st.metric("Records flagged for review", len(anomalies))
+            st.write(f"Screening threshold: {money(threshold)}")
+
+            if not anomalies.empty:
+                st.dataframe(
+                    anomalies,
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                download_csv(
+                    anomalies,
+                    "billing_anomalies_for_review.csv",
+                    "Download flagged records",
+                )
+        else:
+            st.info(
+                "The interquartile range is zero. "
+                "This screening rule cannot distinguish unusual records."
+            )
+    else:
+        st.info("At least five valid cost records are required for this screen.")
+
+    st.markdown(
+        """
+        <div class="warning">
+        <strong>Before approving a recommendation:</strong>
+        verify the service owner, resource criticality, contractual SLA,
+        monitoring evidence, workload demand, security and compliance.
+        Every change requires human approval.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# =========================================================
+# 13. SLA EVIDENCE WORKSPACE
+# =========================================================
+
+elif page == "SLA Evidence":
+    st.subheader("SLA evidence verification")
+    st.write(
+        "Upload contractual targets and operational measurements separately. "
+        "Billing records alone cannot prove SLA compliance."
+    )
+
+    st.markdown("### 1. Upload SLA targets")
+
+    targets_file = st.file_uploader(
+        "SLA targets CSV or Excel",
+        type=["csv", "xlsx", "xls"],
+        key="sla_targets",
+    )
+
+    st.caption(
+        "Suggested fields: Service_ID, Metric, Operator, Target_Value, "
+        "Unit, Measurement_Window, Valid_From, Valid_To."
+    )
+
+    st.markdown("### 2. Upload actual measurements")
+
+    metrics_file = st.file_uploader(
+        "Monitoring metrics CSV or Excel",
+        type=["csv", "xlsx", "xls"],
+        key="sla_metrics",
+    )
+
+    st.caption(
+        "Suggested fields: Service_ID, Metric, Timestamp, "
+        "Observed_Value, Unit, Source."
+    )
+
+    if targets_file is None or metrics_file is None:
+        st.info(
+            "Upload both files to compare actual measurements with targets. "
+            "Until then, SLA status remains NOT_VERIFIABLE."
+        )
+    else:
+        try:
+            targets = read_uploaded_file(targets_file)
+            metrics = read_uploaded_file(metrics_file)
+        except Exception as error:
+            st.error(f"Could not read SLA evidence files: {error}")
+            st.stop()
+
+        if targets.empty or metrics.empty:
+            st.error("One or both SLA evidence files are empty.")
+            st.stop()
+
+        st.markdown("### Preview target data")
+        st.dataframe(targets.head(10), use_container_width=True)
+
+        st.markdown("### Preview monitoring data")
+        st.dataframe(metrics.head(10), use_container_width=True)
+
+        required_targets = {
+            "Service_ID", "Metric", "Operator",
+            "Target_Value", "Unit",
+        }
+
+        required_metrics = {
+            "Service_ID", "Metric", "Timestamp",
+            "Observed_Value", "Unit",
+        }
+
+        missing_targets = required_targets - set(targets.columns)
+        missing_metrics = required_metrics - set(metrics.columns)
+
+        if missing_targets or missing_metrics:
+            st.warning(
+                "The evidence files do not match the expected schema. "
+                "Rename or map the required columns before verification."
+            )
+
+            if missing_targets:
+                st.write("Missing target columns:", sorted(missing_targets))
+
+            if missing_metrics:
+                st.write("Missing measurement columns:", sorted(missing_metrics))
+        else:
+            targets = targets.copy()
+            metrics = metrics.copy()
+
+            targets["Target_Value"] = pd.to_numeric(
+                targets["Target_Value"],
+                errors="coerce",
+            )
+
+            metrics["Observed_Value"] = pd.to_numeric(
+                metrics["Observed_Value"],
+                errors="coerce",
+            )
+
+            metrics["Timestamp"] = pd.to_datetime(
+                metrics["Timestamp"],
+                errors="coerce",
+                utc=True,
+            )
+
+            targets["Service_ID"] = (
+                targets["Service_ID"].astype(str).str.strip()
+            )
+            metrics["Service_ID"] = (
+                metrics["Service_ID"].astype(str).str.strip()
+            )
+
+            targets["Metric"] = (
+                targets["Metric"].astype(str).str.strip().str.lower()
+            )
+            metrics["Metric"] = (
+                metrics["Metric"].astype(str).str.strip().str.lower()
+            )
+
+            targets["Unit"] = (
+                targets["Unit"].astype(str).str.strip().str.lower()
+            )
+            metrics["Unit"] = (
+                metrics["Unit"].astype(str).str.strip().str.lower()
+            )
+
+            metrics["Measurement_Window"] = (
+                metrics["Measurement_Window"].astype(str).str.strip().str.lower()
+                if "Measurement_Window" in metrics.columns
+                else ""
+            )
+
+            results = []
+
+            for _, target in targets.iterrows():
+                service = target["Service_ID"]
+                metric = target["Metric"]
+                unit = target["Unit"]
+                operator = str(target["Operator"]).strip()
+                target_value = target["Target_Value"]
+
+                matching = metrics[
+                    (metrics["Service_ID"] == service)
+                    & (metrics["Metric"] == metric)
+                    & (metrics["Unit"] == unit)
+                ].copy()
+
+                if pd.isna(target_value):
+                    status = "EVIDENCE_INSUFFICIENT"
+                    observed = None
+                    reason = "Target value is missing or invalid."
+
+                elif matching.empty:
+                    status = "NOT_VERIFIABLE"
+                    observed = None
+                    reason = "No matching operational measurements."
+
+                else:
+                    # This MVP only evaluates a simple numeric metric.
+                    # It does not certify availability or contractual SLA
+                    # compliance from arbitrary point measurements.
+                    observed = matching["Observed_Value"].dropna()
+
+                    if observed.empty:
+                        status = "EVIDENCE_INSUFFICIENT"
+                        observed = None
+                        reason = "Matching measurements contain no valid values."
+
+                    elif metric in {
+                        "availability",
+                        "availability_percent",
+                        "uptime",
+                    }:
+                        status = "NOT_VERIFIABLE"
+                        observed = float(observed.mean())
+                        reason = (
+                            "Availability requires a complete measurement "
+                            "window and contract-specific calculation. "
+                            "A simple average of point measurements is insufficient."
+                        )
+
+                    else:
+                        observed = float(observed.mean())
+
+                        # Verify simple supported numeric operators.
+                        if operator == ">=":
+                            passed = observed >= target_value
+                        elif operator == ">":
+                            passed = observed > target_value
+                        elif operator == "<=":
+                            passed = observed <= target_value
+                        elif operator == "<":
+                            passed = observed < target_value
+                        elif operator == "==":
+                            passed = observed == target_value
+                        else:
+                            passed = None
+
+                        if passed is None:
+                            status = "EVIDENCE_INSUFFICIENT"
+                            reason = f"Unsupported operator: {operator}"
+                        else:
+                            status = (
+                                "TARGET_MET"
+                                if passed
+                                else "TARGET_NOT_MET"
+                            )
+                            reason = (
+                                "Numeric comparison performed. "
+                                "Confirm reporting window, coverage, "
+                                "source authenticity and contract applicability."
+                            )
+
+                results.append({
+                    "Service_ID": service,
+                    "Metric": metric,
+                    "Operator": operator,
+                    "Target_Value": target_value,
+                    "Observed_Summary": observed,
+                    "Unit": unit,
+                    "Status": status,
+                    "Interpretation": reason,
+                    "Automatic_Approval_Allowed": False,
+                })
+
+            result_df = pd.DataFrame(results)
+
+            st.markdown("### Evidence assessment")
+
+            st.dataframe(
+                result_df,
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            st.warning(
+                "This is a preliminary evidence screening tool, not a "
+                "contractual SLA certification. It does not yet validate "
+                "complete measurement windows, contractual exclusions, "
+                "sampling coverage, or monitoring-source authenticity. "
+                "Availability is deliberately left NOT_VERIFIABLE by this "
+                "simple evaluator."
+            )
+
+            download_csv(
+                result_df,
+                "sla_evidence_assessment.csv",
+                "Download SLA evidence assessment",
+            )
+
+# =========================================================
+# 14. EXPORT REPORT
+# =========================================================
+
+elif page == "Export Report":
+    st.subheader("Export client report")
+
+    st.write(
+        "Download the filtered billing data and analysis outputs "
+        "for offline review."
+    )
+
+    report_summary = pd.DataFrame([{
+        "Billing_File": billing_file.name,
+        "Records_Analyzed": len(filtered),
+        "Total_Cost": total_cost,
+        "Currency": (
+            ", ".join(filtered["Currency"].dropna().astype(str).unique())
+            if "Currency" in filtered.columns
+            else "As supplied; not identified"
+        ),
+        "Resources": (
+            filtered["Resource"].nunique()
+            if "Resource" in filtered.columns
+            else None
+        ),
+        "Date_From": (
+            str(filtered["Date"].min())
+            if "Date" in filtered.columns
+            else None
+        ),
+        "Date_To": (
+            str(filtered["Date"].max())
+            if "Date" in filtered.columns
+            else None
+        ),
+        "SLA_Certification": "Not performed by billing analysis",
+        "Automatic_Modification": "Disabled",
+    }])
 
     st.dataframe(
-        pd.DataFrame(
-            components,
-            columns=["Component", "Purpose"],
-        ),
+        report_summary,
         use_container_width=True,
         hide_index=True,
     )
 
-    st.markdown("### Forecast evaluation")
-
-    st.write("Held-out MAE: ₹902,218.80")
-    st.write("Held-out RMSE: ₹1,180,874.39")
-    st.write("Held-out WAPE: 40.71%")
-    st.write("Baseline WAPE: 49.09%")
-
-    st.caption(
-        "These are the recorded experiment results. Confirm the evaluation "
-        "artifacts and modeling assumptions before presenting them as final."
+    download_csv(
+        report_summary,
+        "client_cost_summary.csv",
+        "Download executive summary",
     )
 
-    st.markdown("### Important limitations")
-
-    st.markdown(
-        """
-        - SLA compliance cannot be certified from the current evidence.
-        - Anomaly flags are not proof of billing errors.
-        - The savings scenario is not realized or guaranteed savings.
-        - Historical forecast dates must not be presented as current forecasts.
-        - Recommendations are advisory and never automatically modify resources.
-        """
+    download_csv(
+        filtered,
+        "client_filtered_billing.csv",
+        "Download analyzed billing data",
     )
 
-# --------------------------------------------------
-# 12. FOOTER
-# --------------------------------------------------
+    st.info(
+        "For privacy, avoid uploading credentials, secrets or unrelated "
+        "personal information. This prototype processes uploaded files "
+        "in the current app session; it is not a complete production "
+        "security or data-retention system."
+    )
+
+# =========================================================
+# 15. FOOTER
+# =========================================================
 
 st.divider()
 
 st.caption(
-    "FINOPT · FinTech Cloud Cost Optimization Research Prototype · "
-    "INR currency · Manual approval required"
+    "FINOPT | Cloud Cost Intelligence | "
+    "Advisory analytics only | Human approval required"
 )
