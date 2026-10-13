@@ -1,0 +1,3 @@
+Dataset,Total_Resources,High_Risk,Medium_Risk,Low_Risk,Unknown_Risk,Optimization_Opportunities,Blocked,Review_Required,Provisional_Candidates,SLA_Not_Verifiable,P1_Blocked_Critical_Review,P1_High_Risk_Review,P2_Manual_Review,P3_Optimization_Assessment,P4_Routine_Monitoring
+TRAIN,812,59,310,443,0,141,241,321,250,812,241,0,321,89,161
+TEST,188,8,71,109,0,27,47,70,71,188,47,0,70,13,58
