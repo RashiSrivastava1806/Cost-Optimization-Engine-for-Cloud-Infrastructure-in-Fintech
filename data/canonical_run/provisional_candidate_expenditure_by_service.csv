@@ -1,0 +1,8 @@
+Service_Name,Candidate_Records,Candidate_Associated_Expenditure_INR,Mean_Record_Cost_INR,Share_of_Candidate_Expenditure_Percent
+Cloud Build,1,227586,227586.0,43.586075345732
+Container Registry,2,129646,64823.0,24.82912096646002
+Cloud NAT,1,52207,52207.0,9.998410427594976
+Kubernetes Engine,1,41417,41417.0,7.931966301065013
+Compute Engine,1,30627,30627.0,5.865522174535051
+AI Platform,1,22078,22078.0,4.22826259736131
+Cloud Run,2,18592,9296.0,3.5606421872516294
