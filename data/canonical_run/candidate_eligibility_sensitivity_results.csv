@@ -1,0 +1,7 @@
+Dataset,Configuration,CPU_Low_Threshold,Memory_Low_Threshold,Total_Resources,Provisional_Candidates,Blocked,Review_Required,Routine_Monitoring
+TRAIN,Strict,20,30,812,20,241,229,322
+TRAIN,Proposed,30,40,812,54,241,229,288
+TRAIN,Permissive,40,50,812,104,241,229,238
+TEST,Strict,20,30,188,2,47,54,85
+TEST,Proposed,30,40,188,9,47,54,78
+TEST,Permissive,40,50,188,19,47,54,68

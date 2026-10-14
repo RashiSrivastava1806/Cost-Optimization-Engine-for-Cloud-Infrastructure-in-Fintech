@@ -1,0 +1,7 @@
+Dataset,Configuration,Total_Resources,Blocked,Review_Required,Provisional_Candidates,Routine_Monitoring,CPU_Review_Threshold,CPU_Block_Threshold,Memory_Review_Threshold,Memory_Block_Threshold
+TRAIN,Conservative,812,365,204,54,189,60,75,65,75
+TRAIN,Proposed,812,241,229,54,288,70,85,75,85
+TRAIN,Relaxed,812,173,214,54,371,80,90,80,90
+TEST,Conservative,188,75,56,9,48,60,75,65,75
+TEST,Proposed,188,47,54,9,78,70,85,75,85
+TEST,Relaxed,188,33,53,9,93,80,90,80,90
