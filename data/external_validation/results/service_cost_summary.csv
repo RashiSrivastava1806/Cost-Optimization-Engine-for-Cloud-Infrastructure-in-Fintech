@@ -1,0 +1,37 @@
+ServiceName,Currency,Records,BilledCost
+Microsoft.Fabric,USD,114,20730.48087914538
+Virtual Machines,USD,8795,3288.6031211232307
+Azure SQL Database,USD,1207,3170.2706601612904
+Azure App Service,USD,1474,1972.1060733576746
+SQL Database,USD,256,1406.0506166666667
+Azure Data Factory,USD,914,1032.7037566666668
+Virtual Network,USD,2679,778.4718
+Azure Synapse Analytics,USD,381,656.1060533516334
+Virtual Machine Scale Sets,USD,3993,651.1069174323985
+Storage Accounts,USD,86157,349.5887393046807
+Azure Kubernetes Service,USD,570,346.73026559677595
+Azure DB for MySQL,USD,366,202.61346258064518
+Application Gateway,USD,237,161.3000328859454
+Load Balancer,USD,1273,153.03380189442964
+Azure Monitor,USD,469,149.036098007962
+Azure Machine Learning,USD,22788,125.4455131110003
+Azure ExpressRoute,USD,19,78.21333333333308
+Azure Cognitive Search,USD,19,45.248
+Azure Container Instances,USD,114,45.077271322659804
+API Management,USD,19,29.4784
+Azure Reservations,USD,1,20.64
+Azure Private Link,USD,342,14.311881720430133
+Microsoft Defender for Cloud,USD,247,11.753204
+Azure Load Testing,USD,3,10.0
+Azure Site Recovery,USD,209,8.551064388704452
+Azure Container Registry,USD,114,6.195966109832339
+Azure Data Factory v2,USD,462,1.6887499999999969
+Logic Apps,USD,54,0.397788074415918
+Key Vault,USD,1386,0.351459
+Azure DNS,USD,141,0.30227326881721306
+Event Grid,USD,258,0.0018084
+Service Bus,USD,57,3.91e-05
+App Configuration,USD,19,0.0
+Azure File Sync,USD,57,0.0
+Azure Savings Plan for Compute,USD,19,0.0
+SQL Managed Instance,USD,59,0.0

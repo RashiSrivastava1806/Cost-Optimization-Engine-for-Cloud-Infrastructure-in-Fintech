@@ -1,0 +1,101 @@
+Label,Records,NegativeRows,NetBilledCost,NegativeRowPercent
+Microsoft Defender for Storage - Standard Transactions,17441,5670,0.279102,32.50960380712115
+Tables - Batch Write Operations,10268,3182,0.020289888,30.98948188546942
+Tables - LRS Data Stored,8511,2760,19.490012460000003,32.4286217835742
+Tiered Block Blob - All Other Operations - US East,8208,2668,0.0126748,32.50487329434698
+Bandwidth Inter-Region - Intra Continent Data Transfer Out - North America,7572,2375,0.0564647266170391,31.365557316428948
+Tiered Block Blob - LRS - List and Create Container Operations - US East,6091,1970,0.04012,32.3428008537186
+Tables - Read Operations,6169,1821,0.000518148,29.51856054465878
+Files - List Operations,5323,1539,0.0161625,28.91226751831674
+Load Balancer - Standard Included LB Rules and Outbound Rules,4603,1528,156.44999305555555,33.19574190745166
+IP Addresses - Standard IPv4 Static Public IP - Dev/Test,4239,1413,15.635000000000002,33.333333333333336
+Queues v2 - LRS - Class 1 Operations - US East,3367,1068,0.0020252,31.71963171963172
+Rtn Preference: MGN - Standard Data Transfer Out,2953,869,0.302246231491105,29.427700643413477
+Load Balancer - Standard Data Processed,1854,618,3.137259729811933,33.333333333333336
+IP Addresses - Standard IPv4 Static Public IP,1957,570,95.905,29.12621359223301
+Standard HDD Managed Disks - S4 - LRS - Disk Operations,1379,447,0.22510125,32.41479332849891
+Virtual Machines Dv2/DSv2 Series - D11 v2/DS11 v2 - US East 2,1341,447,66.603,33.333333333333336
+Standard HDD Managed Disks - S6 - LRS - Disk - US East 2,1338,446,1.858482,33.333333333333336
+Premium SSD Managed Disks - P6 LRS - US East 2,1335,445,5.736014399999999,33.333333333333336
+Premium SSD Managed Disks - P10 LRS - US East 2,1335,445,11.076441599999999,33.333333333333336
+Standard SSD Managed Disks - E4 - LRS - Disk Operations,1140,380,1.2911049999999997,33.333333333333336
+Microsoft Defender for Key Vault - Standard Transactions,1108,343,0.002752,30.95667870036101
+Premium SSD Managed Disks - P10 LRS - US East,975,325,208.31303871,33.333333333333336
+Standard SSD Managed Disks - E1 - LRS - Disk - US East,912,304,2.9864889,33.333333333333336
+Azure Data Factory v2 - Cloud - Read Write Operations,892,271,0.0035900000000000003,30.381165919282513
+Bandwidth Inter-Region - Inter Continent Data Transfer Out - NAM or EU To Any - Intercontinental,874,244,0.501617287362117,27.91762013729977
+Standard SSD Managed Disks - E2 - LRS - Disk - US East,684,228,4.4786916,33.333333333333336
+Premium Block Blob v2 Hierarchical Namespace - LRS - All Other Operations - US West 2,664,209,0.000354172,31.47590361445783
+Tables - GRS - Batch Write Operations,722,209,0.002437416,28.94736842105263
+Premium Block Blob v2 Hierarchical Namespace - LRS - List and Create Container Operations - US West 2,634,199,0.0099775,31.38801261829653
+Microsoft Defender for Storage - Standard Node,570,190,59.898,33.333333333333336
+General Block Blob - Read Operations,907,183,0.074228508,20.17640573318633
+Virtual Machines Dv2/DSv2 Series - D2 v2/DS2 v2 - US East,732,183,259.665944728,25.0
+General Block Blob - List and Create Container Operations,851,182,0.000127044,21.386603995299648
+Tiered Block Blob - Hot LRS - Data Stored - US East,665,171,1.1930499277000002,25.714285714285715
+Tiered Block Blob - All Other Operations - US Central,550,171,0.0007484,31.09090909090909
+Tiered Block Blob - LRS - List and Create Container Operations - US Central,465,150,0.0061400000000000005,32.25806451612903
+Tiered Block Blob - All Other Operations - US West,454,133,0.00066396,29.295154185022028
+Queues - LRS - Class 1 Operations,678,126,8.542800000000001e-05,18.58407079646018
+Microsoft Defender for Servers - Standard P2 Node,769,117,179.07999999999998,15.214564369310793
+Microsoft Defender for App Service - Standard Node,342,114,53.66,33.333333333333336
+Microsoft Defender for Containers - Standard vCore vCore Pack,342,114,167.59210000000002,33.333333333333336
+Queues v2 - LRS - Class 1 Operations - US Central,339,108,0.00027319999999999997,31.858407079646017
+Azure Data Factory v2 - Cloud - Orchestration Activity Runs,291,97,0.844,33.333333333333336
+Premium Block Blob v2 Hierarchical Namespace - LRS - All Other Operations - US East,302,95,0.000159796,31.456953642384107
+Premium Block Blob v2 Hierarchical Namespace - LRS - All Other Operations - US West,341,95,0.000286296,27.85923753665689
+Microsoft Defender for SQL - Standard Node,323,95,62.92338709677426,29.41176470588235
+Tiered Block Blob - LRS - List and Create Container Operations - US West,310,87,0.004829,28.06451612903226
+Premium Block Blob v2 Hierarchical Namespace - LRS - List and Create Container Operations - US West,321,86,0.0084669,26.79127725856698
+Event Grid - Standard Operations,258,86,0.0018084,33.333333333333336
+Virtual Machines BS Series - B2ms - US East,247,82,148.3281443349333,33.19838056680162
+Load Balancer - Standard Overage LB Rules and Outbound Rules,228,76,26.9,33.333333333333336
+Azure Kubernetes Service - Standard Uptime SLA,228,76,179.13816559677593,33.333333333333336
+Files - Read Operations,241,74,0.1803651,30.70539419087137
+Virtual Machines BS Series - B2s - US East,272,70,54.67994084444065,25.735294117647058
+Key Vault - Operations,196,59,0.0012269999999999998,30.102040816326532
+Files - LRS Data Stored,266,57,1.30508928,21.428571428571427
+SQL Database Single Basic - DTU,171,57,8.962333333333333,33.333333333333336
+Virtual Network Private Link - Standard Private Endpoint,171,57,13.41,33.333333333333336
+Premium ADLS Gen2 Hierarchical Namespace - LRS - Data Stored - US West,209,57,2.954426085,27.272727272727273
+Files - LRS - Write Operations,171,57,1.8035115,33.333333333333336
+Azure App Service Standard Plan - S1 - Dev/Test,171,57,80.52,33.333333333333336
+Azure DNS - Private Zone,171,57,0.901881720430133,33.333333333333336
+Files - Protocol Operations,171,57,0.18033375000000001,33.333333333333336
+Premium Block Blob v2 Hierarchical Namespace - LRS - List and Create Container Operations - US East,184,55,0.0013195,29.891304347826086
+Queues v2 - LRS - Class 1 Operations - US West,210,54,0.0002284,25.714285714285715
+Microsoft Defender for Storage - Malware Scanning Data Ingested,144,48,0.133765122480698,33.333333333333336
+SQL Database Single/Elastic Pool General Purpose - SQL License - vCore,160,45,261.3384,28.125
+Tables - RA-GRS Data Stored,177,40,0.0017687249999999999,22.598870056497177
+Azure Data Factory v2 - Cloud - Pipeline Activity,117,39,0.011583333333333,33.333333333333336
+SQL Database Single/Elastic Pool General Purpose - Storage - Data Stored - US East,114,38,5.7356559139784835,33.333333333333336
+Premium SSD Managed Disks - P20 LRS - UK West,114,38,110.50025597999999,33.333333333333336
+Premium SSD Managed Disks - P30 LRS - US West 2,190,38,458.44733952,20.0
+SQL Database Single/Elastic Pool General Purpose - Compute Gen5 - 1 vCore - vCore - US East,114,38,271.168,33.333333333333336
+Standard HDD Managed Disks - S10 - LRS - Disk - US Central,114,38,7.31791872,33.333333333333336
+Premium Block Blob v2 Hierarchical Namespace - LRS - Data Stored - US West 2,152,38,1.3713454500000002,25.0
+Premium SSD Managed Disks - P4 LRS - US West,152,38,13.110173730000001,25.0
+Tiered Block Blob - All Other Operations - US West 2,170,38,0.00023799999999999998,22.352941176470587
+Tiered Block Blob - All Other Operations - US East 2,209,38,0.0005148,18.181818181818183
+Tiered Block Blob - Hot LRS - Data Stored - US Central,114,38,0.1380524496,33.333333333333336
+Tiered Block Blob - Index Tags - US East,114,38,0.0019413,33.333333333333336
+Premium SSD Managed Disks - P4 LRS - US East,171,38,16.41882729,22.22222222222222
+Premium SSD Managed Disks - P10 LRS - US Central,114,38,24.52996224,33.333333333333336
+IP Addresses - Basic IPv4 Dynamic Public IP - Dev/Test,114,38,5.3759999999999994,33.333333333333336
+General Block Blob v2 Hierarchical Namespace - Hot - Other Operations - US East,114,38,0.00017,33.333333333333336
+Container Registry - Basic - Registry Units,114,38,6.195966109832339,33.333333333333336
+IP Addresses - Basic IPv4 Dynamic Public IP,285,38,21.508000000000003,13.333333333333334
+General Block Blob - LRS Data Stored,171,38,0.23565333119999998,22.22222222222222
+Azure Synapse Analytics Data Explorer - 1 vCore - vCore - Preview - US East 2,114,38,585.076857675,33.333333333333336
+Premium Block Blob v2 Hierarchical Namespace - LRS - All Other Operations - US Central,114,38,7.412e-05,33.333333333333336
+Tiered Block Blob - GRS - List and Create Container Operations - US West 2,111,37,0.00234,33.333333333333336
+Bandwidth Inter-Region - Inter Continent Data Transfer Out - ASIA To Any - Intercontinental,108,36,8.09429678239e-05,33.333333333333336
+Azure Data Lake Storage Gen2 Hierarchical Namespace - Hot - Iterative Read Operations - US East,108,36,0.0009425,33.333333333333336
+Tiered Block Blob - Hot LRS - Write Operations - US East,114,32,0.000755,28.07017543859649
+Azure Synapse Analytics Storage - Standard ZRS - Data Stored - Preview - US East 2,96,32,6.3150972233000005,33.333333333333336
+Tiered Block Blob - GRS - List and Create Container Operations - US West,90,30,0.002013,33.333333333333336
+Tiered Block Blob - Hot - Read Operations - US East,87,29,8.12e-05,33.333333333333336
+Azure DNS - Public Queries,84,28,0.001198,33.333333333333336
+Bandwidth Inter-Region - Intra Continent Data Transfer Out - Europe,91,24,8.994e-05,26.373626373626372
+Virtual Machines Dsv4 Series - D4s v4 - US East,69,23,85.683204864,33.333333333333336
+Virtual Machines BS Series - B4ms - US East,66,22,74.179889464,33.333333333333336

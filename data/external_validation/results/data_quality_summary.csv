@@ -1,0 +1,15 @@
+Check,Count
+Total rows processed,135272
+CSV columns,96
+Missing cost values,0
+Invalid/unparseable cost values,0
+Negative billed cost rows,40143
+Zero billed cost rows,4289
+Invalid charge-period start dates,0
+Missing/blank BilledCost,0
+Missing/blank BillingCurrency,0
+Missing/blank ChargeCategory,0
+Missing/blank ChargePeriodEnd,0
+Missing/blank ChargePeriodStart,0
+Missing/blank ResourceId,0
+Missing/blank ServiceName,0
