@@ -1,0 +1,3 @@
+
+# External validation datasets are downloaded locally, not committed.
+data/external_validation/raw/
