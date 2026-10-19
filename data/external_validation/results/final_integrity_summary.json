@@ -1,0 +1,33 @@
+{
+  "dataset": "EA-Cost-FOCUS_1.0.csv",
+  "rows_processed": 135272,
+  "exact_duplicate_rows": 0,
+  "duplicate_check_method": "64-bit pandas row hashes; theoretical hash collisions are possible",
+  "currency_record_counts": {
+    "USD": 135272
+  },
+  "cost_measure_totals": {
+    "BilledCost": 35445.859030004576,
+    "EffectiveCost": 36040.59612470483,
+    "ListCost": 35426.95952797282,
+    "ContractedCost": 35418.40579416263
+  },
+  "invalid_values_by_cost_measure": {
+    "BilledCost": 0,
+    "EffectiveCost": 0,
+    "ListCost": 0,
+    "ContractedCost": 0
+  },
+  "negative_values_by_cost_measure": {
+    "BilledCost": 40143,
+    "EffectiveCost": 40143,
+    "ListCost": 40143,
+    "ContractedCost": 40143
+  },
+  "cost_totals_by_currency": {
+    "BilledCost|USD": 35445.859030004576,
+    "EffectiveCost|USD": 36040.596124704825,
+    "ListCost|USD": 35426.95952797282,
+    "ContractedCost|USD": 35418.40579416263
+  }
+}
