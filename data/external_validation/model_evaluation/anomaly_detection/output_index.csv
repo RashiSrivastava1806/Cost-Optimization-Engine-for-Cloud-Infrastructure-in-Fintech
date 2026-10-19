@@ -1,0 +1,11 @@
+File,Description
+flagged_billing_records.csv,Flagged records and reasons
+all_records_with_detection_flags.csv,All records with detection flags
+detection_method_comparison.csv,Counts from each screening method
+flagged_cost_impact.csv,Net and absolute cost associated with flags
+service_anomaly_summary.csv,Flagged records by service
+figure_01_flagged_vs_unflagged.png,Flagged versus unflagged counts
+figure_02_largest_cost_records.png,Largest cost-magnitude records
+figure_03_flagged_by_service.png,Services with most flags
+figure_04_cost_outlier_threshold.png,Cost distribution and threshold
+anomaly_summary.json,"Methods, results and limitations"

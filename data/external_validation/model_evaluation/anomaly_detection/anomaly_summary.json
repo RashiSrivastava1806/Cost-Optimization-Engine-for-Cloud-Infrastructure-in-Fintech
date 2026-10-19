@@ -1,0 +1,23 @@
+{
+  "dataset": "Microsoft FinOps Toolkit demo FOCUS dataset",
+  "target_field": "BilledCost",
+  "currency": "USD, based on prior dataset inspection; verify currency_summary.csv",
+  "records_analyzed": 135272,
+  "records_flagged": 39806,
+  "flagged_share_percent": 29.426636702347864,
+  "records_not_flagged": 95466,
+  "global_log_absolute_cost_iqr_upper_fence": 0.004019231133675659,
+  "service_groups_with_at_least_30_records": 29,
+  "flagged_net_billed_cost_usd": 35444.04243654441,
+  "flagged_absolute_billed_cost_usd": 46943.11066669114,
+  "all_records_net_billed_cost_usd": 35445.85903000456,
+  "all_records_absolute_billed_cost_usd": 46947.74857410962,
+  "method": "Screening flags records with unusually high log absolute BilledCost using a global IQR fence or a within-service IQR fence. Service-relative thresholds are only calculated for services with at least 30 records.",
+  "limitations": [
+    "No labelled incidents are available; precision, recall, false-positive rate and accuracy cannot be calculated.",
+    "A flagged billing record is a cost outlier for investigation, not a confirmed incident, fraud event or billing error.",
+    "CPU, memory and application telemetry are not present in this billing dataset, so utilization-based anomalies are not tested.",
+    "Negative costs are retained and analyzed by magnitude; their business meaning is not inferred.",
+    "The thresholds are statistical screening rules and may require service-specific review before operational use."
+  ]
+}

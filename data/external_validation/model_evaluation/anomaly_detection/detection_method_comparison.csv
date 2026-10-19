@@ -1,0 +1,4 @@
+Method,Records_Flagged,Share_of_Records_Percent,Threshold_Log_Absolute_Cost
+Global IQR on log absolute BilledCost,31994,23.651605653793837,0.004019231133675659
+Within-service IQR on log absolute BilledCost,13269,9.809125317878053,
+Combined flag (either method),39806,29.426636702347864,
