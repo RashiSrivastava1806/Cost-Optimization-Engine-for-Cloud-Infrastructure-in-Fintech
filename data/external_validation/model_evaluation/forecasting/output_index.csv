@@ -1,0 +1,7 @@
+File,Description
+forecast_metrics.csv,Best model's holdout metrics
+model_comparison.csv,"MAE, RMSE and WAPE for all baselines"
+forecast_results.csv,Daily actuals and test predictions
+actual_vs_predicted.png,Time-series holdout comparison graph
+model_mae_comparison.png,Model error comparison graph
+run_summary.json,"Dataset details, split, metrics and caveats"

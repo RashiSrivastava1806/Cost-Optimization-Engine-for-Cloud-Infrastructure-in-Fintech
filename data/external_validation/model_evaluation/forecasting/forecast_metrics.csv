@@ -1,0 +1,2 @@
+Model,MAE,RMSE,WAPE_percent,Train_Observations,Test_Observations,First_Test_Date,Last_Test_Date
+Naive Last Value,155.28930461881185,345.72265644917223,8.875446048710517,14,5,2024-06-15T00:00:00+00:00,2024-06-19T00:00:00+00:00

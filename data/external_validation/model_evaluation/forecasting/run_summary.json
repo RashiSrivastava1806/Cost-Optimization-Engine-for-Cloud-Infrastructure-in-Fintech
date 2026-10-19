@@ -1,0 +1,54 @@
+{
+  "dataset": "Microsoft FinOps Toolkit demo FOCUS dataset",
+  "source_file": "EA-Cost-FOCUS_1.0.csv",
+  "target": "Daily net BilledCost in USD",
+  "aggregation": "Sum of BilledCost by UTC ChargePeriodStart calendar day",
+  "negative_costs": "Retained in net daily sums; not assumed to be refunds",
+  "total_input_records_after_valid_date_cost_filter": 135272,
+  "daily_observations": 19,
+  "train_observations": 14,
+  "test_observations": 5,
+  "train_start": "2024-06-01T00:00:00+00:00",
+  "train_end": "2024-06-14T00:00:00+00:00",
+  "test_start": "2024-06-15T00:00:00+00:00",
+  "test_end": "2024-06-19T00:00:00+00:00",
+  "best_model_by_MAE": "Naive Last Value",
+  "best_model_metrics": {
+    "MAE": 155.28930461881185,
+    "RMSE": 345.72265644917223,
+    "WAPE_percent": 8.875446048710517
+  },
+  "models": [
+    {
+      "Model": "Linear Trend",
+      "MAE": 160.8017803691846,
+      "RMSE": 348.6516678191711,
+      "WAPE_percent": 9.190507547874004,
+      "Train_Observations": 14,
+      "Test_Observations": 5
+    },
+    {
+      "Model": "Historical Average",
+      "MAE": 157.3211128768453,
+      "RMSE": 346.73317310416735,
+      "WAPE_percent": 8.991572556068936,
+      "Train_Observations": 14,
+      "Test_Observations": 5
+    },
+    {
+      "Model": "Naive Last Value",
+      "MAE": 155.28930461881185,
+      "RMSE": 345.72265644917223,
+      "WAPE_percent": 8.875446048710517,
+      "Train_Observations": 14,
+      "Test_Observations": 5
+    }
+  ],
+  "limitations": [
+    "This is a demo dataset, not production/customer billing evidence.",
+    "The short date range and small holdout make performance estimates uncertain.",
+    "A model winning this holdout does not establish general forecasting reliability.",
+    "The linear trend and baselines are standalone comparison models; this run does not claim to reproduce the project's canonical model.",
+    "Forecasting billed cost does not establish SLA compliance or actual savings."
+  ]
+}
