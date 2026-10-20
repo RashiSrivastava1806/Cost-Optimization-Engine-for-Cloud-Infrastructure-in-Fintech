@@ -1,0 +1,11 @@
+Evidence_Category,Required_Signal,Matched_Columns,Rows_With_At_Least_One_NonNull_Matched_Value,Total_Dataset_Rows,Status,Why_It_Matters,Assessment_Notes
+Availability / uptime,Measured service availability or uptime,,0,135272,MISSING_FROM_DATASET,Needed to compare measured availability with a defined SLA target.,No recognized matching field found.
+Latency / response time,Measured request latency or response time,,0,135272,MISSING_FROM_DATASET,Needed to evaluate whether performance meets response-time objectives.,No recognized matching field found.
+Error rate,Measured failed requests or error rate,,0,135272,MISSING_FROM_DATASET,Needed to evaluate service failures and reliability objectives.,No recognized matching field found.
+SLA / SLO target,Explicit contractual target or service objective,,0,135272,MISSING_FROM_DATASET,Measured service behavior must be compared against an explicit target.,No recognized matching field found.
+Incident / outage,"Incident records, outage windows, or downtime duration",,0,135272,MISSING_FROM_DATASET,Helps corroborate service interruptions and downtime calculations.,No recognized matching field found.
+Workload / request volume,"Requests, transactions, or workload volume",,0,135272,MISSING_FROM_DATASET,Provides workload context for interpreting performance measurements.,No recognized matching field found.
+CPU utilization,Measured CPU usage or utilization,,0,135272,MISSING_FROM_DATASET,Helps assess capacity and whether a compute optimization could affect performance.,No recognized matching field found.
+Memory utilization,Measured memory usage or utilization,,0,135272,MISSING_FROM_DATASET,Helps assess memory capacity and the safety of resource changes.,No recognized matching field found.
+Network performance,"Network latency, packet loss, or throughput telemetry",,0,135272,MISSING_FROM_DATASET,Needed to assess network-related performance and reliability.,No recognized matching field found.
+Measurement timestamp,Timestamped operational measurements,,0,135272,MISSING_FROM_DATASET,Operational measurements need a time basis to evaluate SLA windows.,No recognized matching field found.

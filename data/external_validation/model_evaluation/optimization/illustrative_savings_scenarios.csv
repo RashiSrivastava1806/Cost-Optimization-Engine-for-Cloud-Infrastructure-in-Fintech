@@ -1,0 +1,4 @@
+Scenario,Assumed_Reduction_Percent,Review_Candidate_Resources,Candidate_Positive_BilledCost_USD,Illustrative_Impact_USD,Interpretation
+5% reduction scenario,5.0,63,38813.24242645867,1940.6621213229337,"Hypothetical only; assumes a reduction across candidate positive billed spend and does not establish feasibility, SLA safety, or realized savings."
+10% reduction scenario,10.0,63,38813.24242645867,3881.3242426458673,"Hypothetical only; assumes a reduction across candidate positive billed spend and does not establish feasibility, SLA safety, or realized savings."
+15% reduction scenario,15.0,63,38813.24242645867,5821.986363968801,"Hypothetical only; assumes a reduction across candidate positive billed spend and does not establish feasibility, SLA safety, or realized savings."

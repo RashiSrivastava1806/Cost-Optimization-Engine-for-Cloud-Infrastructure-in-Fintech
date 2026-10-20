@@ -1,0 +1,6 @@
+Field,Description,Present,NonNull_Rows,Total_Rows,Interpretation
+BilledCost,Billing amount,True,135272,135272,Billing data only
+ChargePeriodStart,Charge period start,True,135272,135272,"Billing period timestamp, not service telemetry"
+ChargePeriodEnd,Charge period end,True,135272,135272,"Billing period timestamp, not service telemetry"
+ResourceId,Resource identifier,True,135272,135272,"Resource grouping, not proof of SLA performance"
+ServiceName,Service name,True,135272,135272,"Service grouping, not proof of SLA performance"

@@ -1,0 +1,2 @@
+Dataset,Rows_Assessed,SLA_Compliance_Status,Operational_SLA_Metrics_Verified,SLA_Targets_Verified,Automatic_Optimization_Approval,Reason
+Microsoft FinOps Toolkit demo FOCUS dataset,135272,NOT_VERIFIABLE,0,0,NOT_AUTHORIZED,Billing data alone does not provide verified operational measurements and contractual targets needed to determine SLA compliance.

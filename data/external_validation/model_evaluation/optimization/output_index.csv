@@ -1,0 +1,12 @@
+File,Description
+resource_cost_review_ranking.csv,Ranked resource review candidates
+service_cost_review_summary.csv,"Positive, negative and net cost by service"
+region_cost_review_summary.csv,Cost summaries by region
+resource_type_cost_summary.csv,Cost summaries by resource type
+illustrative_savings_scenarios.csv,"Hypothetical 5%, 10% and 15% scenarios"
+optimization_concentration_metrics.csv,Spend concentration and candidate metrics
+figure_01_top_resource_spend.png,Highest-spend resources
+figure_02_service_spend.png,Service-level positive spend
+figure_03_illustrative_scenarios.png,Hypothetical reduction scenarios
+figure_04_spend_concentration.png,Cumulative resource spend curve
+optimization_summary.json,"Methods, results and limitations"

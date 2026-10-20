@@ -1,0 +1,25 @@
+{
+  "dataset": "Microsoft FinOps Toolkit demo FOCUS dataset",
+  "cost_field": "BilledCost",
+  "currency": "USD, as identified in prior dataset inspection; verify BillingCurrency",
+  "records_analyzed": 135272,
+  "identifiable_resource_groups_with_positive_spend": 630,
+  "review_candidate_groups": 63,
+  "review_threshold_positive_cost_usd": 52.01082716953596,
+  "candidate_positive_billed_cost_usd": 38813.24242645867,
+  "total_positive_billed_cost_usd": 41196.8038020571,
+  "candidate_share_of_positive_billed_cost_percent": 94.21420800737118,
+  "scenario_estimates_usd": {
+    "5": 1940.6621213229337,
+    "10": 3881.3242426458673,
+    "15": 5821.986363968801
+  },
+  "candidate_rule": "Identifiable resource groups with positive billed spend at or above the 90th percentile of positive spend across identifiable resource groups.",
+  "limitations": [
+    "High spend alone does not prove waste or inefficiency.",
+    "The dataset does not provide sufficient utilization, workload, criticality or SLA evidence to approve downsizing automatically.",
+    "Savings scenarios are hypothetical and are not realized savings.",
+    "Any proposed change requires owner review, usage evidence, business criticality checks and SLA/performance validation.",
+    "Negative billing entries are reported separately and not assumed to be refunds or errors."
+  ]
+}

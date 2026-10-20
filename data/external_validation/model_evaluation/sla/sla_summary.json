@@ -1,0 +1,17 @@
+{
+  "dataset": "Microsoft FinOps Toolkit demo FOCUS dataset",
+  "records_assessed": 135272,
+  "overall_sla_compliance_status": "NOT_VERIFIABLE",
+  "evidence_categories_assessed": 10,
+  "categories_missing": 10,
+  "categories_with_empty_fields": 0,
+  "categories_with_matching_fields_requiring_validation": 0,
+  "automatic_optimization_approval": "NOT_AUTHORIZED",
+  "interpretation": "This is an evidence availability assessment, not an SLA compliance test. A matching field name is not sufficient to verify measurement meaning, units, provenance, contractual targets or compliance.",
+  "limitations": [
+    "Billing charges and billing-period dates are not operational SLA measurements.",
+    "No compliance percentage is calculated without validated observations and targets.",
+    "Service-level statuses remain NOT_VERIFIABLE unless sufficient validated evidence is supplied.",
+    "Before optimizing a production FinTech service, validate uptime, latency, error rates, workload, resource utilization, contractual targets and rollback procedures."
+  ]
+}

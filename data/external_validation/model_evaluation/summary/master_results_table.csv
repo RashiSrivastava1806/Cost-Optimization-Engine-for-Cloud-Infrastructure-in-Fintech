@@ -1,0 +1,24 @@
+Analysis,Metric,Value,Unit,Interpretation
+Forecasting,Best model,Naive Last Value,model,Selected by holdout MAE in the external benchmark.
+Forecasting,Holdout MAE,155.28930461881185,USD,Lower is better; evaluate alongside the short test window.
+Forecasting,Holdout RMSE,345.72265644917223,USD,Penalizes larger prediction errors.
+Forecasting,Holdout WAPE,8.875446048710517,percent,Weighted absolute percentage error on the holdout period.
+Forecasting,Training observations,14,daily observations,Chronological training window.
+Forecasting,Test observations,5,daily observations,Chronological holdout; a small sample limits confidence.
+Anomaly Detection,Records analyzed,135272,records,Billing records screened for cost outliers.
+Anomaly Detection,Records flagged,39806,records,Statistical cost-outlier flags; not confirmed incidents.
+Anomaly Detection,Flagged share,29.426636702347864,percent,Share flagged by the combined screening rule.
+Anomaly Detection,Flagged rows net billed cost,35444.04243654441,USD,"Associated billing amount, not proven loss or savings."
+Anomaly Detection,Ground-truth accuracy,NOT_AVAILABLE,status,No labelled incidents are available to calculate accuracy.
+Optimization,Review candidate groups,63,resource groups,"High-spend review candidates, not verified waste."
+Optimization,Review threshold,52.01082716953596,USD,90th percentile threshold of positive spend across identified resources.
+Optimization,Candidate positive billed cost,38813.24242645867,USD,"Spend associated with candidate groups, not potential savings."
+Optimization,Candidate share of positive spend,94.21420800737118,percent,Share of positive billed cost associated with review candidates.
+Optimization,Hypothetical 5% reduction scenario,1940.6621213229337,USD,Illustrative scenario only; not realized or verified savings.
+Optimization,Hypothetical 10% reduction scenario,3881.3242426458673,USD,Illustrative scenario only; not realized or verified savings.
+Optimization,Hypothetical 15% reduction scenario,5821.986363968801,USD,Illustrative scenario only; not realized or verified savings.
+SLA,Overall compliance status,NOT_VERIFIABLE,status,Billing data alone cannot establish SLA compliance.
+SLA,Evidence categories assessed,10,categories,Required operational evidence categories examined.
+SLA,Categories missing,10,categories,No recognized matching field was found.
+SLA,Categories requiring validation,0,categories,A matching field name alone does not establish valid SLA evidence.
+SLA,Automatic optimization approval,NOT_AUTHORIZED,status,Do not automatically modify production resources without validated evidence.

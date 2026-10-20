@@ -1,0 +1,9 @@
+File,Description
+sla_evidence_matrix.csv,"Required evidence, matched fields and status"
+available_billing_evidence.csv,Billing fields available in the dataset
+service_sla_evidence_status.csv,Per-service SLA verification status
+sla_assessment_summary.csv,Overall SLA status and approval guardrail
+sla_evidence_status_counts.csv,Count of evidence categories by status
+figure_01_sla_evidence_availability.png,Evidence availability status graph
+figure_02_sla_evidence_by_category.png,Evidence presence by category
+sla_summary.json,Assessment methods and limitations

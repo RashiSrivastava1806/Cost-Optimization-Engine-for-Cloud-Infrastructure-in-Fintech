@@ -1,0 +1,10 @@
+Metric,Value,Unit
+Total records analyzed,135272.0,records
+Identified resource groups with positive spend,630.0,groups
+High-spend review candidate groups,63.0,groups
+90th percentile resource positive spend threshold,52.01082716953596,USD
+Total positive BilledCost,41196.8038020571,USD
+Candidate positive BilledCost,38813.24242645867,USD
+Candidate share of total positive BilledCost,94.21420800737118,percent
+Total net BilledCost,35445.85903000456,USD
+Total absolute BilledCost,46947.74857410962,USD
